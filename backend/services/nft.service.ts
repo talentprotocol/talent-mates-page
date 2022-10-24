@@ -13,23 +13,27 @@ export interface NFTProps {
 }
 
 const PROPERTIES_LIST = ["gender", "background", "body", "eyes", "mouth", "hair", "clothing", "accessories", "thinking"];
+const MANDATORY_PROPERTIES_LIST = ["gender", "body"];
 
 const createNFT = (properties: NFTProps) => {
     // @ts-ignore
-    if (PROPERTIES_LIST.some(prop => properties[prop] === undefined)) {
+    if (MANDATORY_PROPERTIES_LIST.some(prop => properties[prop] === undefined)) {
         console.error("bad request format");
         return {
             status: 400,
             message: "Missing some NFT properties",
-            requiredProperties: PROPERTIES_LIST
+            requiredProperties: MANDATORY_PROPERTIES_LIST
         }
     }
-    const imageList: string[] = [];
-    const traitList = [...Object.values(properties)];
+    const parsedProperties = {...properties};
+    // @ts-ignore
+    delete parsedProperties.gender;
+    const traitList = Object.values(parsedProperties);
+    const traitKeysList = Object.keys(parsedProperties);
+    const imageList: string[] = 
+        // @ts-ignore
+        traitList.map((el, index) => getTraitImagePath(traitKeysList[index], el, properties.gender));
     traitList.shift();
-    traitList.forEach((el, index) => {
-        imageList.push(getTraitImagePath(PROPERTIES_LIST[index + 1], el, properties.gender))
-    });
     console.info("creating new nft");
     const sharpImage = sharp(imageList[0]);
     imageList.shift();
