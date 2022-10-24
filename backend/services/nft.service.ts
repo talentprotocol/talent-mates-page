@@ -15,6 +15,18 @@ export interface NFTProps {
 const PROPERTIES_LIST = ["gender", "background", "body", "eyes", "mouth", "hair", "clothing", "accessories", "thinking"];
 const MANDATORY_PROPERTIES_LIST = ["gender", "body"];
 
+const getTraitImagePath = (traitName: string, index: number, gender: "male" | "female") => {
+    const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
+    return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
+}
+
+const computeImage = (properties: Record<string, number>) => {
+    let nameAsArray = PROPERTIES_LIST.map(el => properties[el] ? `${properties[el]}-` : "x-");
+    nameAsArray = nameAsArray.join("").split("");
+    nameAsArray.pop();
+    return nameAsArray.join("") + ".png";
+} 
+
 const createNFT = (properties: NFTProps) => {
     // @ts-ignore
     if (MANDATORY_PROPERTIES_LIST.some(prop => properties[prop] === undefined)) {
@@ -39,7 +51,7 @@ const createNFT = (properties: NFTProps) => {
     imageList.shift();
     sharpImage
         .composite(imageList.map(el => ({input: el})))
-        .toFile('./output.png');
+        .toFile(computeImage(properties));
     // DECIDE PATH FROM HERE ...
     console.info("nft created successfully");
     return {
@@ -48,11 +60,6 @@ const createNFT = (properties: NFTProps) => {
         // @ts-ignore
         traitStack: PROPERTIES_LIST.map(prop => properties[prop])
     }
-}
-
-const getTraitImagePath = (traitName: string, index: number, gender: "male" | "female") => {
-    const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
-    return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
 }
 
 export default {
