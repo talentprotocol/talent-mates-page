@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { uploadFileToBucket } from "backend/repositories/nft.repository";
 
 export interface NFTProps {
 	gender: "male" | "female";
@@ -43,9 +44,9 @@ const computeImage = (properties: Record<string, number | string>) => {
 	return nameAsArray.join("") + ".png";
 };
 
-const createNFT = (properties: NFTProps) => {
-	// @ts-ignore
+const createNFT = async (properties: NFTProps) => {
 	if (
+		// @ts-ignore
 		MANDATORY_PROPERTIES_LIST.some((prop) => properties[prop] === undefined)
 	) {
 		console.error("bad request format");
@@ -55,32 +56,44 @@ const createNFT = (properties: NFTProps) => {
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
 		};
 	}
+	// @ts-ignore
+	const fileName = computeImage(properties);
 	const parsedProperties = { ...properties };
 	// @ts-ignore
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
 	const traitKeysList = Object.keys(parsedProperties);
-	const imageList: string[] =
+	const imageList: string[] = traitList.map((el, index) =>
 		// @ts-ignore
-		traitList.map((el, index) =>
-			getTraitImagePath(traitKeysList[index], el, properties.gender)
-		);
+		getTraitImagePath(traitKeysList[index], el, properties.gender)
+	);
 	traitList.shift();
 	console.info("creating new nft");
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
-	sharpImage
-		.composite(imageList.map((el) => ({ input: el })))
-		// @ts-ignore
-		.toFile(computeImage(properties));
-	// DECIDE PATH FROM HERE ...
-	console.info("nft created successfully");
-	return {
-		status: 200,
-		message: "NFT created successfully",
-		// @ts-ignore
-		traitStack: PROPERTIES_LIST.map((prop) => properties[prop]),
-	};
+	try {
+		const imageBuffer = await sharpImage
+			.composite(imageList.map((el) => ({ input: el })))
+			.toBuffer();
+		const results = await uploadFileToBucket(fileName, imageBuffer);
+		console.info("nft created successfully");
+		return {
+			status: 200,
+			message: "NFT created successfully",
+			// @ts-ignore
+			result: `${results.baseURL}${fileName}`,
+			// @ts-ignore
+			traitStack: PROPERTIES_LIST.map((prop) => properties[prop]),
+		};
+	} catch (err) {
+		console.error("Error generating NFT", err);
+		return {
+			status: 500,
+			message: "Error generating NFT",
+			// @ts-ignore
+			traitStack: PROPERTIES_LIST.map((prop) => properties[prop]),
+		};
+	}
 };
 
 export default {
