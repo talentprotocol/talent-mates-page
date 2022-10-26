@@ -72,6 +72,9 @@ const createNFT = async (properties: NFTProps) => {
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
 	try {
+		/*
+		shall be refactored to local storage and safe deletion after response
+		
 		const imageBuffer = await sharpImage
 			.composite(imageList.map((el) => ({ input: el })))
 			.toBuffer();
@@ -85,6 +88,7 @@ const createNFT = async (properties: NFTProps) => {
 			// @ts-ignore
 			traitStack: PROPERTIES_LIST.map((prop) => properties[prop]),
 		};
+		*/
 	} catch (err) {
 		console.error("Error generating NFT", err);
 		return {

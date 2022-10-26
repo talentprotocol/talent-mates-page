@@ -32,6 +32,4 @@ export const uploadFileToBucket = async (
 	}
 };
 
-export const uploadFileToIPFS = async (
-) => {
-};
+export const uploadFileToIPFS = async () => {};
