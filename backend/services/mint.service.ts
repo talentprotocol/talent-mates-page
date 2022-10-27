@@ -33,8 +33,7 @@ const mintNFFT = async (wallet_id: string, combination: string, image: Blob) => 
 					},
 				};
 			}
-            
-            const tx = await contract.connect(wallet_id).mint(combination);
+            const tx = await contract.connect(owner).mint(combination);
             const receipt = await tx.wait();
             // @ts-ignore
             const transferEvent = receipt.events?.find((e) => {
@@ -42,23 +41,27 @@ const mintNFFT = async (wallet_id: string, combination: string, image: Blob) => 
             });
 
             const tokenId = transferEvent.args.tokenId.toNumber();
-
-            const client = new NFTStorage({ token: TOKEN });
-            const metadata = await client.store({
-                name: "Talent Protocol NFT",
-                description:
-                    "Talent Protocol NFT. Owners of this NFT are considered cool",
-                image,
-                properties: {
-                    type: "image",
-                    traits: combination,
-                },
-            });
-			await contract.connect(owner).setTokenURI(tokenId, metadata.url);
+			try {
+				const client = new NFTStorage({ token: TOKEN });
+				const metadata = await client.store({
+					name: "Talent Protocol NFT",
+					description:
+						"Talent Protocol NFT. Owners of this NFT are considered cool",
+					image,
+					properties: {
+						type: "image",
+						traits: combination,
+					},
+				});
+				await contract.connect(owner).setTokenURI(tokenId, metadata.url);
+			} catch (e) {
+				console.log("NFT STORAGE ERROR");
+				console.log(e);
+			}
 			return {
 				statusCode: 200,
 				body: {
-					tokenId: tokenId,
+					tokenId: "tokenId",
 					tokenAddress: CONTRACT_ADDRESS,
 				},
 			};

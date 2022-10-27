@@ -1,5 +1,9 @@
 import sharp from "sharp";
-import { uploadFileToBucket } from "backend/repositories/nft.repository";
+import fs from "fs";
+import { File } from "nft.storage";
+import mime from "mime";
+//import { uploadFileToBucket } from "backend/repositories/nft.repository";
+import NFTService from "./mint.service";
 
 export interface NFTProps {
 	gender: "male" | "female";
@@ -25,6 +29,12 @@ const PROPERTIES_LIST = [
 	"thinking",
 ];
 const MANDATORY_PROPERTIES_LIST = ["gender", "body"];
+
+const blobFromPath = async (filePath: string) => {
+	const content = await fs.promises.readFile(filePath)
+	const type = mime.getType(filePath)
+	return new File([content], filePath.substring(5, filePath.length), {type: type as string})
+}
 
 const getTraitImagePath = (
 	traitName: string,
@@ -72,23 +82,27 @@ const createNFT = async (properties: NFTProps) => {
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
 	try {
-		/*
-		shall be refactored to local storage and safe deletion after response
-		
-		const imageBuffer = await sharpImage
-			.composite(imageList.map((el) => ({ input: el })))
-			.toBuffer();
-		const results = await uploadFileToBucket(fileName, imageBuffer);
-		console.info("nft created successfully");
+		await sharpImage
+				.composite(imageList.map((el) => ({ input: el })))
+				.toFile(`${__dirname}/temp-output/${fileName}`);
+		//const results = await uploadFileToBucket(fileName, imageBuffer);
+
+        const image = await blobFromPath(`${__dirname}/temp-output/${fileName}`)
+		try {
+			const mintResp = await NFTService.mintNFFT("0x6d1003099CB2cBaBc5e25e0F738A19B37B111C97", fileName, image);
+			console.log("MINT RESPONSE: ", mintResp);
+		} catch (e) {
+			console.log("MINTING ERROR")
+			console.log(e);
+		}
 		return {
 			status: 200,
 			message: "NFT created successfully",
 			// @ts-ignore
-			result: `${results.baseURL}${fileName}`,
+			result: fileName,
 			// @ts-ignore
 			traitStack: PROPERTIES_LIST.map((prop) => properties[prop]),
 		};
-		*/
 	} catch (err) {
 		console.error("Error generating NFT", err);
 		return {

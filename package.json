@@ -11,21 +11,22 @@
     "posttest": "npm run format"
   },
   "dependencies": {
-    "next": "12.3.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sharp": "^0.31.1",
     "@aws-sdk/client-s3": "^3.32.0",
     "@celo-tools/celo-ethers-wrapper": "^0.1.0",
     "axios": "^0.26.1",
     "ethers": "5.4.6",
     "mime": "^3.0.0",
-    "nft.storage": "^6.0.2"
+    "next": "12.3.1",
+    "nft.storage": "^6.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sharp": "^0.31.1"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/mime": "^3.0.1",
     "@types/sharp": "^0.31.0",
     "eslint": "8.26.0",
     "eslint-config-next": "12.3.1",
