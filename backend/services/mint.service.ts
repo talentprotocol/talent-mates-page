@@ -8,7 +8,11 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string;
 const PROVIDER_URL = process.env.PROVIDER_URL as string;
 const TOKEN = process.env.NFT_STORAGE_TOKEN as string;
 
-const mintNFFT = async (wallet_id: string, combination: string, image: Blob) => {
+const mintNFFT = async (
+	wallet_id: string,
+	combination: string,
+	image: Blob
+) => {
 	try {
 		const provider = new CeloProvider(PROVIDER_URL);
 		const owner = new CeloWallet(WALLET_PK, provider);
@@ -22,7 +26,7 @@ const mintNFFT = async (wallet_id: string, combination: string, image: Blob) => 
 		if (wallet_id.length > 0) {
 			const balance = await contract.balanceOf(wallet_id);
 			if (balance > 0) {
-                const tokenId = await contract.tokenOfOwnerByIndex(wallet_id, 0);
+				const tokenId = await contract.tokenOfOwnerByIndex(wallet_id, 0);
 				return {
 					statusCode: 400,
 					body: {
@@ -33,14 +37,14 @@ const mintNFFT = async (wallet_id: string, combination: string, image: Blob) => 
 					},
 				};
 			}
-            const tx = await contract.connect(owner).mint(combination);
-            const receipt = await tx.wait();
-            // @ts-ignore
-            const transferEvent = receipt.events?.find((e) => {
-                return e.event === "Transfer";
-            });
+			const tx = await contract.connect(owner).mint(combination);
+			const receipt = await tx.wait();
+			// @ts-ignore
+			const transferEvent = receipt.events?.find((e) => {
+				return e.event === "Transfer";
+			});
 
-            const tokenId = transferEvent.args.tokenId.toNumber();
+			const tokenId = transferEvent.args.tokenId.toNumber();
 			try {
 				const client = new NFTStorage({ token: TOKEN });
 				const metadata = await client.store({
