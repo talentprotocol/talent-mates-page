@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import NFTController from "backend/controllers/nft.controller";
+import NFTController from "backend/controllers/temp-nft.controller";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	if (req.method !== "POST") {
+	// @ts-ignore
+	if (!NFTController[req.method]) {
 		res.status(404).json({ message: "Not found" });
 	}
-	const response = await NFTController.POST(req);
+	// @ts-ignore
+	const response = await NFTController[req.method](req);
 	res.status(response.status).json(response);
 }

@@ -1,12 +1,30 @@
-import { NextRequest } from "next/server";
+import { NextApiRequest } from "next";
 import NFTService from "backend/services/nft.service";
+import { DefaultResponse } from "backend/types/response";
 
-const handlePostRequest = (req: NextRequest) => {
-	console.info("creating nft");
-	// @ts-ignore
-	return NFTService.createNFT(req.body.properties || {});
+interface ControllerInterface {
+	POST: (A: NextApiRequest) => Promise<DefaultResponse>
+}
+
+const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
+	try {
+		NFTService.mountNFT();
+		return Promise.resolve({
+			status: 200,
+			message: "message"
+		});
+	} catch (error) {
+		console.info("error happened while handling POST /api/nft");
+		console.error(error);
+		return Promise.resolve({
+			status: 500,
+			message: "Internal server error"
+		});
+	}
 };
 
-export default {
-	POST: handlePostRequest,
+const NFTController: ControllerInterface = {
+	POST
 };
+
+export default NFTController;
