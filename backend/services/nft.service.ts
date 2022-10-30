@@ -59,7 +59,7 @@ const computeImageName = (properties: Record<string, number | string>) => {
 	return nameAsArray.join("") + ".png";
 };
 
-const createNFT = async (properties: NFTProps): Promise<DefaultResponse> => {
+const createNFT = async (properties: NFTProps, mintingToken: string, userAddress: string): Promise<DefaultResponse> => {
 	if (
 		MANDATORY_PROPERTIES_LIST.some(
 			(prop) => properties[prop as NFTPropsKeys] === undefined

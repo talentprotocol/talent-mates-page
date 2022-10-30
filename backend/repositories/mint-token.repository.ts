@@ -18,7 +18,7 @@ const createMintToken = async (userWallet: string): Promise<DefaultResponse> => 
 		const token = await contract.connect(owner).createMintingToken(userWallet);
 		return Promise.resolve({
 			status: 200,
-			message: "successfully setted nft metadata",
+			message: "successfully generated minting token",
 			token: token.data
 		});
 	} catch (error) {
