@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import NFTService from "backend/services/nft.service";
+import MintTokenService from "backend/services/mint-token.service";
 import { DefaultResponse } from "backend/types/response";
 
 interface ControllerInterface {
@@ -8,9 +8,9 @@ interface ControllerInterface {
 
 const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 	try {
-		return NFTService.createNFT(req.body.properties);
+		return MintTokenService.createMintToken(req.body.userWallet);
 	} catch (error) {
-		console.info("error happened while handling POST /api/nft");
+		console.info("error happened while handling POST /api/mint-token");
 		console.error(error);
 		return Promise.resolve({
 			status: 500,
@@ -19,8 +19,8 @@ const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 	}
 };
 
-const NFTController: ControllerInterface = {
+const MintTokenController: ControllerInterface = {
 	POST,
 };
 
-export default NFTController;
+export default MintTokenController;

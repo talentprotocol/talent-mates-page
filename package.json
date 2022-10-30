@@ -23,10 +23,10 @@
     "sharp": "^0.31.1"
   },
   "devDependencies": {
+    "@types/mime": "^3.0.1",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "@types/mime": "^3.0.1",
     "@types/sharp": "^0.31.0",
     "eslint": "8.26.0",
     "eslint-config-next": "12.3.1",

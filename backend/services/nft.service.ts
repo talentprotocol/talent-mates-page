@@ -1,8 +1,9 @@
 import sharp from "sharp";
 import fs from "fs";
-import { File } from "nft.storage";
 import mime from "mime";
+import { File } from "nft.storage";
 import { DefaultResponse } from "backend/types/response";
+import NFTRepository from "backend/repositories/nft.repository";
 
 type NFTPropsKeys =
 	| "gender"
@@ -49,16 +50,7 @@ const getImagePath = (
 	return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
 };
 
-const computeImage = (properties: Record<string, number | string>) => {
-	let nameAsArray = PROPERTIES_LIST.map((el) =>
-		properties[el] ? `${properties[el]}-` : "x-"
-	);
-	nameAsArray = nameAsArray.join("").split("");
-	nameAsArray.pop();
-	return nameAsArray.join("") + ".png";
-};
-
-const mountNFT = (properties: Record<string, number | string>) => {
+const computeImageName = (properties: Record<string, number | string>) => {
 	let nameAsArray = PROPERTIES_LIST.map((el) =>
 		properties[el] ? `${properties[el]}-` : "x-"
 	);
@@ -79,7 +71,7 @@ const createNFT = async (properties: NFTProps): Promise<DefaultResponse> => {
 			requiredProperties: MANDATORY_PROPERTIES_LIST
 		};
 	}
-	const fileName = computeImage(properties);
+	const fileName = computeImageName(properties);
     const filePath = `${__dirname}/temp-output/${fileName}`;
 	const parsedProperties = { ...properties };
 	delete parsedProperties.gender;
@@ -93,18 +85,12 @@ const createNFT = async (properties: NFTProps): Promise<DefaultResponse> => {
 	traitList.shift();
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
-    const image = await createBlobFromPath(filePath);
     try {
 		await sharpImage
 			.composite(imageList.map((el) => ({ input: el })))
 			.toFile(filePath);
-            /*
-            const mintResp = await NFTService.mintNFFT(
-                "0x6d1003099CB2cBaBc5e25e0F738A19B37B111C97",
-                fileName,
-                image
-            );
-            */
+			const image = await createBlobFromPath(filePath);
+			await NFTRepository.mintNFT(fileName, image);
             fs.unlink(filePath, (error) => {
                 if (error) {
                     console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
@@ -114,8 +100,7 @@ const createNFT = async (properties: NFTProps): Promise<DefaultResponse> => {
             });
             return Promise.resolve({
                 status: 200,
-                // TODO: complete with nft data
-                message: "NFT DATA GOES HERE"
+                message: "NFT successfully created"
             })
     } catch (error) {
 		return Promise.reject({
