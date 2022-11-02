@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { genSaltSync } from "bcrypt";
+import bcrypt from "bcrypt";
 import FactoryArtifact from "./contracts/talentNFT.json";
 import { DefaultResponse } from "backend/types/response";
 
@@ -16,8 +16,9 @@ const createMintToken = async (userWallet: string): Promise<DefaultResponse> => 
 			FactoryArtifact.abi,
 			provider
 		);
-		const token = genSaltSync();
-		await contract.connect(owner).createMintingToken(userWallet);
+		const salt = bcrypt.genSaltSync();
+		const token = bcrypt.hashSync(userWallet, salt);
+		await contract.connect(owner).createMintingToken(userWallet, token);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully generated minting token",
