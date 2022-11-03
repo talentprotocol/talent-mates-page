@@ -59,7 +59,12 @@ const computeImageName = (properties: Record<string, number | string>) => {
 	return nameAsArray.join("") + ".png";
 };
 
-const createNFT = async (properties: NFTProps, mintingToken: string, userAddress: string): Promise<DefaultResponse> => {
+const createNFT = async (
+	properties: NFTProps,
+	mintingToken: string,
+	userAddress: string,
+	tokenId: number
+): Promise<DefaultResponse> => {
 	if (
 		MANDATORY_PROPERTIES_LIST.some(
 			(prop) => properties[prop as NFTPropsKeys] === undefined
@@ -68,47 +73,56 @@ const createNFT = async (properties: NFTProps, mintingToken: string, userAddress
 		return {
 			status: 400,
 			message: "Missing some NFT properties",
-			requiredProperties: MANDATORY_PROPERTIES_LIST
+			requiredProperties: MANDATORY_PROPERTIES_LIST,
 		};
 	}
 	const fileName = computeImageName(properties);
-    const filePath = `${__dirname}/temp-output/${fileName}`;
+	const filePath = `${__dirname}/temp-output/${fileName}`;
 	const parsedProperties = { ...properties };
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
 	const traitKeysList = Object.keys(parsedProperties);
 	const imageList: string[] = traitList.map((el, index) =>
-		getImagePath(traitKeysList[index], el, 
-            // @ts-ignore
-            properties.gender)
+		getImagePath(
+			traitKeysList[index],
+			el,
+			// @ts-ignore
+			properties.gender
+		)
 	);
 	traitList.shift();
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
-    try {
+	try {
 		await sharpImage
 			.composite(imageList.map((el) => ({ input: el })))
 			.toFile(filePath);
-			const image = await createBlobFromPath(filePath);
-			await NFTRepository.mintNFT(fileName, image);
-            fs.unlink(filePath, (error) => {
-                if (error) {
-                    console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
-                } else {
-                    console.info(`successfully deleted ${filePath}`);
-                }
-            });
-            return Promise.resolve({
-                status: 200,
-                message: "NFT successfully created"
-            })
-    } catch (error) {
+		const image = await createBlobFromPath(filePath);
+		await NFTRepository.mintNFT(
+			fileName,
+			image,
+			mintingToken,
+			userAddress,
+			tokenId
+		);
+		fs.unlink(filePath, (error) => {
+			if (error) {
+				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
+			} else {
+				console.info(`successfully deleted ${filePath}`);
+			}
+		});
+		return Promise.resolve({
+			status: 200,
+			message: "NFT successfully created",
+		});
+	} catch (error) {
 		return Promise.reject({
 			status: 500,
 			message: "Internal server error",
-            error
+			error,
 		});
-    }
+	}
 };
 
 const NFTService = {

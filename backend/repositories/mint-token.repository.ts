@@ -7,7 +7,9 @@ const WALLET_PK = process.env.WALLET_PK as string;
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string;
 const NETWORK_URL = process.env.PROVIDER_URL as string;
 
-const createMintToken = async (userWallet: string): Promise<DefaultResponse> => {
+const createMintToken = async (
+	userWallet: string
+): Promise<DefaultResponse> => {
 	try {
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
 		const owner = new ethers.Wallet(WALLET_PK, provider);
@@ -22,14 +24,14 @@ const createMintToken = async (userWallet: string): Promise<DefaultResponse> => 
 		return Promise.resolve({
 			status: 200,
 			message: "successfully generated minting token",
-			token: token
+			token: token,
 		});
 	} catch (error) {
 		console.log("error - ", error);
 		return Promise.reject({
 			status: 500,
 			message: "error",
-			error
+			error,
 		});
 	}
 };

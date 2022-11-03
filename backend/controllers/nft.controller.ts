@@ -8,7 +8,12 @@ interface ControllerInterface {
 
 const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 	try {
-		return NFTService.createNFT(req.body.properties, req.body.mintingToken, req.body.userAddress);
+		return NFTService.createNFT(
+			req.body.properties,
+			req.body.mintingToken,
+			req.body.userAddress,
+			req.body.tokenId
+		);
 	} catch (error) {
 		console.info("error happened while handling POST /api/nft");
 		console.error(error);
