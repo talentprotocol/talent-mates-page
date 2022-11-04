@@ -100,7 +100,6 @@ const createNFT = async (
 		await NFTRepository.setMetaData(
 			fileName,
 			image,
-			userAddress,
 			tokenId
 		);
 		fs.unlink(filePath, (error) => {

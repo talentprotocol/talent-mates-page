@@ -11,7 +11,6 @@ const TOKEN = process.env.NFT_STORAGE_TOKEN as string;
 const setMetaData = async (
 	fileName: string,
 	image: Blob,
-	account: string,
 	tokenId: number
 ): Promise<DefaultResponse> => {
 	try {
@@ -44,7 +43,7 @@ const setMetaData = async (
 		});
 		await contract
 			.connect(owner)
-			.setTokenURI(tokenId, metadata.url, account);
+			.setTokenURI(tokenId, metadata.url, fileName);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully setted nft metadata",
