@@ -10,7 +10,6 @@ const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 	try {
 		return NFTService.createNFT(
 			req.body.properties,
-			req.body.mintingToken,
 			req.body.userAddress,
 			req.body.tokenId
 		);
@@ -29,3 +28,5 @@ const NFTController: ControllerInterface = {
 };
 
 export default NFTController;
+
+// todo: need to check signed message

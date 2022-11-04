@@ -61,7 +61,6 @@ const computeImageName = (properties: Record<string, number | string>) => {
 
 const createNFT = async (
 	properties: NFTProps,
-	mintingToken: string,
 	userAddress: string,
 	tokenId: number
 ): Promise<DefaultResponse> => {
@@ -98,10 +97,9 @@ const createNFT = async (
 			.composite(imageList.map((el) => ({ input: el })))
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.mintNFT(
+		await NFTRepository.setMetaData(
 			fileName,
 			image,
-			mintingToken,
 			userAddress,
 			tokenId
 		);

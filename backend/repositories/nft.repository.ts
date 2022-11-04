@@ -8,10 +8,9 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string;
 const NETWORK_URL = process.env.PROVIDER_URL as string;
 const TOKEN = process.env.NFT_STORAGE_TOKEN as string;
 
-const mintNFT = async (
+const setMetaData = async (
 	fileName: string,
 	image: Blob,
-	mintingToken: string,
 	account: string,
 	tokenId: number
 ): Promise<DefaultResponse> => {
@@ -23,13 +22,13 @@ const mintNFT = async (
 			FactoryArtifact.abi,
 			provider
 		);
-		const isMintingTokenValid = contract
+		const isCombinationAvailable = contract
 			.connect(owner)
-			.validateMintingToken(mintingToken, account);
-		if (isMintingTokenValid) {
+			.isCombinationaAvailable(fileName);
+		if (isCombinationAvailable) {
 			return Promise.reject({
-				status: 500,
-				message: "minting token is invalid",
+				status: 409,
+				message: "The current combination is already in use",
 			});
 		}
 		const client = new NFTStorage({ token: TOKEN });
@@ -45,7 +44,7 @@ const mintNFT = async (
 		});
 		await contract
 			.connect(owner)
-			.setTokenURI(tokenId, metadata.url, mintingToken, account);
+			.setTokenURI(tokenId, metadata.url, account);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully setted nft metadata",
@@ -61,10 +60,5 @@ const mintNFT = async (
 };
 
 export default {
-	mintNFT,
+	setMetaData,
 };
-
-/*
-https://kroki.io/mermaid/svg/eNqFkTGOwkAMRfs9hctFiAukoEJINFsg9gBm4iQWxAljD4jb4wxQhLDsdGP7v_89o3RKJIFWjHXE9gv8YLAuQlKK-dpjNA7coxjsMRxIykk9dGLRdZMG95Xm4oBbLJfz52QBLYspWOdA-L6wNU5p9yxo3MlsJHrYFoB60Cxkqe_SPPfoj_khEhopkBeuUPlKfwtdOXgVEMlSlHcekyxP_s969yFEQ8EjczUmAiuc8cjlq3J4rwLUP-A_curLbJ95v9vN530arhs4Jbe068C9AW-tqUA
-https://kroki.io/mermaid/svg/eNqFkDEOgzAMRfeewnvFBRiYqkpdOlTtAUwwYAEBHAept2-IQIKiqtni__y_bUejJ2vowlgJdicID432At6RxO-Aomx4QKuQo2nIFoe66a1K6DsIPJQuFme7JMvOK5lCx1YdaB8MI7EqScBmOgUh9WK3zOqyzJGCEUIlB_frMwKLsE8yNZnGAZcho8vZonJvgR3ghNxi3tLvXqEQOYWETes3PS-ZggtX-zeJH4o4btzo9bjtyMPeNVc1jB5b1vfs-wF-AI-w
-*/
