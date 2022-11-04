@@ -4,6 +4,7 @@ import mime from "mime";
 import { File } from "nft.storage";
 import { DefaultResponse } from "backend/types/response";
 import NFTRepository from "backend/repositories/nft.repository";
+import { ethers } from "ethers";
 
 type NFTPropsKeys =
 	| "gender"
@@ -20,6 +21,7 @@ type NFTProps = {
 	[key in NFTPropsKeys]?: number;
 };
 
+const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
@@ -62,18 +64,26 @@ const computeImageName = (properties: Record<string, number | string>) => {
 const createNFT = async (
 	properties: NFTProps,
 	userAddress: string,
-	tokenId: number
+	tokenId: number,
+	signature: string
 ): Promise<DefaultResponse> => {
 	if (
 		MANDATORY_PROPERTIES_LIST.some(
 			(prop) => properties[prop as NFTPropsKeys] === undefined
 		)
 	) {
-		return {
+		return Promise.reject({
 			status: 400,
 			message: "Missing some NFT properties",
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
-		};
+		});
+	}
+	const signedMessageAddress = ethers.utils.verifyMessage(AUTH_SIGNED_MESSAGE, signature);
+	if (signedMessageAddress !== userAddress) {
+		return Promise.reject({
+			status: 401,
+			message: "Invalid signature"
+		});
 	}
 	const fileName = computeImageName(properties);
 	const filePath = `${__dirname}/temp-output/${fileName}`;
