@@ -10,3 +10,4 @@
     backend->>contract: set's metadata
     backend-->>-user: returns high quality NFT
 ```
+
