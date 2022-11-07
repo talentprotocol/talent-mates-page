@@ -8,7 +8,10 @@ const Home: NextPage = () => {
 		<div>
 			<Head>
 				<title>NFT Picker</title>
-				<meta name="description" content="NFT Picker for Talent Protocol Avatar collection" />
+				<meta
+					name="description"
+					content="NFT Picker for Talent Protocol Avatar collection"
+				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Body>
