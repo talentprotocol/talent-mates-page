@@ -1,0 +1,34 @@
+export type AvailableColors =
+  | "LIGHT_PURPLE"
+  | "LIGHTER_PURPLE"
+  | "WHITE"
+  | "SUPER_LIGHT_GREY"
+  | "BLACK"
+  | "LIGHT_BLACK"
+  | "DARK_BLUE"
+  | "GREY"
+  | "LIGHT_GREY"
+  | "LIGHTER_GREY"
+  | "LIGHTER_YELLOW"
+  | "SUPER_LIGHT_YELLOW"
+  | "YELLOW"
+  | "LIGHT_YELLOW"
+  | "ORANGE";
+
+export const COLORS: Record<AvailableColors, string> = {
+  LIGHT_PURPLE: "#7857ED",
+  LIGHTER_PURPLE: "#9577FF",
+  LIGHT_BLACK: "#37434B",
+  SUPER_LIGHT_GREY: "#F2F3F5",
+  WHITE: "#FAFAFB",
+  BLACK: "#1C1D1F",
+  DARK_BLUE: "#1E2330",
+  GREY: "#DADDE1",
+  YELLOW: "#BBED55",
+  LIGHT_YELLOW: "#EAFFD9",
+  LIGHTER_YELLOW: "#D8FF88",
+  SUPER_LIGHT_YELLOW: "#F4FFEC",
+  ORANGE: "#FD9A00",
+  LIGHT_GREY: "#697F8F",
+  LIGHTER_GREY: "#EBEDF0",
+};

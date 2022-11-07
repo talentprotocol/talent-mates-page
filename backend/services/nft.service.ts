@@ -15,15 +15,16 @@ export interface NFTProps {
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
-	"body",
-	"eyes",
-	"mouth",
+	"back_object",
+	"skin",
+	"ear",
 	"hair",
-	"clothing",
-	"accessories",
-	"thinking",
+	"outfit",
+	"mouth",
+	"eyes",
+	"cloud",
 ];
-const MANDATORY_PROPERTIES_LIST = ["gender", "body"];
+const MANDATORY_PROPERTIES_LIST = ["gender", "skin", "background"];
 
 const getTraitImagePath = (
 	traitName: string,
@@ -31,7 +32,9 @@ const getTraitImagePath = (
 	gender: "male" | "female"
 ) => {
 	const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
-	return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
+	console.log("HERHE");
+	console.log(__dirname);
+	return `${__dirname}/trait-assets/${gender}/${traitName}/${imageName}`;
 };
 
 const computeImage = (properties: Record<string, number | string>) => {
