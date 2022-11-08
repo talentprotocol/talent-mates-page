@@ -46,7 +46,7 @@ const Trait = ({
 			<TraitSwitchInfo>
 				<p>
 					<>
-						{currentTraitNumber}/{totalNumberOfTraits}
+						{currentTraitNumber !== -1 ? `${currentTraitNumber}/${totalNumberOfTraits}` : "None"}
 					</>
 				</p>
 			</TraitSwitchInfo>
@@ -60,24 +60,46 @@ const onTraitSelection = (e: any, trait: string, option: string) => {};
 export const NFTPicker = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gender, setGender] = useState<"male" | "female">("male");
-  const backgroundTrait = useTrait({ name: "background", description: "Background", maxElements: {male: 8, female: 8}, gender});
-  const hairTrait = useTrait({ name: "hair", description: "Hair", maxElements: {male: 6, female: 6}, gender});
+  const traits = {
+	backgroundTrait: useTrait({ name: "background", description: "Background", maxElements: {male: 8, female: 8}, gender}),
+	skinTrait: useTrait({ name: "body", description: "Skin", maxElements: {male: 7, female: 7}, gender}),
+	clothingTrait: useTrait({ name: "clothing", description: "Clothes", maxElements: {male: 24, female: 24}, gender}),
+	hairTrait: useTrait({ name: "hair", description: "Hair", maxElements: {male: 6, female: 6}, gender}),
+	mouthTrait: useTrait({ name: "mouth", description: "Mouth", maxElements: {male: 9, female: 9}, gender}),
+	eyesTrait: useTrait({ name: "eyes", description: "Eyes", maxElements: {male: 12, female: 12}, gender}),
+	thinkingTrait: useTrait({ name: "thinking", description: "Thinking", maxElements: {male: 19, female: 19}, gender}),
+  };
   useEffect(() => {
     if (typeof window !== "undefined" && canvasRef.current) {
       const canvasContext = canvasRef?.current.getContext("2d");
       canvasContext?.clearRect(0, 0, 568, 568);
-      const backgroundImage = new Image();
-      backgroundImage.src = backgroundTrait.image;
-      backgroundImage.onload = () => {
-        canvasContext?.drawImage(backgroundImage, 0, 0, 568, 568);
-      }
-      const hairImage = new Image();
-      hairImage.src = hairTrait.image;
-      hairImage.onload = () => {
-        canvasContext?.drawImage(hairImage, 0, 0, 568, 568);
-      }
+	  const promisesList: Promise<CanvasImageSource>[] = [];
+	  const traitList = Object.keys(traits);
+	  traitList.forEach(trait => {
+		// @ts-ignore
+		if (traits[trait].currentSelection !== -1) {
+			const traitImage = new Image();
+			// @ts-ignore
+			traitImage.src = traits[trait].image;
+			const traitPromise = new Promise<HTMLImageElement>((resolve, reject) => {
+				traitImage.onload = () => {
+				  resolve(traitImage);
+				}
+				traitImage.onerror = () => {
+				  reject(null);
+				}
+			});
+			promisesList.push(traitPromise);
+		}
+	  });
+	  Promise.all(promisesList)
+	  	.then((images) => {
+			images.forEach(image => {
+				canvasContext?.drawImage(image, 0, 0, 568, 568);
+			});
+		});
     }
-  }, [hairTrait, backgroundTrait])
+  }, [traits.hairTrait, traits.backgroundTrait])
 	return (
 		<>
 			<Header>
@@ -95,32 +117,32 @@ export const NFTPicker = () => {
 			<PickerArea>
 				<TraitPickerArea>
 					<Trait
-						trait={backgroundTrait.name}
-						description={backgroundTrait.description}
-						onTraitSelection={backgroundTrait.updateCurrentSelection}
-						currentTraitNumber={backgroundTrait.currentSelection}
-						totalNumberOfTraits={backgroundTrait.maxElements[gender]}
+						trait={traits.backgroundTrait.name}
+						description={traits.backgroundTrait.description}
+						onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+						currentTraitNumber={traits.backgroundTrait.currentSelection}
+						totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
 					/>
 					<Trait
-						trait={"skin"}
-						description={"Skin"}
-						onTraitSelection={onTraitSelection}
-						currentTraitNumber={1}
-						totalNumberOfTraits={9}
+						trait={traits.skinTrait.name}
+						description={traits.skinTrait.description}
+						onTraitSelection={traits.skinTrait.updateCurrentSelection}
+						currentTraitNumber={traits.skinTrait.currentSelection}
+						totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
 					/>
 					<Trait
-						trait={hairTrait.name}
-						description={hairTrait.description}
-						onTraitSelection={hairTrait.updateCurrentSelection}
-						currentTraitNumber={hairTrait.currentSelection}
-						totalNumberOfTraits={hairTrait.maxElements[gender]}
+						trait={traits.hairTrait.name}
+						description={traits.hairTrait.description}
+						onTraitSelection={traits.hairTrait.updateCurrentSelection}
+						currentTraitNumber={traits.hairTrait.currentSelection}
+						totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
 					/>
 					<Trait
-						trait={"clothes"}
-						description={"Clothes"}
-						onTraitSelection={onTraitSelection}
-						currentTraitNumber={1}
-						totalNumberOfTraits={11}
+						trait={traits.clothingTrait.name}
+						description={traits.clothingTrait.description}
+						onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.clothingTrait.currentSelection}
+						totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
 					/>
 				</TraitPickerArea>
 				<DisplayArea>
@@ -146,29 +168,29 @@ export const NFTPicker = () => {
 				</DisplayArea>
 				<TraitPickerArea>
 					<Trait
-						trait={"mouth"}
-						description={"Mouth"}
-						onTraitSelection={onTraitSelection}
-						currentTraitNumber={1}
-						totalNumberOfTraits={8}
+						trait={traits.mouthTrait.name}
+						description={traits.mouthTrait.description}
+						onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+						currentTraitNumber={traits.mouthTrait.currentSelection}
+						totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
 					/>
 					<Trait
-						trait={"eyes"}
-						description={"Eyes"}
-						onTraitSelection={onTraitSelection}
-						currentTraitNumber={1}
-						totalNumberOfTraits={9}
+						trait={traits.eyesTrait.name}
+						description={traits.eyesTrait.description}
+						onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+						currentTraitNumber={traits.eyesTrait.currentSelection}
+						totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
 					/>
 					<Trait
-						trait={"thinking_cloud"}
-						description={"Thinking Cloud"}
-						onTraitSelection={onTraitSelection}
-						currentTraitNumber={1}
-						totalNumberOfTraits={10}
+						trait={traits.thinkingTrait.name}
+						description={traits.thinkingTrait.description}
+						onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.thinkingTrait.currentSelection}
+						totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
 					/>
 					<Trait
 						trait={"background_object"}
-						description={"Background Object"}
+						description={"Background Object (?)"}
 						onTraitSelection={onTraitSelection}
 						currentTraitNumber={1}
 						totalNumberOfTraits={11}

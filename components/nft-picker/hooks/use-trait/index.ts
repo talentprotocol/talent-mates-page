@@ -7,18 +7,26 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
     const [currentSelection, setCurrentSelection] = useState(1);
     const [fileName, setFileName] = useState("01.png");
     const updateCurrentSelection = useCallback((amount: number) => {
-        const computedAmount = currentSelection + amount;
-        if (computedAmount) {
+        let computedAmount = currentSelection + amount;
+        if (computedAmount === 0 && currentSelection === -1) {
+            computedAmount += 1;
+        }
+        if (computedAmount > 0) {
             if (computedAmount > maxElements[gender]) {
-                setFileName("01.png");
-                setCurrentSelection(1);
+                setFileName("none");
+                setCurrentSelection(-1);
             } else {
-                setFileName(maxElements[gender] < 10 ? `0${computedAmount}.png` : `${computedAmount}.png`);
+                setFileName(computedAmount < 10 ? `0${computedAmount}.png` : `${computedAmount}.png`);
                 setCurrentSelection(computedAmount);
             }
         } else {
-            setFileName(maxElements[gender] < 10 ? `0${computedAmount}.png` : `${computedAmount}.png`);
-            setCurrentSelection(maxElements[gender]);
+            if (computedAmount === -2) {
+                setFileName(computedAmount < 10 ? `0${computedAmount}.png` : `${computedAmount}.png`);
+                setCurrentSelection(maxElements[gender]);
+            } else {
+                setFileName("none");
+                setCurrentSelection(-1);
+            }
         }
     }, [currentSelection]);
     return {
