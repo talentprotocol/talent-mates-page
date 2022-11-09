@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { NFTPicker } from "components/nft-picker";
 import { Body } from "components/body";
 import { Footer } from "components/footer";
 
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Body>
-				<>asdas</>
+				<NFTPicker />
 			</Body>
 			<Footer />
 		</div>

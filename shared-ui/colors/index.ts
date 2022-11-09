@@ -11,6 +11,7 @@ export type AvailableColors =
 	| "LIGHTER_GREY"
 	| "LIGHTER_YELLOW"
 	| "SUPER_LIGHT_YELLOW"
+	| "NOT_SO_LIGHT_GREY"
 	| "YELLOW"
 	| "LIGHT_YELLOW"
 	| "ORANGE";
@@ -31,4 +32,5 @@ export const COLORS: Record<AvailableColors, string> = {
 	ORANGE: "#FD9A00",
 	LIGHT_GREY: "#697F8F",
 	LIGHTER_GREY: "#EBEDF0",
+	NOT_SO_LIGHT_GREY: "#536471",
 };

@@ -40,6 +40,7 @@ export interface Props {
 	onMouseLeave?: ReactEventHandler;
 	fullWidth?: boolean;
 	className?: string;
+	target?: string;
 }
 
 export interface StyledButtonProps {

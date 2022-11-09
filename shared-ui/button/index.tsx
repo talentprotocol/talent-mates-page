@@ -13,6 +13,7 @@ export const Button = ({
 	onMouseLeave = () => null,
 	fullWidth = false,
 	className,
+	target
 }: Props) => {
 	switch (type) {
 		case ButtonTypeEnum.BUTTON:
@@ -35,10 +36,10 @@ export const Button = ({
 					<ButtonLinkContainer
 						variant={variant}
 						fullWidth={fullWidth}
-						target="_blank"
 						className={className}
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}
+						target={target}
 					>
 						{children}
 						{text}

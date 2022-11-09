@@ -109,7 +109,7 @@ export const NFTPicker = () => {
 		traits.thinkingTrait,
 	]);
 	return (
-		<>
+		<section>
 			<Header>
 				<StyledButton text={"Back"} type="link" variant="secondary" href="/">
 					<ButtonIcon>--W</ButtonIcon>
@@ -223,6 +223,6 @@ export const NFTPicker = () => {
 					/>
 				</div>
 			</ActionArea>
-		</>
+		</section>
 	);
 };
