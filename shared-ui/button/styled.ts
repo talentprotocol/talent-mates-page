@@ -8,15 +8,18 @@ const primaryStyles = css`
 	color: ${COLORS.WHITE};
 	padding: 8px 32px;
 	border-radius: 32px;
+	border: 1px solid ${COLORS.LIGHT_PURPLE};
 
 	:hover {
 		background-color: ${COLORS.LIGHTER_PURPLE};
+		border: 1px solid ${COLORS.LIGHTER_PURPLE};
 	}
 `;
 
 const secondaryStyles = css`
 	color: ${COLORS.BLACK};
-	padding: 8px 32px;
+	min-width: 38px;
+	min-height: 38px;
 	display: flex;
 	align-items: center;
 	border-radius: 32px;
@@ -40,8 +43,8 @@ const tertiaryStyles = css`
 `;
 
 const quaternaryStyles = css`
-	width: 38px;
-	height: 38px;
+	min-width: 38px;
+	min-height: 38px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -91,17 +94,25 @@ const septenaryStyles = css`
 `;
 
 const octonaryStyles = css`
+	display: flex;
+	align-items: center;
 	background-color: ${COLORS.WHITE};
 	color: ${COLORS.LIGHT_PURPLE};
-	border: 2px solid ${COLORS.LIGHT_PURPLE};
-	padding: 12px 32px;
+	border: 1px solid ${COLORS.LIGHT_PURPLE};
+	padding: 8px 32px;
 	display: flex;
 	border-radius: 32px;
 	box-sizing: border-box;
+
+	:hover {
+		background-color: ${COLORS.LIGHTER_PURPLE};
+		color: ${COLORS.WHITE};
+	}
 `;
 
 export const fullWidthStyles = css`
-	width: 100%;
+	flex-grow: 1;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 `;
@@ -140,16 +151,7 @@ export const ButtonContainer = styled.button<StyledButtonProps>`
 		}
 	}}
 
-	${({ fullWidth }: { fullWidth: boolean }) => {
-		switch (fullWidth) {
-			case true:
-				return fullWidthStyles;
-			case false:
-				return "";
-			default:
-				return "";
-		}
-	}}
+	${({ fullWidth }) => fullWidth && fullWidthStyles}
 `;
 
 export const ButtonLinkContainer = styled.a<StyledButtonProps>`

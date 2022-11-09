@@ -49,6 +49,7 @@ const computeImage = (properties: Record<string, number | string>) => {
 const createNFT = (properties: NFTProps) => {
 	// @ts-ignore
 	if (
+		// @ts-ignore
 		MANDATORY_PROPERTIES_LIST.some((prop) => properties[prop] === undefined)
 	) {
 		console.error("bad request format");
@@ -66,7 +67,7 @@ const createNFT = (properties: NFTProps) => {
 	const imageList: string[] =
 		// @ts-ignore
 		traitList.map((el, index) =>
-			getTraitImagePath(traitKeysList[index], el, properties.gender)
+			getTraitImagePath(traitKeysList[index], el as number, properties.gender)
 		);
 	traitList.shift();
 	console.info("creating new nft");

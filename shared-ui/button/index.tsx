@@ -9,7 +9,10 @@ export const Button = ({
 	children,
 	href = "/",
 	onClick = () => null,
+	onMouseEnter = () => null,
+	onMouseLeave = () => null,
 	fullWidth = false,
+	className,
 }: Props) => {
 	switch (type) {
 		case ButtonTypeEnum.BUTTON:
@@ -18,6 +21,9 @@ export const Button = ({
 					variant={variant}
 					fullWidth={fullWidth}
 					onClick={onClick}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					className={className}
 				>
 					{children}
 					{text}
@@ -30,6 +36,9 @@ export const Button = ({
 						variant={variant}
 						fullWidth={fullWidth}
 						target="_blank"
+						className={className}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
 					>
 						{children}
 						{text}

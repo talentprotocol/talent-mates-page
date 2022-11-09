@@ -1,11 +1,11 @@
 export interface MaxElementsMap {
-    male: number,
-    female: number
+	male: number;
+	female: number;
 }
 
 export interface Props {
-  name: string,
-  description: string,
-  gender: "male" | "female"
-  maxElements: MaxElementsMap
+	name: string;
+	description: string;
+	gender: "male" | "female";
+	maxElements: MaxElementsMap;
 }
