@@ -13,7 +13,7 @@ export const Button = ({
 	onMouseLeave = () => null,
 	fullWidth = false,
 	className,
-	target
+	target,
 }: Props) => {
 	switch (type) {
 		case ButtonTypeEnum.BUTTON:
