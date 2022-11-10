@@ -56,7 +56,7 @@ export const NFTPicker = () => {
 		eyesTrait: useTrait({
 			name: "eyes",
 			description: "Eyes",
-			maxElements: { male: 12, female: 12 },
+			maxElements: { male: 11, female: 11 },
 			gender,
 		}),
 		thinkingTrait: useTrait({
@@ -98,7 +98,16 @@ export const NFTPicker = () => {
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [traits.hairTrait, traits.backgroundTrait]);
+	}, [
+		traits.hairTrait,
+		traits.backgroundTrait,
+		traits.clothingTrait,
+		traits.clothingTrait,
+		traits.eyesTrait,
+		traits.mouthTrait,
+		traits.skinTrait,
+		traits.thinkingTrait,
+	]);
 	return (
 		<>
 			<Header>
@@ -202,7 +211,7 @@ export const NFTPicker = () => {
 			</PickerArea>
 			<ActionArea>
 				<div>
-					<ShuffleButton callback={() => {}}/>
+					<ShuffleButton callback={() => Object.values(traits).forEach(trait => trait.shuffle() )} />
 				</div>
 				<div>
 					<Button
