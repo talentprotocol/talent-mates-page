@@ -5,6 +5,7 @@ import { Footer } from "components/footer";
 import Welcome from "components/welcome";
 import Modal from "components/modal";
 import { useModalState } from "components/modal/use-modal-state";
+import { InvalidAccountDialog } from "components/dialogs/invalid-account";
 
 const Home: NextPage = () => {
 	const modalState = useModalState();
@@ -19,7 +20,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.close}>
-				<div>/</div>
+				<InvalidAccountDialog closeModal={modalState.close} />
 			</Modal>
 			<Body>
 				<Welcome openModal={modalState.open} />
