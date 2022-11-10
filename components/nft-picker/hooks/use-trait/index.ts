@@ -58,7 +58,7 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1));
 		console.log(newSelection);
 		setCurrentSelection(newSelection);
-		updateCurrentSelection(10000, {amount: newSelection})
+		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);
 	return {
 		image: `${BASE_URL}/${name}/${gender}/${fileName}`,
@@ -68,6 +68,6 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 		description,
 		maxElements,
 		currentSelection,
-		shuffle
+		shuffle,
 	};
 };

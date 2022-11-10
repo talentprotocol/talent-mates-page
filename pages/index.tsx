@@ -3,8 +3,11 @@ import Head from "next/head";
 import { Body } from "components/body";
 import { Footer } from "components/footer";
 import Welcome from "components/welcome";
+import Modal from "components/modal";
+import { useModalState } from "components/modal/use-modal-state";
 
 const Home: NextPage = () => {
+	const modalState = useModalState();
 	return (
 		<div>
 			<Head>
@@ -15,8 +18,11 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.close}>
+				<div>/</div>
+			</Modal>
 			<Body>
-				<Welcome />
+				<Welcome openModal={modalState.open} />
 			</Body>
 			<Footer />
 		</div>

@@ -110,18 +110,6 @@ export const NFTPicker = () => {
 	]);
 	return (
 		<section>
-			<Header>
-				<StyledButton text={"Back"} type="link" variant="secondary" href="/">
-					<ButtonIcon>--W</ButtonIcon>
-				</StyledButton>
-				<TitleArea>
-					<Typography
-						type="h3"
-						text={"Customize your Talent Protocol MATE."}
-						color="BLACK"
-					/>
-				</TitleArea>
-			</Header>
 			<PickerArea>
 				<TraitPickerArea>
 					<Trait
@@ -211,7 +199,11 @@ export const NFTPicker = () => {
 			</PickerArea>
 			<ActionArea>
 				<div>
-					<ShuffleButton callback={() => Object.values(traits).forEach(trait => trait.shuffle() )} />
+					<ShuffleButton
+						callback={() =>
+							Object.values(traits).forEach((trait) => trait.shuffle())
+						}
+					/>
 				</div>
 				<div>
 					<Button
