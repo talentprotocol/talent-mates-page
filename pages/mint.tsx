@@ -7,7 +7,9 @@ import { Footer } from "components/footer";
 import Modal from "components/modal";
 import { CongratulationsBuddyDialog } from "components/dialogs/congratulations-buddy";
 import { useModalState } from "components/modal/use-modal-state";
-import { NFTAlreadyTakenDialog } from "components/dialogs/nft-already-taken";
+import { ButtonIcon, Header, InnerHeaderContainer, StyledHeaderButton, TitleArea } from "components/nft-picker/styled";
+import { Button, Typography } from "shared-ui";
+// import { NFTAlreadyTakenDialog } from "components/dialogs/nft-already-taken";
 
 const Home: NextPage = () => {
 	const [imageSource, setImageSource] = useState<string | undefined>(
@@ -15,7 +17,7 @@ const Home: NextPage = () => {
 	);
 	const modalState = useModalState();
 	return (
-		<div>
+		<>
 			<Head>
 				<title>NFT Picker</title>
 				<meta
@@ -30,6 +32,25 @@ const Home: NextPage = () => {
 					imageSource={imageSource}
 				/>
 			</Modal>
+			<Header>
+				<InnerHeaderContainer>
+			<StyledHeaderButton
+				text={"Back"}
+				type="link"
+				variant="secondary"
+				href="/"
+			>
+				<ButtonIcon>--W</ButtonIcon>
+			</StyledHeaderButton>
+			<TitleArea>
+				<Typography
+				type="h3"
+				text={"Customize your Talent Protocol MATE."}
+				color="BLACK"
+				/>
+			</TitleArea>
+				</InnerHeaderContainer>
+			</Header>
 			<Body>
 				<NFTPicker
 					openModal={modalState.open}
@@ -37,7 +58,7 @@ const Home: NextPage = () => {
 				/>
 			</Body>
 			<Footer />
-		</div>
+		</>
 	);
 };
 

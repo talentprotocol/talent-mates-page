@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Typography } from "shared-ui";
 import { CrossSVG } from "../invalid-account/assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";

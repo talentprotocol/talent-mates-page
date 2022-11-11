@@ -1,9 +1,32 @@
+import { ethers } from "ethers";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
 import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
 import { Props } from "./types";
 
-const Welcome = ({ openModal }: Props) => (
+const Welcome = ({ openModal }: Props) => {
+	const router = useRouter();
+	const connectToWallet = useCallback(async () => {
+		try {
+			// const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
+			// @ts-ignore
+			const { ethereum } = window;
+			if (ethereum.isMetaMask) {
+				const provider = new ethers.providers.Web3Provider(ethereum);
+				const accounts = await provider.send("eth_requestAccounts", []);
+				console.log(accounts);
+				const network = await provider.getNetwork();
+				//console.log(network);
+				router.push("/mint");
+			}
+		} catch {
+			// @ts-ignore
+			openModal();
+		}
+	}, []);
+	return (
 	<Container>
 		<ContentArea>
 			<Typography type="h1" text="Mint your Talent Protocol Mate." />
@@ -16,7 +39,7 @@ const Welcome = ({ openModal }: Props) => (
 					type="button"
 					variant="primary"
 					text="Connect wallet"
-					onClick={openModal}
+					onClick={connectToWallet}
 				/>
 				<Button
 					type="button"
@@ -31,6 +54,7 @@ const Welcome = ({ openModal }: Props) => (
 			<FirstSVG />
 		</ImageArea>
 	</Container>
-);
+)
+};
 
 export default Welcome;
