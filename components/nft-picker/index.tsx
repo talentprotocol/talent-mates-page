@@ -1,25 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { Button, Typography } from "shared-ui";
-import { RefreshIcon } from "./assets/refresh";
 import {
-	Header,
-	ButtonIcon,
-	TitleArea,
+	SyntheticEvent,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
+import { Button } from "shared-ui";
+import {
 	PickerArea,
 	TraitPickerArea,
 	DisplayArea,
 	GenderPicker,
 	ImageHolder,
-	StyledButton,
 	ActionArea,
 } from "./styled";
 import { useTrait } from "./hooks/use-trait";
 import { Trait } from "./trait";
 import { ShuffleButton } from "./suffle-button";
+import { Props } from "./types";
 
 const CANVAS_SIDE = 552;
 
-export const NFTPicker = () => {
+export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const traits = {
@@ -66,6 +68,16 @@ export const NFTPicker = () => {
 			gender,
 		}),
 	};
+	const openMintModal = useCallback(
+		(event: SyntheticEvent) => {
+			if (typeof window !== "undefined" && canvasRef.current) {
+				//const url = canvasRef.current.toDataURL("image/png");
+				//setImageSource(url);
+				openModal(event);
+			}
+		},
+		[openModal, canvasRef.current]
+	);
 	useEffect(() => {
 		if (typeof window !== "undefined" && canvasRef.current) {
 			const canvasContext = canvasRef?.current.getContext("2d");
@@ -76,6 +88,7 @@ export const NFTPicker = () => {
 				// @ts-ignore
 				if (traits[trait].currentSelection !== -1) {
 					const traitImage = new Image();
+					//traitImage.crossOrigin = 'Anonymous';
 					// @ts-ignore
 					traitImage.src = traits[trait].image;
 					const traitPromise = new Promise<HTMLImageElement>(
@@ -211,7 +224,7 @@ export const NFTPicker = () => {
 						type="button"
 						variant="primary"
 						fullWidth
-						onClick={() => undefined}
+						onClick={openMintModal}
 					/>
 				</div>
 			</ActionArea>

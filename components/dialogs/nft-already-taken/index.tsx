@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { Typography } from "shared-ui";
-import { CrossSVG } from "./assets/cross-svg";
+import { CrossSVG } from "../invalid-account/assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
 
-export const InvalidAccountDialog = ({ closeModal }: Props) => {
+export const NFTAlreadyTakenDialog = ({ closeModal, imageSource }: Props) => {
 	return (
 		<Container
 			onClick={(e) => {
@@ -14,18 +15,21 @@ export const InvalidAccountDialog = ({ closeModal }: Props) => {
 			<XArea onClick={closeModal}>
 				<CrossSVG />
 			</XArea>
-			<Typography type="h3" text="Hmm... wallet address doesn’t look valid." />
+			{imageSource && (
+				<img width="170" height="170" src={imageSource} alt="buddy" />
+			)}
+			<Typography type="h3" text="Sorry, NFT already taken." />
 			<Typography
 				type="body1"
-				text="You need to have a Talent Protocol account and launch a token."
+				text="Don’t worry thought, you can still mint your MATE! Select at least one diferent trait and try again."
 				color="LIGHT_GREY"
 			/>
 			<ActionArea>
 				<StyledButton
-					text="Create account"
-					type="link"
+					text="I understand"
+					type="button"
 					variant="quaternary"
-					href="https://beta.talentprotocol.com/join"
+					onClick={closeModal}
 					target="_blank"
 				/>
 			</ActionArea>

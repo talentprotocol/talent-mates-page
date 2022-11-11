@@ -1,31 +1,5 @@
-import { Button, COLORS, fontNormal } from "shared-ui";
+import { COLORS } from "shared-ui";
 import styled from "styled-components";
-
-export const Header = styled.div`
-	display: flex;
-	justify-content: start;
-	align-items: center;
-	flex-direction: row;
-	margin-top: 40px;
-`;
-
-export const StyledButton = styled(Button)`
-	padding: 8px 32px !important;
-`;
-
-export const ButtonIcon = styled.span`
-	${fontNormal}
-	display: flex;
-	align-items: center;
-	margin-right: 16px;
-	font-weight: 700;
-	font-size: 16px;
-	line-height: 24px;
-`;
-
-export const TitleArea = styled.div`
-	margin-left: 32px;
-`;
 
 export const PickerArea = styled.div`
 	margin-top: 64px;

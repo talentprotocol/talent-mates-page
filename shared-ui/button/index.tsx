@@ -32,7 +32,7 @@ export const Button = ({
 			);
 		case ButtonTypeEnum.LINK:
 			return (
-				<Link href={href} passHref >
+				<Link href={href} passHref>
 					<ButtonLinkContainer
 						variant={variant}
 						fullWidth={fullWidth}
