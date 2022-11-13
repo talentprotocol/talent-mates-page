@@ -6,7 +6,7 @@ export const Container = styled.div`
 	width: 100%;
 	height: 100%;
 	background: ${COLORS.LIGHTER_BLACK}80;
-	z-index: 2;
+	z-index: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;

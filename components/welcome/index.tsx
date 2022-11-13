@@ -27,34 +27,34 @@ const Welcome = ({ openModal }: Props) => {
 		}
 	}, []);
 	return (
-	<Container>
-		<ContentArea>
-			<Typography type="h1" text="Mint your Talent Protocol Mate." />
-			<Typography
-				type="body1"
-				text="Create a beautiful web3 resume, make meaningful connections and access exciting web3 opportunities."
-			/>
-			<ActionArea>
-				<Button
-					type="button"
-					variant="primary"
-					text="Connect wallet"
-					onClick={connectToWallet}
+		<Container>
+			<ContentArea>
+				<Typography type="h1" text="Mint your Talent Protocol Mate." />
+				<Typography
+					type="body1"
+					text="Create a beautiful web3 resume, make meaningful connections and access exciting web3 opportunities."
 				/>
-				<Button
-					type="button"
-					variant="octonary"
-					text="How it works"
-					onClick={openModal}
-				/>
-			</ActionArea>
-		</ContentArea>
-		<ImageArea>
-			<FirstSVG />
-			<FirstSVG />
-		</ImageArea>
-	</Container>
-)
+				<ActionArea>
+					<Button
+						type="button"
+						variant="primary"
+						text="Connect wallet"
+						onClick={connectToWallet}
+					/>
+					<Button
+						type="button"
+						variant="octonary"
+						text="How it works"
+						onClick={openModal}
+					/>
+				</ActionArea>
+			</ContentArea>
+			<ImageArea>
+				<FirstSVG />
+				<FirstSVG />
+			</ImageArea>
+		</Container>
+	);
 };
 
 export default Welcome;

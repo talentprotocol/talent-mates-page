@@ -2,13 +2,13 @@ import { Button, COLORS, fontNormal } from "shared-ui";
 import styled from "styled-components";
 
 export const Header = styled.div`
-  width: 100%;
-  position: fixed;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-direction: row;
-  padding-top: 40px;
+	width: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	flex-direction: row;
+	padding-top: 40px;
 `;
 
 export const InnerHeaderContainer = styled.div`
@@ -22,15 +22,15 @@ export const StyledHeaderButton = styled(Button)`
 `;
 
 export const ButtonIcon = styled.span`
-  ${fontNormal}
-  margin-right: 16px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
+	${fontNormal}
+	margin-right: 16px;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
 `;
 
 export const TitleArea = styled.div`
-  margin-left: 32px;
+	margin-left: 32px;
 `;
 
 export const PickerArea = styled.div`

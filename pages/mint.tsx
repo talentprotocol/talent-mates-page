@@ -7,8 +7,14 @@ import { Footer } from "components/footer";
 import Modal from "components/modal";
 import { CongratulationsBuddyDialog } from "components/dialogs/congratulations-buddy";
 import { useModalState } from "components/modal/use-modal-state";
-import { ButtonIcon, Header, InnerHeaderContainer, StyledHeaderButton, TitleArea } from "components/nft-picker/styled";
-import { Button, Typography } from "shared-ui";
+import {
+	ButtonIcon,
+	Header,
+	InnerHeaderContainer,
+	StyledHeaderButton,
+	TitleArea,
+} from "components/nft-picker/styled";
+import { Typography } from "shared-ui";
 // import { NFTAlreadyTakenDialog } from "components/dialogs/nft-already-taken";
 
 const Home: NextPage = () => {
@@ -26,7 +32,7 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.open}>
+			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.close}>
 				<CongratulationsBuddyDialog
 					closeModal={modalState.close}
 					imageSource={imageSource}
@@ -34,21 +40,21 @@ const Home: NextPage = () => {
 			</Modal>
 			<Header>
 				<InnerHeaderContainer>
-			<StyledHeaderButton
-				text={"Back"}
-				type="link"
-				variant="secondary"
-				href="/"
-			>
-				<ButtonIcon>--W</ButtonIcon>
-			</StyledHeaderButton>
-			<TitleArea>
-				<Typography
-				type="h3"
-				text={"Customize your Talent Protocol MATE."}
-				color="BLACK"
-				/>
-			</TitleArea>
+					<StyledHeaderButton
+						text={"Back"}
+						type="link"
+						variant="secondary"
+						href="/"
+					>
+						<ButtonIcon>--W</ButtonIcon>
+					</StyledHeaderButton>
+					<TitleArea>
+						<Typography
+							type="h3"
+							text={"Customize your Talent Protocol MATE."}
+							color="BLACK"
+						/>
+					</TitleArea>
 				</InnerHeaderContainer>
 			</Header>
 			<Body>

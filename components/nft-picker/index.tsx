@@ -5,32 +5,29 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { Button, Typography } from "shared-ui";
+import { Button } from "shared-ui";
 import {
 	PickerArea,
 	TraitPickerArea,
 	DisplayArea,
 	GenderPicker,
 	ImageHolder,
-	ActionArea,
-	Header,
-	ButtonIcon,
-	TitleArea,
+	ActionArea
 } from "./styled";
+import abi from "./talentNFT.json";
 import { useTrait } from "./hooks/use-trait";
 import { Trait } from "./trait";
 import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
+import { ethers } from "ethers";
 
-const NETWORK_URL = process.env.PROVIDER_URL as string;
+
 const CANVAS_SIDE = 552;
 
 export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
-	const mintNFT = useCallback(() => {
-		
-	}, []);
+	const mintNFT = useCallback(() => {}, []);
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
@@ -76,12 +73,25 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		}),
 	};
 	const openMintModal = useCallback(
-		(event: SyntheticEvent) => {
-			if (typeof window !== "undefined" && canvasRef.current) {
-				//const url = canvasRef.current.toDataURL("image/png");
-				//setImageSource(url);
-				openModal(event);
+		async (event: SyntheticEvent) => {
+			try {
+				// @ts-ignore
+				const provider = new ethers.providers.JsonRpcProvider("https://alfajores-forno.celo-testnet.org");
+				const contract = new ethers.Contract("0x472A685789652a8079343f473bd88509cab99f2d", abi.abi, provider);
+				const isAvailable = await contract.isCombinationAvailable("dasd.png");
+				console.log(isAvailable);
+				if (typeof window !== "undefined" && canvasRef.current) {
+					//const url = canvasRef.current.toDataURL("image/png");
+					//setImageSource(url);
+					openModal(event);
+				}
+			} catch (err) {
+				console.log(err);
+				alert("some error");
 			}
+
+
+			
 		},
 		[openModal, canvasRef.current]
 	);
