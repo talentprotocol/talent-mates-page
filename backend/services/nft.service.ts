@@ -6,6 +6,17 @@ import { DefaultResponse } from "backend/types/response";
 import NFTRepository from "backend/repositories/nft.repository";
 import { ethers } from "ethers";
 
+type NFTPropsKeys =
+	| "gender"
+	| "background"
+	| "body"
+	| "eyes"
+	| "mouth"
+	| "hair"
+	| "clothing"
+	| "accessories"
+	| "thinking";
+
 export interface NFTProps {
 	gender: "male" | "female";
 	background: number;
@@ -19,7 +30,7 @@ export interface NFTProps {
 	"background-object": number;
 }
 
-type NFTProps = {
+type NFTPropsType = {
 	[key in NFTPropsKeys]?: number;
 };
 
@@ -90,17 +101,20 @@ const createNFT = async (
 			message: "Invalid signature"
 		});
 	}
+	// @ts-ignore
 	const fileName = computeImageName(properties);
 	const filePath = `${__dirname}/temp-output/${fileName}`;
 	const parsedProperties = { ...properties };
+	
+	// @ts-ignore
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
 	const traitKeysList = Object.keys(parsedProperties);
 	const imageList: string[] = traitList.map((el, index) =>
 		getImagePath(
 			traitKeysList[index],
-			el,
 			// @ts-ignore
+			el,
 			properties.gender
 		)
 	);
