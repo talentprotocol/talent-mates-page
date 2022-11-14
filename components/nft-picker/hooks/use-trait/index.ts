@@ -18,7 +18,11 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 							? `0${fixedValue.amount}.png`
 							: `${fixedValue.amount}.png`
 					);
-					setCurrentSelection(maxElements[gender]);
+					if (fixedValue.amount > maxElements[gender]) {
+						setCurrentSelection(maxElements[gender]);
+					} else {
+						setCurrentSelection(fixedValue.amount);
+					}
 				}
 				return;
 			}
