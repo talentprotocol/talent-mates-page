@@ -6,16 +6,18 @@ import { DefaultResponse } from "backend/types/response";
 import NFTRepository from "backend/repositories/nft.repository";
 import { ethers } from "ethers";
 
-type NFTPropsKeys =
-	| "gender"
-	| "background"
-	| "body"
-	| "eyes"
-	| "mouth"
-	| "hair"
-	| "clothing"
-	| "accessories"
-	| "thinking";
+export interface NFTProps {
+	gender: "male" | "female";
+	background: number;
+	body: number;
+	eyes: number;
+	mouth: number;
+	hair: number;
+	clothing: number;
+	accessories: number;
+	thinking: number;
+	"background-object": number;
+}
 
 type NFTProps = {
 	[key in NFTPropsKeys]?: number;
@@ -25,7 +27,7 @@ const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
-	"back_object",
+	"background-object",
 	"skin",
 	"ear",
 	"hair",
