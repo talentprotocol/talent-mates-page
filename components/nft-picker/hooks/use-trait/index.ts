@@ -18,7 +18,11 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 							? `0${fixedValue.amount}.png`
 							: `${fixedValue.amount}.png`
 					);
-					setCurrentSelection(maxElements[gender]);
+					if (fixedValue.amount > maxElements[gender]) {
+						setCurrentSelection(maxElements[gender]);
+					} else {
+						setCurrentSelection(fixedValue.amount);
+					}
 				}
 				return;
 			}
@@ -57,7 +61,6 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 
 	const shuffle = useCallback(() => {
 		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1));
-		console.log(newSelection);
 		setCurrentSelection(newSelection);
 		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);
