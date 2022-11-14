@@ -31,13 +31,13 @@ export const Trait = ({
 				<TraitSwitchButton>--E</TraitSwitchButton>
 			</Button>
 			<TraitSwitchInfo>
-				<p>
+				<Typography type="body2" color="BLACK">
 					<>
 						{currentTraitNumber !== -1
 							? `${currentTraitNumber}/${totalNumberOfTraits}`
 							: "None"}
 					</>
-				</p>
+				</Typography>
 			</TraitSwitchInfo>
 		</TraitSwitchArea>
 	</TraitArea>
