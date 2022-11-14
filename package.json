@@ -11,16 +11,30 @@
     "posttest": "npm run format"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.32.0",
+    "@celo-tools/celo-ethers-wrapper": "^0.1.0",
+    "animate.css": "^4.1.1",
+    "axios": "^0.26.1",
+    "bcrypt": "^5.1.0",
+    "ethers": "^5.7.2",
+    "lodash": "^4.17.21",
+    "mime": "^3.0.0",
     "next": "12.3.1",
+    "nft.storage": "^6.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sharp": "^0.31.1"
+    "sharp": "^0.31.1",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/lodash": "^4.14.188",
+    "@types/mime": "^3.0.1",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/sharp": "^0.31.0",
+    "@types/styled-components": "^5.1.26",
     "eslint": "8.26.0",
     "eslint-config-next": "12.3.1",
     "prettier": ">=2",

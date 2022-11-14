@@ -1,0 +1,1381 @@
+{
+  "female": {
+    "acessories": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "back": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "body": [
+
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "clothing": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "22",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "23",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "24",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "eyes": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "hair": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "22",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "23",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "24",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "25",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "26",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "27",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "mouth": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "thinking": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      }
+    ]
+  },
+  "male": {
+    "acessories": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "back": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "body": [
+
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "clothing": [
+
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "22",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "23",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "24",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "eyes": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "hair": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "18",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "19",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "20",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "21",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "22",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "23",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "24",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "25",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "mouth": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      }
+    ],
+    "thinking": [
+      {
+        "value": "01",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "02",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "03",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "04",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "05",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "06",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "07",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "08",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "09",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "10",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "11",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "12",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "13",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "14",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "15",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "16",
+        "description": "",
+        "url": ""
+      },
+      {
+        "value": "17",
+        "description": "",
+        "url": ""
+      }
+    ]
+  }
+}
