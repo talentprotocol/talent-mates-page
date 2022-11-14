@@ -1,5 +1,6 @@
 import { Button, COLORS, fontNormal } from "shared-ui";
 import styled from "styled-components";
+import { SpinnerAreaProps } from "./types";
 
 export const Header = styled.div`
 	width: 100%;

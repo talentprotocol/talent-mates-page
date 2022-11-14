@@ -42,8 +42,8 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 				if (computedAmount === -2) {
 					setFileName(
 						computedAmount < 10
-							? `0${computedAmount}.png`
-							: `${computedAmount}.png`
+							? `0${Math.abs(computedAmount)}.png`
+							: `${Math.abs(computedAmount)}.png`
 					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
@@ -54,12 +54,14 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 		},
 		[currentSelection, maxElements, gender]
 	);
+
 	const shuffle = useCallback(() => {
 		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1));
 		console.log(newSelection);
 		setCurrentSelection(newSelection);
 		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);
+
 	return {
 		image: `${BASE_URL}/${name}/${gender}/${fileName}`,
 		updateCurrentSelection,

@@ -5,14 +5,14 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { Button } from "shared-ui";
+import { Button, Spinner } from "shared-ui";
 import {
 	PickerArea,
 	TraitPickerArea,
 	DisplayArea,
 	GenderPicker,
 	ImageHolder,
-	ActionArea
+	ActionArea,
 } from "./styled";
 import abi from "./talentNFT.json";
 import { useTrait } from "./hooks/use-trait";
@@ -28,6 +28,8 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const mintNFT = useCallback(() => {}, []);
+	const [generatingImage, setGeneratingImage] = useState(false);
+
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
@@ -103,6 +105,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	);
 	useEffect(() => {
 		if (typeof window !== "undefined" && canvasRef.current) {
+			setGeneratingImage(true);
 			const canvasContext = canvasRef?.current.getContext("2d");
 			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
 			const promisesList: Promise<CanvasImageSource>[] = [];
@@ -131,6 +134,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 				images.forEach((image) => {
 					canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
 				});
+				setGeneratingImage(false);
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -197,11 +201,26 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 							/>
 						</GenderPicker>
 						<ImageHolder>
-							<canvas
+							{!generatingImage && <canvas
 								ref={canvasRef}
 								width={`${CANVAS_SIDE}px`}
 								height={`${CANVAS_SIDE}px`}
-							/>
+							/>}
+							{generatingImage && 
+								<div
+									style={
+										{
+											width: `${CANVAS_SIDE}px`,
+											height: `${CANVAS_SIDE}px`,
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center"
+										}
+									}
+								>
+									<Spinner />
+								</div>
+							}
 						</ImageHolder>
 					</DisplayArea>
 					<TraitPickerArea>

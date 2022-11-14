@@ -65,4 +65,8 @@ export const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  #loading {
+    animation: rotate 1s infinite linear;
+  }
 `;
