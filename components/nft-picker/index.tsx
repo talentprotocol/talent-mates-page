@@ -80,6 +80,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			gender,
 		}),
 	};
+
 	const openMintModal = useCallback(
 		async (event: SyntheticEvent) => {
 			try {
@@ -103,9 +104,9 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		},
 		[openModal, canvasRef.current]
 	);
+
 	useEffect(() => {
 		if (typeof window !== "undefined" && canvasRef.current) {
-			setGeneratingImage(true);
 			const canvasContext = canvasRef?.current.getContext("2d");
 			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
 			const promisesList: Promise<CanvasImageSource>[] = [];
@@ -134,7 +135,6 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 				images.forEach((image) => {
 					canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
 				});
-				setGeneratingImage(false);
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,6 +149,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		traits.thinkingTrait,
 		traits.backgroundObjectTrait,
 	]);
+
 	return (
 		<>
 			<section>
