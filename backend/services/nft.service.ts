@@ -10,12 +10,13 @@ export interface NFTProps {
 	clothing: number;
 	accessories: number;
 	thinking: number;
+	"background-object": number;
 }
 
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
-	"back_object",
+	"background-object",
 	"skin",
 	"ear",
 	"hair",

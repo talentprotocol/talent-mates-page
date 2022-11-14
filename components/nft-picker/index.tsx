@@ -32,13 +32,19 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		backgroundTrait: useTrait({
 			name: "background",
 			description: "Background",
-			maxElements: { male: 8, female: 8 },
+			maxElements: { male: 12, female: 12 },
+			gender,
+		}),
+		backgroundObjectTrait: useTrait({
+			name: "background-object",
+			description: "Background Object",
+			maxElements: { male: 21, female: 21 },
 			gender,
 		}),
 		skinTrait: useTrait({
 			name: "body",
 			description: "Skin",
-			maxElements: { male: 7, female: 7 },
+			maxElements: { male: 17, female: 17 },
 			gender,
 		}),
 		clothingTrait: useTrait({
@@ -50,25 +56,25 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		hairTrait: useTrait({
 			name: "hair",
 			description: "Hair",
-			maxElements: { male: 6, female: 6 },
+			maxElements: { male: 25, female: 27 },
 			gender,
 		}),
 		mouthTrait: useTrait({
 			name: "mouth",
 			description: "Mouth",
-			maxElements: { male: 9, female: 9 },
+			maxElements: { male: 12, female: 11 },
 			gender,
 		}),
 		eyesTrait: useTrait({
 			name: "eyes",
 			description: "Eyes",
-			maxElements: { male: 11, female: 11 },
+			maxElements: { male: 11, female: 12 },
 			gender,
 		}),
 		thinkingTrait: useTrait({
 			name: "thinking",
 			description: "Thinking",
-			maxElements: { male: 19, female: 19 },
+			maxElements: { male: 17, female: 17 },
 			gender,
 		}),
 	};
@@ -137,6 +143,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		traits.mouthTrait,
 		traits.skinTrait,
 		traits.thinkingTrait,
+		traits.backgroundObjectTrait,
 	]);
 	return (
 		<>
@@ -220,11 +227,11 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 							totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
 						/>
 						<Trait
-							trait={"background_object"}
-							description={"Background Object (?)"}
-							onTraitSelection={() => {}}
-							currentTraitNumber={1}
-							totalNumberOfTraits={11}
+							trait={traits.backgroundObjectTrait.name}
+							description={traits.backgroundObjectTrait.description}
+							onTraitSelection={traits.backgroundObjectTrait.updateCurrentSelection}
+							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+							totalNumberOfTraits={traits.backgroundObjectTrait.maxElements[gender]}
 						/>
 					</TraitPickerArea>
 				</PickerArea>

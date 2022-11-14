@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const Header = styled.div`
 	width: 100%;
-	position: fixed;
 	display: flex;
 	justify-content: start;
 	align-items: center;
@@ -34,7 +33,6 @@ export const TitleArea = styled.div`
 `;
 
 export const PickerArea = styled.div`
-	margin-top: 64px;
 	margin-bottom: 64px;
 	display: flex;
 	flex-direction: row;
@@ -79,6 +77,7 @@ export const ImageHolder = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow: auto;
 `;
 
 export const ActionArea = styled.div`

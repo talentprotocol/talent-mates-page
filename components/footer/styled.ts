@@ -4,7 +4,6 @@ import { COLORS, fontNormal } from "shared-ui";
 export const Container = styled.footer`
 	padding: 24px 0;
 	width: 100%;
-	position: fixed;
 	bottom: 0;
 	border-top: 1px solid ${COLORS.GREY};
 `;
