@@ -1,6 +1,5 @@
 import { Button, COLORS, fontNormal } from "shared-ui";
 import styled from "styled-components";
-import { SpinnerAreaProps } from "./types";
 
 export const Header = styled.div`
 	width: 100%;
@@ -79,6 +78,7 @@ export const ImageHolder = styled.div`
 	justify-content: center;
 	align-items: center;
 	overflow: auto;
+	position: relative;
 `;
 
 export const ActionArea = styled.div`

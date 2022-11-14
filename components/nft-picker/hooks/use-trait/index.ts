@@ -57,7 +57,6 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 
 	const shuffle = useCallback(() => {
 		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1));
-		console.log(newSelection);
 		setCurrentSelection(newSelection);
 		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);

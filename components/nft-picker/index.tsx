@@ -5,6 +5,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { debounce } from "lodash";
 import { Button, Spinner } from "shared-ui";
 import {
 	PickerArea,
@@ -103,42 +104,42 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		},
 		[openModal, canvasRef.current]
 	);
-	useEffect(() => {
-		if (typeof window !== "undefined" && canvasRef.current) {
-			setGeneratingImage(true);
-			const canvasContext = canvasRef?.current.getContext("2d");
-			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
-			const promisesList: Promise<CanvasImageSource>[] = [];
-			const traitList = Object.keys(traits);
-			traitList.forEach((trait) => {
-				// @ts-ignore
-				if (traits[trait].currentSelection !== -1) {
-					const traitImage = new Image();
-					//traitImage.crossOrigin = 'Anonymous';
+	useEffect(debounce(() => {
+			if (typeof window !== "undefined" && canvasRef.current) {
+				//setGeneratingImage(true);
+				const canvasContext = canvasRef?.current.getContext("2d");
+				canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
+				const promisesList: Promise<CanvasImageSource>[] = [];
+				const traitList = Object.keys(traits);
+				traitList.forEach((trait) => {
 					// @ts-ignore
-					traitImage.src = traits[trait].image;
-					const traitPromise = new Promise<HTMLImageElement>(
-						(resolve, reject) => {
-							traitImage.onload = () => {
-								resolve(traitImage);
-							};
-							traitImage.onerror = () => {
-								reject(null);
-							};
-						}
-					);
-					promisesList.push(traitPromise);
-				}
-			});
-			Promise.all(promisesList).then((images) => {
-				images.forEach((image) => {
-					canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
+					if (traits[trait].currentSelection !== -1) {
+						const traitImage = new Image();
+						//traitImage.crossOrigin = 'Anonymous';
+						// @ts-ignore
+						traitImage.src = traits[trait].image;
+						const traitPromise = new Promise<HTMLImageElement>(
+							(resolve, reject) => {
+								traitImage.onload = () => {
+									resolve(traitImage);
+								};
+								traitImage.onerror = () => {
+									reject(null);
+								};
+							}
+						);
+						promisesList.push(traitPromise);
+					}
 				});
-				setGeneratingImage(false);
-			});
-		}
+				Promise.all(promisesList).then((images) => {
+					images.forEach((image) => {
+						canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
+					});
+					//setGeneratingImage(false);
+				});
+			}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [
+	}, 100), [
 		traits.hairTrait,
 		traits.backgroundTrait,
 		traits.clothingTrait,
@@ -201,26 +202,12 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 							/>
 						</GenderPicker>
 						<ImageHolder>
-							{!generatingImage && <canvas
+							<Spinner isShown={generatingImage} />
+							<canvas
 								ref={canvasRef}
 								width={`${CANVAS_SIDE}px`}
 								height={`${CANVAS_SIDE}px`}
-							/>}
-							{generatingImage && 
-								<div
-									style={
-										{
-											width: `${CANVAS_SIDE}px`,
-											height: `${CANVAS_SIDE}px`,
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center"
-										}
-									}
-								>
-									<Spinner />
-								</div>
-							}
+							/>
 						</ImageHolder>
 					</DisplayArea>
 					<TraitPickerArea>
