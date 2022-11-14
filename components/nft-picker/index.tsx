@@ -81,6 +81,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			gender,
 		}),
 	};
+
 	const openMintModal = useCallback(
 		async (event: SyntheticEvent) => {
 			try {
@@ -104,14 +105,18 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		},
 		[openModal, canvasRef.current]
 	);
+
 	useEffect(debounce(() => {
-			if (typeof window !== "undefined" && canvasRef.current) {
-				//setGeneratingImage(true);
-				const canvasContext = canvasRef?.current.getContext("2d");
-				canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
-				const promisesList: Promise<CanvasImageSource>[] = [];
-				const traitList = Object.keys(traits);
-				traitList.forEach((trait) => {
+		if (typeof window !== "undefined" && canvasRef.current) {
+			const canvasContext = canvasRef?.current.getContext("2d");
+			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
+			const promisesList: Promise<CanvasImageSource>[] = [];
+			const traitList = Object.keys(traits);
+			traitList.forEach((trait) => {
+				// @ts-ignore
+				if (traits[trait].currentSelection !== -1) {
+					const traitImage = new Image();
+					//traitImage.crossOrigin = 'Anonymous';
 					// @ts-ignore
 					if (traits[trait].currentSelection !== -1) {
 						const traitImage = new Image();
@@ -130,7 +135,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 						);
 						promisesList.push(traitPromise);
 					}
-				});
+				}});
 				Promise.all(promisesList).then((images) => {
 					images.forEach((image) => {
 						canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
@@ -138,7 +143,6 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 					//setGeneratingImage(false);
 				});
 			}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, 100), [
 		traits.hairTrait,
 		traits.backgroundTrait,
@@ -150,6 +154,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		traits.thinkingTrait,
 		traits.backgroundObjectTrait,
 	]);
+
 	return (
 		<>
 			<section>
