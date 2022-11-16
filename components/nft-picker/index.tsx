@@ -28,29 +28,6 @@ const CANVAS_SIDE = 552;
 export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
-	const mintNFT = useCallback(async () => {
-		// @ts-ignore
-		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
-		const accounts = await defaultProvider.send("eth_requestAccounts", []);
-		// @ts-ignore
-		const provider = new ethers.providers.JsonRpcProvider(
-			"https://alfajores-forno.celo-testnet.org"
-		);
-		const contract = new ethers.Contract(
-			"0x29de1f2D9b0644f1C5Bc445A29e5706FB890Bff3",
-			abi.abi,
-			provider
-		);
-		const isAvailable = await contract.isCombinationAvailable("dasd.png");
-		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
-
-		if (!isAvailable) {
-			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
-		}
-		if (!isWhitlisted) {
-			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
-		}
-	}, []);
 	const [generatingImage, setGeneratingImage] = useState(true);
 
 	const traits = {
@@ -103,6 +80,43 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			gender,
 		}),
 	};
+	const mintNFT = useCallback(async () => {
+		
+		const combination = Object.values(traits).map(t => t.currentSelection).join("-") + ".png";
+		// @ts-ignore
+		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
+		const accounts = await defaultProvider.send("eth_requestAccounts", []);
+		// @ts-ignore
+		const provider = new ethers.providers.JsonRpcProvider(
+			"https://alfajores-forno.celo-testnet.org"
+		);
+		const contract = new ethers.Contract(
+			"0xa888fC8dB4134FDcBd37847cC3EE43C73612c5d6",
+			abi.abi,
+			provider
+		);
+
+		const isAvailable = await contract.isCombinationAvailable(combination);
+		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
+
+		if (!isAvailable) {
+			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
+		}
+		if (!isWhitlisted) {
+			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
+		}
+		await contract.connect(defaultProvider.getSigner()).mint();
+	}, [
+		traits.hairTrait,
+		traits.backgroundTrait,
+		traits.clothingTrait,
+		traits.clothingTrait,
+		traits.eyesTrait,
+		traits.mouthTrait,
+		traits.skinTrait,
+		traits.thinkingTrait,
+		traits.backgroundObjectTrait,
+	]);
 
 	const openMintModal = useCallback(
 		async (event: SyntheticEvent) => {
@@ -116,7 +130,13 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 					openModal(event);
 				}
 			} catch (err) {
-				alert(err);
+				// @ts-ignore
+				if (MINT_ERROR_CODES[err]) {
+					alert(err);
+				} else {
+					console.error(err);
+					alert("UNKNOWN ERROR - CHECK CONSOLE");
+				}
 			}
 		},
 		[openModal, canvasRef.current]
