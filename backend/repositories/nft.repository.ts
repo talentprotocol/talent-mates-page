@@ -41,9 +41,7 @@ const setMetaData = async (
 				traits: fileName,
 			},
 		});
-		await contract
-			.connect(owner)
-			.setTokenURI(tokenId, metadata.url, fileName);
+		await contract.connect(owner).setTokenURI(tokenId, metadata.url, fileName);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully setted nft metadata",

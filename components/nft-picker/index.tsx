@@ -22,14 +22,13 @@ import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
 
-
 const CANVAS_SIDE = 552;
 
 export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const mintNFT = useCallback(() => {}, []);
-	const [generatingImage, setGeneratingImage] = useState(false);
+	const [generatingImage, setGeneratingImage] = useState(true);
 
 	const traits = {
 		backgroundTrait: useTrait({
@@ -86,10 +85,19 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		async (event: SyntheticEvent) => {
 			try {
 				// @ts-ignore
-				const provider = new ethers.providers.JsonRpcProvider("https://alfajores-forno.celo-testnet.org");
-				const contract = new ethers.Contract("0x472A685789652a8079343f473bd88509cab99f2d", abi.abi, provider);
+				const provider = new ethers.providers.JsonRpcProvider(
+					"https://alfajores-forno.celo-testnet.org"
+				);
+				const contract = new ethers.Contract(
+					"0x472A685789652a8079343f473bd88509cab99f2d",
+					abi.abi,
+					provider
+				);
 				const isAvailable = await contract.isCombinationAvailable("dasd.png");
 				console.log(isAvailable);
+
+				// todo: call backend
+
 				if (typeof window !== "undefined" && canvasRef.current) {
 					//const url = canvasRef.current.toDataURL("image/png");
 					//setImageSource(url);
@@ -99,61 +107,70 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 				console.log(err);
 				alert("some error");
 			}
-
-
-			
 		},
 		[openModal, canvasRef.current]
 	);
 
-	useEffect(debounce(() => {
-		if (typeof window !== "undefined" && canvasRef.current) {
-			const canvasContext = canvasRef?.current.getContext("2d");
-			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
-			const promisesList: Promise<CanvasImageSource>[] = [];
-			const traitList = Object.keys(traits);
-			traitList.forEach((trait) => {
-				// @ts-ignore
-				if (traits[trait].currentSelection !== -1) {
-					const traitImage = new Image();
-					//traitImage.crossOrigin = 'Anonymous';
+	useEffect(
+		debounce(() => {
+			if (typeof window !== "undefined" && canvasRef.current) {
+				setGeneratingImage(true);
+				const canvasContext = canvasRef?.current.getContext("2d");
+				canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
+				const promisesList: Promise<CanvasImageSource>[] = [];
+				const traitList = Object.keys(traits);
+				traitList.forEach((trait) => {
 					// @ts-ignore
 					if (traits[trait].currentSelection !== -1) {
-						const traitImage = new Image();
-						//traitImage.crossOrigin = 'Anonymous';
 						// @ts-ignore
-						traitImage.src = traits[trait].image;
-						const traitPromise = new Promise<HTMLImageElement>(
-							(resolve, reject) => {
-								traitImage.onload = () => {
-									resolve(traitImage);
-								};
-								traitImage.onerror = () => {
-									reject(null);
-								};
-							}
-						);
-						promisesList.push(traitPromise);
+						if (traits[trait].currentSelection !== -1) {
+							const traitImage = new Image();
+							//traitImage.crossOrigin = 'Anonymous';
+							// @ts-ignore
+							traitImage.src = traits[trait].image;
+							const traitPromise = new Promise<HTMLImageElement>(
+								(resolve, reject) => {
+									traitImage.onload = () => {
+										resolve(traitImage);
+									};
+									traitImage.onerror = () => {
+										reject(null);
+									};
+								}
+							);
+							promisesList.push(traitPromise);
+						}
 					}
-				}});
+				});
 				Promise.all(promisesList).then((images) => {
 					images.forEach((image) => {
 						canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
 					});
-					//setGeneratingImage(false);
+					setGeneratingImage(false);
 				});
 			}
-	}, 100), [
-		traits.hairTrait,
-		traits.backgroundTrait,
-		traits.clothingTrait,
-		traits.clothingTrait,
-		traits.eyesTrait,
-		traits.mouthTrait,
-		traits.skinTrait,
-		traits.thinkingTrait,
-		traits.backgroundObjectTrait,
-	]);
+		}, 100),
+		[
+			traits.hairTrait,
+			traits.backgroundTrait,
+			traits.clothingTrait,
+			traits.clothingTrait,
+			traits.eyesTrait,
+			traits.mouthTrait,
+			traits.skinTrait,
+			traits.thinkingTrait,
+			traits.backgroundObjectTrait,
+		]
+	);
+
+	const shuffleCombination = useCallback(() => {
+		Object.values(traits).forEach((trait) => trait.shuffle());
+	}, []);
+
+	useEffect(() => {
+		shuffleCombination();
+		setGeneratingImage(false);
+	}, []);
 
 	return (
 		<>
@@ -240,19 +257,19 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 						<Trait
 							trait={traits.backgroundObjectTrait.name}
 							description={traits.backgroundObjectTrait.description}
-							onTraitSelection={traits.backgroundObjectTrait.updateCurrentSelection}
+							onTraitSelection={
+								traits.backgroundObjectTrait.updateCurrentSelection
+							}
 							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
-							totalNumberOfTraits={traits.backgroundObjectTrait.maxElements[gender]}
+							totalNumberOfTraits={
+								traits.backgroundObjectTrait.maxElements[gender]
+							}
 						/>
 					</TraitPickerArea>
 				</PickerArea>
 				<ActionArea>
 					<div>
-						<ShuffleButton
-							callback={() =>
-								Object.values(traits).forEach((trait) => trait.shuffle())
-							}
-						/>
+						<ShuffleButton callback={shuffleCombination} />
 					</div>
 					<div>
 						<Button

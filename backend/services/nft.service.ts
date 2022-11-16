@@ -94,18 +94,21 @@ const createNFT = async (
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
 		});
 	}
-	const signedMessageAddress = ethers.utils.verifyMessage(AUTH_SIGNED_MESSAGE, signature);
+	const signedMessageAddress = ethers.utils.verifyMessage(
+		AUTH_SIGNED_MESSAGE,
+		signature
+	);
 	if (signedMessageAddress !== userAddress) {
 		return Promise.reject({
 			status: 401,
-			message: "Invalid signature"
+			message: "Invalid signature",
 		});
 	}
 	// @ts-ignore
 	const fileName = computeImageName(properties);
 	const filePath = `${__dirname}/temp-output/${fileName}`;
 	const parsedProperties = { ...properties };
-	
+
 	// @ts-ignore
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
@@ -126,11 +129,7 @@ const createNFT = async (
 			.composite(imageList.map((el) => ({ input: el })))
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.setMetaData(
-			fileName,
-			image,
-			tokenId
-		);
+		await NFTRepository.setMetaData(fileName, image, tokenId);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);

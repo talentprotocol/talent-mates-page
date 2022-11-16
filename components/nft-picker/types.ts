@@ -6,6 +6,6 @@ export interface Props {
 }
 
 export interface SpinnerAreaProps {
-	width: number,
-	height: number,
+	width: number;
+	height: number;
 }

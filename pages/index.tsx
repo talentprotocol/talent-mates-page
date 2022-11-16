@@ -22,10 +22,10 @@ const Home: NextPage = () => {
 			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.close}>
 				<InvalidAccountDialog closeModal={modalState.close} />
 			</Modal>
-			<Body fullHeight={true} >
+			<Body fullHeight={true}>
 				<Welcome openModal={modalState.open} />
 			</Body>
-			<Footer fixed={true}/>
+			<Footer fixed={true} />
 		</div>
 	);
 };

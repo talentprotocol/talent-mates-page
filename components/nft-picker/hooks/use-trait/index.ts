@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Props } from "./types";
 
 const BASE_URL = "https://d6cu1tnva62p2.cloudfront.net";
@@ -65,14 +65,19 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);
 
-	return {
-		image: `${BASE_URL}/${name}/${gender}/${fileName}`,
-		updateCurrentSelection,
-		name,
-		gender,
-		description,
-		maxElements,
-		currentSelection,
-		shuffle,
-	};
+	const memoedTrait = useMemo(
+		() => ({
+			image: `${BASE_URL}/${name}/${gender}/${fileName}`,
+			updateCurrentSelection,
+			name,
+			gender,
+			description,
+			maxElements,
+			currentSelection,
+			shuffle,
+		}),
+		[fileName, gender, currentSelection, maxElements[gender]]
+	);
+
+	return memoedTrait;
 };

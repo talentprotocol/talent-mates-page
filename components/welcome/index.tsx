@@ -15,10 +15,8 @@ const Welcome = ({ openModal }: Props) => {
 			const { ethereum } = window;
 			if (ethereum.isMetaMask) {
 				const provider = new ethers.providers.Web3Provider(ethereum);
-				const accounts = await provider.send("eth_requestAccounts", []);
-				console.log(accounts);
-				const network = await provider.getNetwork();
-				//console.log(network);
+				await provider.send("eth_requestAccounts", []);
+				await provider.getNetwork();
 				router.push("/mint");
 			}
 		} catch {
