@@ -9,14 +9,14 @@ export const CrossSVG = () => (
 		<path
 			d="M0.5 11L10.5 1"
 			stroke="#1C2126"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 		<path
 			d="M0.5 1L10.5 11"
 			stroke="#1C2126"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 	</svg>
 );

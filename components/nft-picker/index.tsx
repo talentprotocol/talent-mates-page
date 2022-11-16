@@ -21,13 +21,36 @@ import { Trait } from "./trait";
 import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
+import { MINT_ERROR_CODES } from "./error-codes";
 
 const CANVAS_SIDE = 552;
 
 export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
-	const mintNFT = useCallback(() => {}, []);
+	const mintNFT = useCallback(async () => {
+		// @ts-ignore
+		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
+		const accounts = await defaultProvider.send("eth_requestAccounts", []);
+		// @ts-ignore
+		const provider = new ethers.providers.JsonRpcProvider(
+			"https://alfajores-forno.celo-testnet.org"
+		);
+		const contract = new ethers.Contract(
+			"0x29de1f2D9b0644f1C5Bc445A29e5706FB890Bff3",
+			abi.abi,
+			provider
+		);
+		const isAvailable = await contract.isCombinationAvailable("dasd.png");
+		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
+
+		if (!isAvailable) {
+			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
+		}
+		if (!isWhitlisted) {
+			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
+		}
+	}, []);
 	const [generatingImage, setGeneratingImage] = useState(true);
 
 	const traits = {
@@ -84,18 +107,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	const openMintModal = useCallback(
 		async (event: SyntheticEvent) => {
 			try {
-				// @ts-ignore
-				const provider = new ethers.providers.JsonRpcProvider(
-					"https://alfajores-forno.celo-testnet.org"
-				);
-				const contract = new ethers.Contract(
-					"0x472A685789652a8079343f473bd88509cab99f2d",
-					abi.abi,
-					provider
-				);
-				const isAvailable = await contract.isCombinationAvailable("dasd.png");
-				console.log(isAvailable);
-
+				await mintNFT();
 				// todo: call backend
 
 				if (typeof window !== "undefined" && canvasRef.current) {
@@ -104,8 +116,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 					openModal(event);
 				}
 			} catch (err) {
-				console.log(err);
-				alert("some error");
+				alert(err);
 			}
 		},
 		[openModal, canvasRef.current]
