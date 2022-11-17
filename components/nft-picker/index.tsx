@@ -22,7 +22,9 @@ import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
 import { MINT_ERROR_CODES } from "./error-codes";
+import { createNFT } from "api-client";
 
+const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 552;
 
 export const NFTPicker = ({ openModal, setImageSource }: Props) => {
@@ -81,20 +83,49 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		}),
 	};
 	const mintNFT = useCallback(async () => {
-		
 		const combination = Object.values(traits).map(t => t.currentSelection).join("-") + ".png";
 		// @ts-ignore
 		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
+		const signer = defaultProvider.getSigner();
 		const accounts = await defaultProvider.send("eth_requestAccounts", []);
 		// @ts-ignore
 		const provider = new ethers.providers.JsonRpcProvider(
 			"https://alfajores-forno.celo-testnet.org"
 		);
 		const contract = new ethers.Contract(
-			"0xa888fC8dB4134FDcBd37847cC3EE43C73612c5d6",
+			"0xF712c770036Ff4BEBeaEce90967be61980df456C",
 			abi.abi,
 			provider
 		);
+		
+		const userBalance = await contract.balanceOf(await signer.getAddress());
+		if (userBalance > 0) {
+			const tokenId = await contract.connect(signer).tokenOfOwnerByIndex(accounts[0], 0);
+			const tokenURI = await contract.connect(signer).tokenURI(tokenId);
+			if (tokenURI === "none") {
+				const options = Object.keys(traits).reduce((acc, t) => {
+					// @ts-ignore
+					console.log(traits[t])
+					// @ts-ignore
+					if (traits[t].currentSelection !== -1) {
+						// @ts-ignore
+						acc[traits[t].name] = traits[t].currentSelection;
+					}
+					return acc;
+				}, {});
+				const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
+				// @ts-ignore
+				options["gender"] = gender;
+				createNFT(options, signature, accounts[0], tokenId)
+					.then(resp => {
+						console.log(resp)
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			} 
+			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
+		}
 
 		const isAvailable = await contract.isCombinationAvailable(combination);
 		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
@@ -105,7 +136,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		if (!isWhitlisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
-		await contract.connect(defaultProvider.getSigner()).mint();
+		await contract.connect(signer).mint();
 	}, [
 		traits.hairTrait,
 		traits.backgroundTrait,
@@ -116,6 +147,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		traits.skinTrait,
 		traits.thinkingTrait,
 		traits.backgroundObjectTrait,
+		gender
 	]);
 
 	const openMintModal = useCallback(
