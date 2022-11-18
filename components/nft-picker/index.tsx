@@ -93,7 +93,7 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			"https://alfajores-forno.celo-testnet.org"
 		);
 		const contract = new ethers.Contract(
-			"0xF712c770036Ff4BEBeaEce90967be61980df456C",
+			"0xdE636C310a1dd533a0A4B028aa2dd50E91056C96",
 			abi.abi,
 			provider
 		);
@@ -105,8 +105,6 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			if (tokenURI === "none") {
 				const options = Object.keys(traits).reduce((acc, t) => {
 					// @ts-ignore
-					console.log(traits[t])
-					// @ts-ignore
 					if (traits[t].currentSelection !== -1) {
 						// @ts-ignore
 						acc[traits[t].name] = traits[t].currentSelection;
@@ -116,9 +114,9 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 				const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 				// @ts-ignore
 				options["gender"] = gender;
-				createNFT(options, signature, accounts[0], tokenId)
+				await createNFT(options, signature, accounts[0], tokenId)
 					.then(resp => {
-						console.log(resp)
+						console.log(resp);
 					})
 					.catch(err => {
 						console.log(err);
@@ -171,7 +169,19 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 				}
 			}
 		},
-		[openModal, canvasRef.current]
+		[	
+			openModal, 
+			canvasRef.current,
+			traits.hairTrait,
+			traits.backgroundTrait,
+			traits.clothingTrait,
+			traits.clothingTrait,
+			traits.eyesTrait,
+			traits.mouthTrait,
+			traits.skinTrait,
+			traits.thinkingTrait,
+			traits.backgroundObjectTrait
+		]
 	);
 
 	useEffect(
@@ -231,8 +241,10 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		shuffleCombination();
-		setGeneratingImage(false);
+		setTimeout(() => {
+			shuffleCombination();
+			setGeneratingImage(false);
+		});
 	}, []);
 
 	return (

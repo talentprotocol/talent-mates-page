@@ -21,10 +21,10 @@ const setMetaData = async (
 			FactoryArtifact.abi,
 			provider
 		);
-		const isCombinationAvailable = contract
+		const isCombinationAvailable = await contract
 			.connect(owner)
-			.isCombinationaAvailable(fileName);
-		if (isCombinationAvailable) {
+			.isCombinationAvailable(fileName);
+		if (!isCombinationAvailable) {
 			return Promise.reject({
 				status: 409,
 				message: "The current combination is already in use",
