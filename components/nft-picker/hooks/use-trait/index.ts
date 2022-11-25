@@ -69,7 +69,6 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 	);
 
 	const shuffle = useCallback(() => {
-		console.log("here")
 		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1) 
 		// @ts-ignore(
 		+ (MANDATORY_PROPERTIES_LIST[name] ? 1 : 0));

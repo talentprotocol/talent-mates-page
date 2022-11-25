@@ -7,6 +7,7 @@ import { Footer } from "components/footer";
 import Modal from "components/modal";
 import { CongratulationsBuddyDialog } from "components/dialogs/congratulations-buddy";
 import { useModalState } from "components/modal/use-modal-state";
+import { useErrorModalState } from "components/error-modal/use-modal-state";
 import {
 	ButtonIcon,
 	Header,
@@ -15,6 +16,7 @@ import {
 	TitleArea,
 } from "components/nft-picker/styled";
 import { Typography } from "shared-ui";
+import ErrorModal from "components/error-modal";
 // import { NFTAlreadyTakenDialog } from "components/dialogs/nft-already-taken";
 
 const Home: NextPage = () => {
@@ -22,6 +24,7 @@ const Home: NextPage = () => {
 		"https://upload.wikimedia.org/wikipedia/en/archive/b/b1/20210811082420%21Portrait_placeholder.png"
 	);
 	const modalState = useModalState();
+	const errorModalState = useErrorModalState();
 	return (
 		<>
 			<Head>
@@ -38,6 +41,7 @@ const Home: NextPage = () => {
 					imageSource={imageSource}
 				/>
 			</Modal>
+			<ErrorModal isOpen={errorModalState.isOpen} onCloseModal={errorModalState.close} errorText={errorModalState.errorMessage}></ErrorModal>
 			<Header>
 				<InnerHeaderContainer>
 					<StyledHeaderButton
@@ -60,6 +64,8 @@ const Home: NextPage = () => {
 			<Body>
 				<NFTPicker
 					openModal={modalState.open}
+					// @ts-ignore
+					openErrorModal={errorModalState.open}
 					setImageSource={setImageSource}
 				/>
 			</Body>

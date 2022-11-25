@@ -21,13 +21,13 @@ import { Trait } from "./trait";
 import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
-import { MINT_ERROR_CODES } from "./error-codes";
+import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
 import { createNFT } from "api-client";
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 552;
 
-export const NFTPicker = ({ openModal, setImageSource }: Props) => {
+export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -162,10 +162,11 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 			} catch (err) {
 				// @ts-ignore
 				if (MINT_ERROR_CODES[err]) {
-					alert(err);
+					// @ts-ignore
+					openErrorModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
 				} else {
-					console.error(err);
-					alert("UNKNOWN ERROR - CHECK CONSOLE");
+					// @ts-ignore
+					openErrorModal(err.toString());
 				}
 			}
 		},
