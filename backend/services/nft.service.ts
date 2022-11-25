@@ -43,7 +43,7 @@ const PROPERTIES_LIST = [
 	"eyes",
 	"cloud",
 ];
-const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background"];
+const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background", "eyes"];
 
 const createBlobFromPath = async (filePath: string) => {
 	const content = await fs.promises.readFile(filePath);

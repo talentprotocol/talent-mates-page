@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Props } from "./types";
 
 const BASE_URL = "https://d6cu1tnva62p2.cloudfront.net";
+const MANDATORY_PROPERTIES_LIST = {"gender": true, "body": true, "background": true, "eyes": true};
 
 export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 	const [currentSelection, setCurrentSelection] = useState(1);
@@ -11,7 +12,8 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 			if (!!fixedValue) {
 				if (!fixedValue.amount) {
 					setFileName("none");
-					setCurrentSelection(-1);
+					// @ts-ignore
+					setCurrentSelection(MANDATORY_PROPERTIES_LIST[name] ? 1 : -1);
 				} else {
 					setFileName(
 						fixedValue.amount < 10
@@ -32,8 +34,10 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 			}
 			if (computedAmount > 0) {
 				if (computedAmount > maxElements[gender]) {
-					setFileName("none");
-					setCurrentSelection(-1);
+					// @ts-ignore
+					setFileName(MANDATORY_PROPERTIES_LIST[name] ? "01.png" : "none");
+					// @ts-ignore
+					setCurrentSelection(MANDATORY_PROPERTIES_LIST[name] ? 1 : -1);
 				} else {
 					setFileName(
 						computedAmount < 10
@@ -51,8 +55,13 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
-					setFileName("none");
-					setCurrentSelection(-1);
+					// @ts-ignore
+					setFileName(MANDATORY_PROPERTIES_LIST[name] ? 
+						maxElements[gender] < 10
+							? `0${Math.abs(maxElements[gender])}.png`
+							: `${Math.abs(maxElements[gender])}.png` : "none");
+					// @ts-ignore
+					setCurrentSelection(MANDATORY_PROPERTIES_LIST[name] ? maxElements[gender] : -1);
 				}
 			}
 		},
@@ -60,7 +69,10 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 	);
 
 	const shuffle = useCallback(() => {
-		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1));
+		console.log("here")
+		const newSelection = Math.floor(Math.random() * (maxElements[gender] + 1) 
+		// @ts-ignore(
+		+ (MANDATORY_PROPERTIES_LIST[name] ? 1 : 0));
 		setCurrentSelection(newSelection);
 		updateCurrentSelection(10000, { amount: newSelection });
 	}, [gender, maxElements]);
