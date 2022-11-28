@@ -3,11 +3,9 @@ import { useCallback, useState } from "react";
 export const useErrorModalState = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
-	const open = useCallback((message?: string) => {
+	const open = useCallback((message = "An error occured") => {
 		setIsOpen(true);
-		console.log(message);
-		if (typeof message === "string")
-			setErrorMessage(message);
+		setErrorMessage(message);
 	}, []);
 	const close = useCallback(() => {
 		setIsOpen(false);

@@ -35,7 +35,7 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
-			description: "Background",
+			description: "Colour",
 			maxElements: { male: 12, female: 12 },
 			gender,
 		}),

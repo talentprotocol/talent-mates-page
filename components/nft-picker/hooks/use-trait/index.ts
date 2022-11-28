@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Props } from "./types";
 
 const BASE_URL = "https://d6cu1tnva62p2.cloudfront.net";
-const MANDATORY_PROPERTIES_LIST = {"gender": true, "body": true, "background": true, "eyes": true};
+const MANDATORY_PROPERTIES_LIST = {"gender": true, "body": true, "background": true, "eyes": true, "mouth": true};
 
 export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 	const [currentSelection, setCurrentSelection] = useState(1);

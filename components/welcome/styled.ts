@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section`
 	display: flex;
-	gap: 24px;
+	gap: 72px;
 	align-items: center;
 `;
 
@@ -10,7 +10,7 @@ export const ContentArea = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex-basis: 568px;
-	min-width: 568px;
+	min-width: 532px;
 	gap: 32px;
 `;
 

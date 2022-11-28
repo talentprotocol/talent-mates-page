@@ -28,10 +28,10 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>NFT Picker</title>
+				<title>Talent Mates</title>
 				<meta
 					name="description"
-					content="NFT Picker for Talent Protocol Avatar collection"
+					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
 					<TitleArea>
 						<Typography
 							type="h3"
-							text={"Customize your Talent Protocol MATE."}
+							text={"Personalize Your Unique Avatar NFT"}
 							color="BLACK"
 						/>
 					</TitleArea>

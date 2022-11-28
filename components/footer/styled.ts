@@ -18,6 +18,29 @@ export const InnerContainer = styled.div`
 	font-weight: 400;
 	font-size: 14px;
 
+	> section {
+		flex-grow: 1;
+		display: flex;
+		justify-content: flex-end;
+		gap: 24px;
+
+		> a {
+			text-decoration: none;
+			outline: none;
+			color: ${COLORS.NOT_SO_LIGHT_GREY};
+
+			:hover {
+				color: ${COLORS.BLACK};
+			}
+		}
+
+		> div {
+			width: 1px;
+			height: 16px;
+			background: ${COLORS.LIGHTER_GREY};
+		}
+	}
+
 	> div {
 		width: 1px;
 		height: 16px;
