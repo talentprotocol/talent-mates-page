@@ -21,10 +21,10 @@ const setMetaData = async (
 			FactoryArtifact.abi,
 			provider
 		);
-		const isCombinationAvailable = contract
+		const isCombinationAvailable = await contract
 			.connect(owner)
-			.isCombinationaAvailable(fileName);
-		if (isCombinationAvailable) {
+			.isCombinationAvailable(fileName);
+		if (!isCombinationAvailable) {
 			return Promise.reject({
 				status: 409,
 				message: "The current combination is already in use",
@@ -41,9 +41,7 @@ const setMetaData = async (
 				traits: fileName,
 			},
 		});
-		await contract
-			.connect(owner)
-			.setTokenURI(tokenId, metadata.url, fileName);
+		await contract.connect(owner).setTokenURI(tokenId, metadata.url, fileName);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully setted nft metadata",

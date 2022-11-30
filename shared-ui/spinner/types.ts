@@ -1,3 +1,3 @@
 export interface Props {
-    isShown: boolean;
+	isShown: boolean;
 }

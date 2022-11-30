@@ -3,10 +3,7 @@ import { CrossSVG } from "../assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
 
-export const CongratulationsBuddyDialog = ({
-	closeModal,
-	imageSource,
-}: Props) => {
+export const InvalidAccountDialog = ({ closeModal }: Props) => {
 	return (
 		<Container
 			onClick={(e) => {
@@ -17,18 +14,15 @@ export const CongratulationsBuddyDialog = ({
 			<XArea onClick={closeModal}>
 				<CrossSVG />
 			</XArea>
-			{imageSource && (
-				<img width="170" height="170" src={imageSource} alt="buddy" />
-			)}
-			<Typography type="h3" text="Congratulation, buddy!" />
+			<Typography type="h3" text="Hmm... wallet address doesn’t look valid." />
 			<Typography
 				type="body1"
-				text="We’re super happy to give this rare skin trait only for Talent House Alumni!"
+				text="You need to have a Talent Protocol account and launch a token."
 				color="LIGHT_GREY"
 			/>
 			<ActionArea>
 				<StyledButton
-					text="Awesome! Let’s do this!"
+					text="Create account"
 					type="link"
 					variant="quaternary"
 					href="https://beta.talentprotocol.com/join"

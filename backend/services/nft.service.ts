@@ -30,16 +30,12 @@ export interface NFTProps {
 	"background-object": number;
 }
 
-type NFTPropsType = {
-	[key in NFTPropsKeys]?: number;
-};
-
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
 	"background-object",
-	"skin",
+	"body",
 	"ear",
 	"hair",
 	"outfit",
@@ -47,7 +43,7 @@ const PROPERTIES_LIST = [
 	"eyes",
 	"cloud",
 ];
-const MANDATORY_PROPERTIES_LIST = ["gender", "skin", "background"];
+const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background", "eyes", "mouth"];
 
 const createBlobFromPath = async (filePath: string) => {
 	const content = await fs.promises.readFile(filePath);
@@ -63,9 +59,7 @@ const getImagePath = (
 	gender: "male" | "female"
 ) => {
 	const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
-	console.log("HERHE");
-	console.log(__dirname);
-	return `${__dirname}/trait-assets/${gender}/${traitName}/${imageName}`;
+	return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
 };
 
 const computeImageName = (properties: Record<string, number | string>) => {
@@ -88,24 +82,26 @@ const createNFT = async (
 			(prop) => properties[prop as NFTPropsKeys] === undefined
 		)
 	) {
-		return Promise.reject({
+		return {
 			status: 400,
 			message: "Missing some NFT properties",
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
-		});
+		};
 	}
-	const signedMessageAddress = ethers.utils.verifyMessage(AUTH_SIGNED_MESSAGE, signature);
+	const signedMessageAddress = ethers.utils.verifyMessage(
+		AUTH_SIGNED_MESSAGE,
+		signature
+	).toLocaleLowerCase();
 	if (signedMessageAddress !== userAddress) {
-		return Promise.reject({
+		return {
 			status: 401,
-			message: "Invalid signature"
-		});
+			message: "Invalid signature",
+		};
 	}
 	// @ts-ignore
 	const fileName = computeImageName(properties);
 	const filePath = `${__dirname}/temp-output/${fileName}`;
 	const parsedProperties = { ...properties };
-	
 	// @ts-ignore
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
@@ -123,14 +119,13 @@ const createNFT = async (
 	imageList.shift();
 	try {
 		await sharpImage
-			.composite(imageList.map((el) => ({ input: el })))
+			.composite(imageList.map((el) => {
+				console.log(el);
+				return ({ input: el })
+			}))
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.setMetaData(
-			fileName,
-			image,
-			tokenId
-		);
+		await NFTRepository.setMetaData(fileName, image, tokenId);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
@@ -138,16 +133,17 @@ const createNFT = async (
 				console.info(`successfully deleted ${filePath}`);
 			}
 		});
-		return Promise.resolve({
+		return {
 			status: 200,
 			message: "NFT successfully created",
-		});
+		};
 	} catch (error) {
-		return Promise.reject({
+		console.log(error);
+		return {
 			status: 500,
 			message: "Internal server error",
 			error,
-		});
+		};
 	}
 };
 

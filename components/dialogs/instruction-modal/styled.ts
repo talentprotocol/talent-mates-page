@@ -4,7 +4,6 @@ import { Button, COLORS } from "shared-ui";
 export const Container = styled.section`
 	position: relative;
 	min-width: 500px;
-	max-width: 500px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -15,6 +14,11 @@ export const Container = styled.section`
 	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
 	border-radius: 24px;
 	text-align: center;
+
+	img {
+		object-fit: cover;
+		border-radius: 16px;
+	}
 `;
 
 export const XArea = styled.div`

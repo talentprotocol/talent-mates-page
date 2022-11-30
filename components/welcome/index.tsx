@@ -6,22 +6,24 @@ import { FirstSVG } from "./assets/first-svg";
 import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
 import { Props } from "./types";
 
-const Welcome = ({ openModal }: Props) => {
+const Welcome = ({ openModal, openErrorModal }: Props) => {
 	const router = useRouter();
 	const connectToWallet = useCallback(async () => {
 		try {
 			// const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
 			// @ts-ignore
 			const { ethereum } = window;
+			if (!ethereum) {
+				openErrorModal("Metamask not found");
+				return 
+			}
 			if (ethereum.isMetaMask) {
 				const provider = new ethers.providers.Web3Provider(ethereum);
-				const accounts = await provider.send("eth_requestAccounts", []);
-				console.log(accounts);
-				const network = await provider.getNetwork();
-				//console.log(network);
+				await provider.send("eth_requestAccounts", []);
 				router.push("/mint");
 			}
-		} catch {
+		} catch (err) {
+			console.log(err);
 			// @ts-ignore
 			openModal();
 		}
@@ -29,10 +31,10 @@ const Welcome = ({ openModal }: Props) => {
 	return (
 		<Container>
 			<ContentArea>
-				<Typography type="h1" text="Mint your Talent Protocol Mate." />
+				<Typography type="h1" text="Create your Talent Mate." />
 				<Typography
 					type="body1"
-					text="Create a beautiful web3 resume, make meaningful connections and access exciting web3 opportunities."
+					text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
 				/>
 				<ActionArea>
 					<Button

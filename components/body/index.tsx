@@ -6,6 +6,9 @@ interface Props {
 	fullHeight?: boolean;
 }
 
-export const Body = (props: Props) => props.fullHeight ?
-	(<FullHeightBody>{props.children}</FullHeightBody>) : 
-	(<BodyContainer>{props.children}</BodyContainer>);
+export const Body = (props: Props) =>
+	props.fullHeight ? (
+		<FullHeightBody>{props.children}</FullHeightBody>
+	) : (
+		<BodyContainer>{props.children}</BodyContainer>
+	);

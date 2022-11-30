@@ -3,9 +3,8 @@ import { CrossSVG } from "../assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
 
-export const CongratulationsBuddyDialog = ({
-	closeModal,
-	imageSource,
+export const InstructionModalDialog = ({
+	closeModal
 }: Props) => {
 	return (
 		<Container
@@ -17,9 +16,7 @@ export const CongratulationsBuddyDialog = ({
 			<XArea onClick={closeModal}>
 				<CrossSVG />
 			</XArea>
-			{imageSource && (
-				<img width="170" height="170" src={imageSource} alt="buddy" />
-			)}
+			<img width="170" height="170" src="https://d6cu1tnva62p2.cloudfront.net/body/male/01.png" alt="buddy" />
 			<Typography type="h3" text="Congratulation, buddy!" />
 			<Typography
 				type="body1"

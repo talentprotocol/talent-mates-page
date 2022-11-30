@@ -21,20 +21,21 @@ import { Trait } from "./trait";
 import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
+import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
+import { createNFT } from "api-client";
 
-
+const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 552;
 
-export const NFTPicker = ({ openModal, setImageSource }: Props) => {
+export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
-	const mintNFT = useCallback(() => {}, []);
-	const [generatingImage, setGeneratingImage] = useState(false);
+	const [generatingImage, setGeneratingImage] = useState(true);
 
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
-			description: "Background",
+			description: "Background Colour",
 			maxElements: { male: 12, female: 12 },
 			gender,
 		}),
@@ -76,74 +77,65 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		}),
 		thinkingTrait: useTrait({
 			name: "thinking",
-			description: "Thinking",
+			description: "Thinking Cloud",
 			maxElements: { male: 17, female: 17 },
 			gender,
 		}),
 	};
-
-	const openMintModal = useCallback(
-		async (event: SyntheticEvent) => {
-			try {
-				// @ts-ignore
-				const provider = new ethers.providers.JsonRpcProvider("https://alfajores-forno.celo-testnet.org");
-				const contract = new ethers.Contract("0x472A685789652a8079343f473bd88509cab99f2d", abi.abi, provider);
-				const isAvailable = await contract.isCombinationAvailable("dasd.png");
-				console.log(isAvailable);
-				if (typeof window !== "undefined" && canvasRef.current) {
-					//const url = canvasRef.current.toDataURL("image/png");
-					//setImageSource(url);
-					openModal(event);
-				}
-			} catch (err) {
-				console.log(err);
-				alert("some error");
-			}
-
-
-			
-		},
-		[openModal, canvasRef.current]
-	);
-
-	useEffect(debounce(() => {
-		if (typeof window !== "undefined" && canvasRef.current) {
-			const canvasContext = canvasRef?.current.getContext("2d");
-			canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
-			const promisesList: Promise<CanvasImageSource>[] = [];
-			const traitList = Object.keys(traits);
-			traitList.forEach((trait) => {
-				// @ts-ignore
-				if (traits[trait].currentSelection !== -1) {
-					const traitImage = new Image();
-					//traitImage.crossOrigin = 'Anonymous';
+	const mintNFT = useCallback(async () => {
+		const combination = Object.values(traits).map(t => t.currentSelection).join("-") + ".png";
+		// @ts-ignore
+		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
+		const signer = defaultProvider.getSigner();
+		const accounts = await defaultProvider.send("eth_requestAccounts", []);
+		// @ts-ignore
+		const provider = new ethers.providers.JsonRpcProvider(
+			"https://alfajores-forno.celo-testnet.org"
+		);
+		const contract = new ethers.Contract(
+			"0xdE636C310a1dd533a0A4B028aa2dd50E91056C96",
+			abi.abi,
+			provider
+		);
+		
+		const userBalance = await contract.balanceOf(await signer.getAddress());
+		if (userBalance > 0) {
+			const tokenId = await contract.connect(signer).tokenOfOwnerByIndex(accounts[0], 0);
+			const tokenURI = await contract.connect(signer).tokenURI(tokenId);
+			if (tokenURI === "none") {
+				const options = Object.keys(traits).reduce((acc, t) => {
 					// @ts-ignore
-					if (traits[trait].currentSelection !== -1) {
-						const traitImage = new Image();
-						//traitImage.crossOrigin = 'Anonymous';
+					if (traits[t].currentSelection !== -1) {
 						// @ts-ignore
-						traitImage.src = traits[trait].image;
-						const traitPromise = new Promise<HTMLImageElement>(
-							(resolve, reject) => {
-								traitImage.onload = () => {
-									resolve(traitImage);
-								};
-								traitImage.onerror = () => {
-									reject(null);
-								};
-							}
-						);
-						promisesList.push(traitPromise);
+						acc[traits[t].name] = traits[t].currentSelection;
 					}
-				}});
-				Promise.all(promisesList).then((images) => {
-					images.forEach((image) => {
-						canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
+					return acc;
+				}, {});
+				const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
+				// @ts-ignore
+				options["gender"] = gender;
+				await createNFT(options, signature, accounts[0], tokenId)
+					.then(resp => {
+						console.log(resp);
+					})
+					.catch(err => {
+						console.log(err);
 					});
-					//setGeneratingImage(false);
-				});
-			}
-	}, 100), [
+			} 
+			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
+		}
+
+		const isAvailable = await contract.isCombinationAvailable(combination);
+		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
+
+		if (!isAvailable) {
+			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
+		}
+		if (!isWhitlisted) {
+			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
+		}
+		await contract.connect(signer).mint();
+	}, [
 		traits.hairTrait,
 		traits.backgroundTrait,
 		traits.clothingTrait,
@@ -153,7 +145,108 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 		traits.skinTrait,
 		traits.thinkingTrait,
 		traits.backgroundObjectTrait,
+		gender
 	]);
+
+	const openMintModal = useCallback(
+		async (event: SyntheticEvent) => {
+			try {
+				await mintNFT();
+				// todo: call backend
+
+				if (typeof window !== "undefined" && canvasRef.current) {
+					//const url = canvasRef.current.toDataURL("image/png");
+					//setImageSource(url);
+					openModal(event);
+				}
+			} catch (err) {
+				// @ts-ignore
+				if (MINT_ERROR_CODES[err]) {
+					// @ts-ignore
+					openErrorModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
+				} else {
+					// @ts-ignore
+					openErrorModal(err.toString());
+				}
+			}
+		},
+		[	
+			openModal, 
+			canvasRef.current,
+			traits.hairTrait,
+			traits.backgroundTrait,
+			traits.clothingTrait,
+			traits.clothingTrait,
+			traits.eyesTrait,
+			traits.mouthTrait,
+			traits.skinTrait,
+			traits.thinkingTrait,
+			traits.backgroundObjectTrait
+		]
+	);
+
+	useEffect(
+		debounce(() => {
+			if (typeof window !== "undefined" && canvasRef.current) {
+				setGeneratingImage(true);
+				const canvasContext = canvasRef?.current.getContext("2d");
+				canvasContext?.clearRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
+				const promisesList: Promise<CanvasImageSource>[] = [];
+				const traitList = Object.keys(traits);
+				traitList.forEach((trait) => {
+					// @ts-ignore
+					if (traits[trait].currentSelection !== -1) {
+						// @ts-ignore
+						if (traits[trait].currentSelection !== -1) {
+							const traitImage = new Image();
+							//traitImage.crossOrigin = 'Anonymous';
+							// @ts-ignore
+							traitImage.src = traits[trait].image;
+							const traitPromise = new Promise<HTMLImageElement>(
+								(resolve, reject) => {
+									traitImage.onload = () => {
+										resolve(traitImage);
+									};
+									traitImage.onerror = () => {
+										reject(null);
+									};
+								}
+							);
+							promisesList.push(traitPromise);
+						}
+					}
+				});
+				Promise.all(promisesList).then((images) => {
+					images.forEach((image) => {
+						canvasContext?.drawImage(image, 0, 0, CANVAS_SIDE, CANVAS_SIDE);
+					});
+					setGeneratingImage(false);
+				});
+			}
+		}, 100),
+		[
+			traits.hairTrait,
+			traits.backgroundTrait,
+			traits.clothingTrait,
+			traits.clothingTrait,
+			traits.eyesTrait,
+			traits.mouthTrait,
+			traits.skinTrait,
+			traits.thinkingTrait,
+			traits.backgroundObjectTrait,
+		]
+	);
+
+	const shuffleCombination = useCallback(() => {
+		Object.values(traits).forEach((trait) => trait.shuffle());
+	}, []);
+
+	useEffect(() => {
+		setTimeout(() => {
+			shuffleCombination();
+			setGeneratingImage(false);
+		});
+	}, []);
 
 	return (
 		<>
@@ -240,19 +333,19 @@ export const NFTPicker = ({ openModal, setImageSource }: Props) => {
 						<Trait
 							trait={traits.backgroundObjectTrait.name}
 							description={traits.backgroundObjectTrait.description}
-							onTraitSelection={traits.backgroundObjectTrait.updateCurrentSelection}
+							onTraitSelection={
+								traits.backgroundObjectTrait.updateCurrentSelection
+							}
 							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
-							totalNumberOfTraits={traits.backgroundObjectTrait.maxElements[gender]}
+							totalNumberOfTraits={
+								traits.backgroundObjectTrait.maxElements[gender]
+							}
 						/>
 					</TraitPickerArea>
 				</PickerArea>
 				<ActionArea>
 					<div>
-						<ShuffleButton
-							callback={() =>
-								Object.values(traits).forEach((trait) => trait.shuffle())
-							}
-						/>
+						<ShuffleButton callback={shuffleCombination} />
 					</div>
 					<div>
 						<Button

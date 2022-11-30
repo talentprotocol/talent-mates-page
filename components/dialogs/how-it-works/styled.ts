@@ -4,7 +4,6 @@ import { Button, COLORS } from "shared-ui";
 export const Container = styled.section`
 	position: relative;
 	min-width: 500px;
-	max-width: 500px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

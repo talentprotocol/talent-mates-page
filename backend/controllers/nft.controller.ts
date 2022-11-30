@@ -8,6 +8,9 @@ interface ControllerInterface {
 
 const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 	try {
+		if (!req.body.signature) {
+			throw "signature not present in the request"
+		}
 		return NFTService.createNFT(
 			req.body.properties,
 			req.body.userAddress,
