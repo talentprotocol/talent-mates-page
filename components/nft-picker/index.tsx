@@ -27,8 +27,14 @@ import { createNFT } from "api-client";
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 552;
 
+const timeout = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export const NFTPicker = ({
 	openModal,
+	jumpToNextMintState,
+	closeModal,
 	setImageSource,
 	openErrorModal,
 }: Props) => {
@@ -100,50 +106,58 @@ export const NFTPicker = ({
 			"https://alfajores-forno.celo-testnet.org"
 		);
 		const contract = new ethers.Contract(
-			"0xdE636C310a1dd533a0A4B028aa2dd50E91056C96",
+			"0x305208bE76Af2bCDfE3d6e66A953759571422dd5",
 			abi.abi,
 			provider
 		);
-
 		const userBalance = await contract.balanceOf(await signer.getAddress());
 		if (userBalance > 0) {
-			const tokenId = await contract
-				.connect(signer)
-				.tokenOfOwnerByIndex(accounts[0], 0);
-			const tokenURI = await contract.connect(signer).tokenURI(tokenId);
-			if (tokenURI === "none") {
-				const options = Object.keys(traits).reduce((acc, t) => {
-					// @ts-ignore
-					if (traits[t].currentSelection !== -1) {
-						// @ts-ignore
-						acc[traits[t].name] = traits[t].currentSelection;
-					}
-					return acc;
-				}, {});
-				const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
-				// @ts-ignore
-				options["gender"] = gender;
-				await createNFT(options, signature, accounts[0], tokenId)
-					.then((resp) => {
-						console.log(resp);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			}
 			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
 		}
-
 		const isAvailable = await contract.isCombinationAvailable(combination);
 		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
-
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
 		if (!isWhitlisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
-		await contract.connect(signer).mint();
+		jumpToNextMintState();
+		const content = await contract.connect(signer).mint();
+		// @ts-ignore
+		window.mintHash = content.hash;
+		jumpToNextMintState();
+		let tokenId;
+		while (!tokenId) {
+			try {
+				tokenId = await contract
+				.connect(signer)
+				.tokenOfOwnerByIndex(accounts[0], 0);
+			} catch {
+				tokenId = false;
+				await timeout(1000);
+			}
+		}
+		jumpToNextMintState();
+		const options = Object.keys(traits).reduce((acc, t) => {
+			// @ts-ignore
+			if (traits[t].currentSelection !== -1) {
+				// @ts-ignore
+				acc[traits[t].name] = traits[t].currentSelection;
+			}
+			return acc;
+		}, {});
+		const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
+		// @ts-ignore
+		options["gender"] = gender;
+		await createNFT(options, signature, accounts[0], tokenId)
+			.then(() => {
+				jumpToNextMintState();
+			})
+			.catch((err) => {
+				closeModal();
+				openErrorModal(err.toString())
+			});
 	}, [
 		traits.hairTrait,
 		traits.backgroundTrait,
@@ -159,16 +173,20 @@ export const NFTPicker = ({
 
 	const openMintModal = useCallback(
 		async (event: SyntheticEvent) => {
+			openModal(event);
 			try {
 				await mintNFT();
-				// todo: call backend
+				return;
 
+				// TODO: fix paited tints CORS
 				if (typeof window !== "undefined" && canvasRef.current) {
 					//const url = canvasRef.current.toDataURL("image/png");
 					//setImageSource(url);
-					openModal(event);
 				}
+
+
 			} catch (err) {
+				closeModal();
 				// @ts-ignore
 				if (MINT_ERROR_CODES[err]) {
 					// @ts-ignore

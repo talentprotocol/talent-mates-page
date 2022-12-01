@@ -2,9 +2,9 @@ import React from "react";
 import { Container } from "./styled";
 import { Props } from "./types";
 
-export const Spinner = ({ isShown }: Props) => {
+export const Spinner = ({ isShown, noBox = false }: Props) => {
 	return isShown ? (
-		<Container>
+		<Container noBox={noBox}>
 			<svg
 				viewBox={"0 0 65 64"}
 				width={100}

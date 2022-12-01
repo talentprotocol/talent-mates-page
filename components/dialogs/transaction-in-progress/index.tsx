@@ -1,12 +1,9 @@
-import { Typography } from "shared-ui";
+import { Spinner, Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
 
-export const CongratulationsBuddyDialog = ({
-	closeModal,
-	imageSource,
-}: Props) => {
+export const TransactionInProgressDialog = ({ closeModal }: Props) => {
 	return (
 		<Container
 			onClick={(e) => {
@@ -17,22 +14,21 @@ export const CongratulationsBuddyDialog = ({
 			<XArea onClick={closeModal}>
 				<CrossSVG />
 			</XArea>
-			{imageSource && (
-				<img width="170" height="170" src={imageSource} alt="buddy" />
-			)}
-			<Typography type="h3" text="Congratulation, buddy!" />
+			<Spinner isShown noBox/>
+			<Typography type="h3" text="Transaction in progress" />
 			<Typography
-				type="body1"
-				text="We’re super happy to give this rare skin trait only for Talent House Alumni!"
+				type="general"
+				text="This can take a few minutes depending on gas."
 				color="LIGHT_GREY"
 			/>
 			<ActionArea>
 				<StyledButton
-					text="Awesome! Let’s do this!"
+					text="View transaction status"
 					type="link"
 					variant="quaternary"
-					href="https://beta.talentprotocol.com/join"
 					target="_blank"
+					// @ts-ignore
+					href={`https://alfajores.celoscan.io/tx/${window.mintHash}`}
 				/>
 			</ActionArea>
 		</Container>

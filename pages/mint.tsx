@@ -17,6 +17,9 @@ import {
 } from "components/nft-picker/styled";
 import { Typography } from "shared-ui";
 import ErrorModal from "components/error-modal";
+import { ApproveTransactionDialog } from "components/dialogs/approve-transaction";
+import { CheckingElegibilityDialog } from "components/dialogs/checking-eligibility";
+import { TransactionInProgressDialog } from "components/dialogs/transaction-in-progress";
 
 const Home: NextPage = () => {
 	const [imageSource, setImageSource] = useState<string | undefined>(
@@ -34,11 +37,27 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Modal isOpen={modalState.isOpen} onCloseModal={modalState.close}>
-				<CongratulationsBuddyDialog
-					closeModal={modalState.close}
-					imageSource={imageSource}
-				/>
+			<Modal 
+				isOpen={modalState.isOpen} 
+				onCloseModal={modalState.close} 
+				modalState={modalState.modalState}
+				components={
+					[
+						<CheckingElegibilityDialog
+							closeModal={modalState.close}
+						/>, 
+						<ApproveTransactionDialog
+							closeModal={modalState.close}
+						/>, 
+						<TransactionInProgressDialog
+							closeModal={modalState.close}
+						/>, 
+						<CongratulationsBuddyDialog
+							closeModal={modalState.close}
+							imageSource={imageSource}
+						/>
+					]
+			}>
 			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
@@ -66,7 +85,9 @@ const Home: NextPage = () => {
 			</Header>
 			<Body>
 				<NFTPicker
+					jumpToNextMintState={modalState.jumpToNextState}
 					openModal={modalState.open}
+					closeModal={modalState.close}
 					// @ts-ignore
 					openErrorModal={errorModalState.open}
 					setImageSource={setImageSource}

@@ -61,16 +61,16 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
-					// @ts-ignore
 					setFileName(
+						// @ts-ignore
 						MANDATORY_PROPERTIES_LIST[name]
 							? maxElements[gender] < 10
 								? `0${Math.abs(maxElements[gender])}.png`
 								: `${Math.abs(maxElements[gender])}.png`
 							: "none"
 					);
-					// @ts-ignore
 					setCurrentSelection(
+						// @ts-ignore
 						MANDATORY_PROPERTIES_LIST[name] ? maxElements[gender] : -1
 					);
 				}
