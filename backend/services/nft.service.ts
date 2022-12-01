@@ -43,7 +43,13 @@ const PROPERTIES_LIST = [
 	"eyes",
 	"cloud",
 ];
-const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background", "eyes", "mouth"];
+const MANDATORY_PROPERTIES_LIST = [
+	"gender",
+	"body",
+	"background",
+	"eyes",
+	"mouth",
+];
 
 const createBlobFromPath = async (filePath: string) => {
 	const content = await fs.promises.readFile(filePath);
@@ -88,10 +94,9 @@ const createNFT = async (
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
 		};
 	}
-	const signedMessageAddress = ethers.utils.verifyMessage(
-		AUTH_SIGNED_MESSAGE,
-		signature
-	).toLocaleLowerCase();
+	const signedMessageAddress = ethers.utils
+		.verifyMessage(AUTH_SIGNED_MESSAGE, signature)
+		.toLocaleLowerCase();
 	if (signedMessageAddress !== userAddress) {
 		return {
 			status: 401,
@@ -119,10 +124,12 @@ const createNFT = async (
 	imageList.shift();
 	try {
 		await sharpImage
-			.composite(imageList.map((el) => {
-				console.log(el);
-				return ({ input: el })
-			}))
+			.composite(
+				imageList.map((el) => {
+					console.log(el);
+					return { input: el };
+				})
+			)
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
 		await NFTRepository.setMetaData(fileName, image, tokenId);

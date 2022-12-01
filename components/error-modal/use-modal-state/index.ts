@@ -14,6 +14,6 @@ export const useErrorModalState = () => {
 		isOpen,
 		open,
 		close,
-		errorMessage
+		errorMessage,
 	};
 };

@@ -27,7 +27,11 @@ import { createNFT } from "api-client";
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 552;
 
-export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) => {
+export const NFTPicker = ({
+	openModal,
+	setImageSource,
+	openErrorModal,
+}: Props) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -83,7 +87,10 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 		}),
 	};
 	const mintNFT = useCallback(async () => {
-		const combination = Object.values(traits).map(t => t.currentSelection).join("-") + ".png";
+		const combination =
+			Object.values(traits)
+				.map((t) => t.currentSelection)
+				.join("-") + ".png";
 		// @ts-ignore
 		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
 		const signer = defaultProvider.getSigner();
@@ -97,10 +104,12 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 			abi.abi,
 			provider
 		);
-		
+
 		const userBalance = await contract.balanceOf(await signer.getAddress());
 		if (userBalance > 0) {
-			const tokenId = await contract.connect(signer).tokenOfOwnerByIndex(accounts[0], 0);
+			const tokenId = await contract
+				.connect(signer)
+				.tokenOfOwnerByIndex(accounts[0], 0);
 			const tokenURI = await contract.connect(signer).tokenURI(tokenId);
 			if (tokenURI === "none") {
 				const options = Object.keys(traits).reduce((acc, t) => {
@@ -115,13 +124,13 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 				// @ts-ignore
 				options["gender"] = gender;
 				await createNFT(options, signature, accounts[0], tokenId)
-					.then(resp => {
+					.then((resp) => {
 						console.log(resp);
 					})
-					.catch(err => {
+					.catch((err) => {
 						console.log(err);
 					});
-			} 
+			}
 			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
 		}
 
@@ -145,7 +154,7 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 		traits.skinTrait,
 		traits.thinkingTrait,
 		traits.backgroundObjectTrait,
-		gender
+		gender,
 	]);
 
 	const openMintModal = useCallback(
@@ -170,8 +179,8 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 				}
 			}
 		},
-		[	
-			openModal, 
+		[
+			openModal,
 			canvasRef.current,
 			traits.hairTrait,
 			traits.backgroundTrait,
@@ -181,7 +190,7 @@ export const NFTPicker = ({ openModal, setImageSource, openErrorModal }: Props) 
 			traits.mouthTrait,
 			traits.skinTrait,
 			traits.thinkingTrait,
-			traits.backgroundObjectTrait
+			traits.backgroundObjectTrait,
 		]
 	);
 

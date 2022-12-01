@@ -5,21 +5,20 @@ import { Props } from "./types";
 const Modal = ({ isOpen, onCloseModal, children, modalState }: Props) => {
 	useEffect(() => {
 		if (typeof window !== "undefined" && isOpen)
-			document.body.style.overflow = 'hidden';
+			document.body.style.overflow = "hidden";
 		return () => {
-			document.body.style.overflow = 'auto';
-		}
+			document.body.style.overflow = "auto";
+		};
 	}, [isOpen]);
 	return isOpen ? (
 		<Container
 			onClick={onCloseModal}
 			className="animate__animated animate__fadeIn"
 		>
-			{!!modalState 
-				// @ts-ignore
-				? children[modalState] 
-				: children
-			}
+			{!!modalState
+				? // @ts-ignore
+				  children[modalState]
+				: children}
 		</Container>
 	) : (
 		<></>

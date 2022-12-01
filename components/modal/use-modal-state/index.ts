@@ -17,6 +17,6 @@ export const useModalState = () => {
 		open,
 		close,
 		jumpToNextState,
-		modalState
+		modalState,
 	};
 };

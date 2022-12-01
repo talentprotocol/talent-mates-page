@@ -67,8 +67,8 @@ export const BODY2 = styled.p<StyledTypographyProps>`
 
 export const GENERAL = styled.span<StyledTypographyProps>`
 	${fontNormal}
-	font-weight: 500;
-	font-size: 20px;
+	font-weight: 400;
+	font-size: 19px;
 	line-height: 140%;
 	${({ color }) =>
 		css`

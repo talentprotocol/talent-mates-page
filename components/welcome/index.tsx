@@ -15,12 +15,17 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			const { ethereum } = window;
 			if (!ethereum) {
 				openErrorModal("Metamask not found");
-				return 
+				return;
 			}
 			if (ethereum.isMetaMask) {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				await provider.send("eth_requestAccounts", []);
-				router.push("/mint");
+				console.log(ethereum.networkVersion);
+				if (ethereum.networkVersion !== "44787") {
+					openErrorModal(`You are connected to the wrong network, we are on Alfajores Testnet with the chain id 44787`);
+				} else {
+					router.push("/mint");
+				}
 			}
 		} catch (err) {
 			console.log(err);

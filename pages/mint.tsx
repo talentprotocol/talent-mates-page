@@ -17,7 +17,6 @@ import {
 } from "components/nft-picker/styled";
 import { Typography } from "shared-ui";
 import ErrorModal from "components/error-modal";
-// import { NFTAlreadyTakenDialog } from "components/dialogs/nft-already-taken";
 
 const Home: NextPage = () => {
 	const [imageSource, setImageSource] = useState<string | undefined>(
@@ -41,7 +40,11 @@ const Home: NextPage = () => {
 					imageSource={imageSource}
 				/>
 			</Modal>
-			<ErrorModal isOpen={errorModalState.isOpen} onCloseModal={errorModalState.close} errorText={errorModalState.errorMessage}></ErrorModal>
+			<ErrorModal
+				isOpen={errorModalState.isOpen}
+				onCloseModal={errorModalState.close}
+				errorText={errorModalState.errorMessage}
+			></ErrorModal>
 			<Header>
 				<InnerHeaderContainer>
 					<StyledHeaderButton
