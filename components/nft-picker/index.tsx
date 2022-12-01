@@ -138,7 +138,6 @@ export const NFTPicker = ({
 				await timeout(1000);
 			}
 		}
-		jumpToNextMintState();
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
@@ -147,17 +146,21 @@ export const NFTPicker = ({
 			}
 			return acc;
 		}, {});
-		const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
-		// @ts-ignore
-		options["gender"] = gender;
-		await createNFT(options, signature, accounts[0], tokenId)
-			.then(() => {
-				jumpToNextMintState();
-			})
-			.catch((err) => {
-				closeModal();
-				openErrorModal(err.toString())
-			});
+		try {
+			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
+			// @ts-ignore
+			options["gender"] = gender;
+			await createNFT(options, signature, accounts[0], tokenId)
+				.then(() => {
+					jumpToNextMintState();
+				})
+				.catch((err) => {
+					closeModal();
+					openErrorModal(err.toString())
+				});
+		} catch {
+			throw MINT_ERROR_CODES.MESSAGE_NOT_SIGNED
+		}
 	}, [
 		traits.hairTrait,
 		traits.backgroundTrait,
@@ -175,7 +178,7 @@ export const NFTPicker = ({
 		async (event: SyntheticEvent) => {
 			openModal(event);
 			try {
-				await mintNFT();
+				//await mintNFT();
 				return;
 
 				// TODO: fix paited tints CORS
