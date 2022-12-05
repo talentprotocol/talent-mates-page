@@ -24,10 +24,16 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Modal isOpen={invalidAccountModalState.isOpen} onCloseModal={invalidAccountModalState.close}>
+			<Modal
+				isOpen={invalidAccountModalState.isOpen}
+				onCloseModal={invalidAccountModalState.close}
+			>
 				<InvalidAccountDialog closeModal={invalidAccountModalState.close} />
 			</Modal>
-			<Modal isOpen={howItWorksModalState.isOpen} onCloseModal={howItWorksModalState.close}>
+			<Modal
+				isOpen={howItWorksModalState.isOpen}
+				onCloseModal={howItWorksModalState.close}
+			>
 				<HowItWorksDialog closeModal={howItWorksModalState.close} />
 			</Modal>
 			<ErrorModal

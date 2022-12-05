@@ -14,7 +14,7 @@ export const TransactionInProgressDialog = ({ closeModal }: Props) => {
 			<XArea onClick={closeModal}>
 				<CrossSVG />
 			</XArea>
-			<Spinner isShown noBox/>
+			<Spinner isShown noBox />
 			<Typography type="h3" text="Transaction in progress" />
 			<Typography
 				type="general"

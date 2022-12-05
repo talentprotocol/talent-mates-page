@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { Container } from "./styled";
 import { Props } from "./types";
 
-const Modal = ({ isOpen, onCloseModal, children, modalState, components }: Props) => {
+const Modal = ({
+	isOpen,
+	onCloseModal,
+	children,
+	modalState,
+	components,
+}: Props) => {
 	useEffect(() => {
 		if (typeof window !== "undefined" && isOpen)
 			document.body.style.overflow = "hidden";

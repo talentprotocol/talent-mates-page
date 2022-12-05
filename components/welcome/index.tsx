@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
+import { SecondSVG } from "./assets/second-svg";
 import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
 import { Props } from "./types";
 
@@ -20,17 +21,17 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			if (ethereum.isMetaMask) {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				await provider.send("eth_requestAccounts", []);
-				console.log(ethereum.networkVersion);
 				if (ethereum.networkVersion !== "44787") {
-					openErrorModal(`You are connected to the wrong network, we are on Alfajores Testnet with the chain id 44787`);
+					openErrorModal(
+						`You are connected to the wrong network, we are on Alfajores Testnet with the chain id 44787`
+					);
 				} else {
 					router.push("/mint");
 				}
 			}
 		} catch (err) {
-			console.log(err);
-			// @ts-ignore
-			openModal();
+			console.error(err);
+			openErrorModal("Something happened when connecting to Metamask");
 		}
 	}, []);
 	return (
@@ -58,7 +59,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			</ContentArea>
 			<ImageArea>
 				<FirstSVG />
-				<FirstSVG />
+				<SecondSVG />
 			</ImageArea>
 		</Container>
 	);

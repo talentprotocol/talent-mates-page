@@ -37,28 +37,30 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Modal 
-				isOpen={modalState.isOpen} 
-				onCloseModal={modalState.close} 
+			<Modal
+				isOpen={modalState.isOpen}
+				onCloseModal={modalState.close}
 				modalState={modalState.modalState}
-				components={
-					[
-						<CheckingElegibilityDialog
-							closeModal={modalState.close}
-						/>, 
-						<ApproveTransactionDialog
-							closeModal={modalState.close}
-						/>, 
-						<TransactionInProgressDialog
-							closeModal={modalState.close}
-						/>, 
-						<CongratulationsBuddyDialog
-							closeModal={modalState.close}
-							imageSource={imageSource}
-						/>
-					]
-			}>
-			</Modal>
+				components={[
+					<CheckingElegibilityDialog
+						key="firstStage"
+						closeModal={modalState.close}
+					/>,
+					<ApproveTransactionDialog
+						key="secondStage"
+						closeModal={modalState.close}
+					/>,
+					<TransactionInProgressDialog
+						key="thirdStage"
+						closeModal={modalState.close}
+					/>,
+					<CongratulationsBuddyDialog
+						key="fourthStage"
+						closeModal={modalState.close}
+						imageSource={imageSource}
+					/>,
+				]}
+			></Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
 				onCloseModal={errorModalState.close}

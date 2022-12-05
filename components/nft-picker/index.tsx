@@ -23,13 +23,22 @@ import { Props } from "./types";
 import { ethers } from "ethers";
 import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
 import { createNFT } from "api-client";
+import { ContractBook } from "libs/contract-book";
+
+ContractBook.new = {
+	name: "TalentNFT",
+	abi: abi.abi,
+	address: "0x305208bE76Af2bCDfE3d6e66A953759571422dd5",
+	network: "https://alfajores-forno.celo-testnet.org",
+	chainId: "44787",
+};
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
-const CANVAS_SIDE = 552;
+const CANVAS_SIDE = 569;
 
 const timeout = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+	return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 export const NFTPicker = ({
 	openModal,
@@ -41,7 +50,24 @@ export const NFTPicker = ({
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
-
+	useEffect(() => {
+		(async () => {
+			// @ts-ignore
+			const defaultProvider = new ethers.providers.Web3Provider(ethereum);
+			const accounts = await defaultProvider.send("eth_requestAccounts", []);
+			// @ts-ignore
+			const provider = new ethers.providers.JsonRpcProvider(
+				ContractBook["TalentNFT"].network
+			);
+			const contract = new ethers.Contract(
+				ContractBook["TalentNFT"].address,
+				ContractBook["TalentNFT"].abi,
+				provider
+			);
+			const accountTier = await contract.checkAccountTier(accounts[0]);
+			alert(accountTier);
+		})();
+	}, []);
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
@@ -103,11 +129,11 @@ export const NFTPicker = ({
 		const accounts = await defaultProvider.send("eth_requestAccounts", []);
 		// @ts-ignore
 		const provider = new ethers.providers.JsonRpcProvider(
-			"https://alfajores-forno.celo-testnet.org"
+			ContractBook["TalentNFT"].network
 		);
 		const contract = new ethers.Contract(
-			"0x305208bE76Af2bCDfE3d6e66A953759571422dd5",
-			abi.abi,
+			ContractBook["TalentNFT"].address,
+			ContractBook["TalentNFT"].abi,
 			provider
 		);
 		const userBalance = await contract.balanceOf(await signer.getAddress());
@@ -131,8 +157,8 @@ export const NFTPicker = ({
 		while (!tokenId) {
 			try {
 				tokenId = await contract
-				.connect(signer)
-				.tokenOfOwnerByIndex(accounts[0], 0);
+					.connect(signer)
+					.tokenOfOwnerByIndex(accounts[0], 0);
 			} catch {
 				tokenId = false;
 				await timeout(1000);
@@ -156,10 +182,10 @@ export const NFTPicker = ({
 				})
 				.catch((err) => {
 					closeModal();
-					openErrorModal(err.toString())
+					openErrorModal(err.toString());
 				});
 		} catch {
-			throw MINT_ERROR_CODES.MESSAGE_NOT_SIGNED
+			throw MINT_ERROR_CODES.MESSAGE_NOT_SIGNED;
 		}
 	}, [
 		traits.hairTrait,
@@ -178,16 +204,13 @@ export const NFTPicker = ({
 		async (event: SyntheticEvent) => {
 			openModal(event);
 			try {
-				//await mintNFT();
-				return;
+				await mintNFT();
 
 				// TODO: fix paited tints CORS
 				if (typeof window !== "undefined" && canvasRef.current) {
 					//const url = canvasRef.current.toDataURL("image/png");
 					//setImageSource(url);
 				}
-
-
 			} catch (err) {
 				closeModal();
 				// @ts-ignore

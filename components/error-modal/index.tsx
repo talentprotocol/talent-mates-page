@@ -29,7 +29,11 @@ const ErrorModal = ({
 				<Typography type="body2" text={errorText} />
 				<Footer>
 					Reach us on{" "}
-					<a target="_blank" href="https://discord.gg/talentprotocol">
+					<a
+						target="_blank"
+						href="https://discord.gg/talentprotocol"
+						rel="noreferrer"
+					>
 						Discord
 					</a>{" "}
 					or via email to{" "}
