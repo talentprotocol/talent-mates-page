@@ -4,6 +4,6 @@ export interface Props {
 	isOpen: boolean;
 	onCloseModal: ReactEventHandler;
 	modalState?: number;
-	children: JSX.Element | JSX.Element[];
+	children?: JSX.Element | JSX.Element[];
 	components?: JSX.Element[];
 }
