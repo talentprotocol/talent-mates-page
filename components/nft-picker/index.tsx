@@ -42,6 +42,8 @@ const timeout = (ms: number) => {
 
 export const NFTPicker = ({
 	openModal,
+	openInstructionModal,
+	closeInstructionModal,
 	jumpToNextMintState,
 	closeModal,
 	setImageSource,
@@ -65,7 +67,8 @@ export const NFTPicker = ({
 				provider
 			);
 			const accountTier = await contract.checkAccountTier(accounts[0]);
-			alert(accountTier);
+			openInstructionModal();
+			console.log(accountTier);
 		})();
 	}, []);
 	const traits = {
@@ -95,7 +98,7 @@ export const NFTPicker = ({
 		}),
 		hairTrait: useTrait({
 			name: "hair",
-			description: "Hair",
+			description: "Head",
 			maxElements: { male: 25, female: 27 },
 			gender,
 		}),

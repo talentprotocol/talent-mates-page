@@ -26,6 +26,7 @@ const Home: NextPage = () => {
 		"https://upload.wikimedia.org/wikipedia/en/archive/b/b1/20210811082420%21Portrait_placeholder.png"
 	);
 	const modalState = useModalState();
+	const instructionModalState = useModalState();
 	const errorModalState = useErrorModalState();
 	return (
 		<>
@@ -61,6 +62,11 @@ const Home: NextPage = () => {
 					/>,
 				]}
 			></Modal>
+			<Modal 
+				isOpen={instructionModalState.isOpen}
+				onCloseModal={instructionModalState.close}>
+					<div>cenas</div>
+			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
 				onCloseModal={errorModalState.close}
@@ -90,6 +96,8 @@ const Home: NextPage = () => {
 					jumpToNextMintState={modalState.jumpToNextState}
 					openModal={modalState.open}
 					closeModal={modalState.close}
+					openInstructionModal={instructionModalState.open}
+					closeInstructionModal={instructionModalState.close}
 					// @ts-ignore
 					openErrorModal={errorModalState.open}
 					setImageSource={setImageSource}
