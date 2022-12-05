@@ -20,7 +20,7 @@ export const SecondSVG = () => (
 			height="439"
 			rx="25"
 			stroke="#1E2330"
-			stroke-width="2"
+			strokeWidth="2"
 		/>
 		<defs>
 			<pattern
