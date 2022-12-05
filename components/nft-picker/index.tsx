@@ -67,7 +67,7 @@ export const NFTPicker = ({
 				provider
 			);
 			const accountTier = await contract.checkAccountTier(accounts[0]);
-			openInstructionModal();
+			//openInstructionModal();
 			console.log(accountTier);
 		})();
 	}, []);
