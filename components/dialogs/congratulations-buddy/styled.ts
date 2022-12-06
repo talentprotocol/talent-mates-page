@@ -19,6 +19,24 @@ export const Container = styled.section`
 		object-fit: cover;
 		border-radius: 16px;
 	}
+
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		overflow: scroll;
+	}
+
+	@media (max-width: 768px) {
+		min-width: 100%;
+		max-width: 100%;
+		max-height: 84%;
+		padding: 24px;
+
+		span {
+			font-size: 16px;
+		}
+	}
 `;
 
 export const XArea = styled.div`
