@@ -11,7 +11,6 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	const router = useRouter();
 	const connectToWallet = useCallback(async () => {
 		try {
-			// const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
 			// @ts-ignore
 			const { ethereum } = window;
 			if (!ethereum) {

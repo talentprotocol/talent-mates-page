@@ -36,6 +36,10 @@ const Home: NextPage = () => {
 					name="description"
 					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
 				/>
+				<meta
+					name="viewport"
+					content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+				></meta>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Modal
@@ -62,10 +66,11 @@ const Home: NextPage = () => {
 					/>,
 				]}
 			></Modal>
-			<Modal 
+			<Modal
 				isOpen={instructionModalState.isOpen}
-				onCloseModal={instructionModalState.close}>
-					<div>cenas</div>
+				onCloseModal={instructionModalState.close}
+			>
+				<div>cenas</div>
 			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
