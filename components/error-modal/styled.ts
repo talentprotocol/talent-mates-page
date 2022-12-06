@@ -11,6 +11,10 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: center;
 	--animate-duration: 400ms;
+
+	@media (max-width: 768px) {
+		padding: 0 12px;
+	}
 `;
 
 export const InnerContainer = styled.section`
@@ -28,6 +32,12 @@ export const InnerContainer = styled.section`
 	border-radius: 24px;
 	text-align: center;
 	word-break: break-word;
+
+	@media (max-width: 768px) {
+		min-width: 100%;
+		max-width: 100%;
+		max-height: 80%;
+	}
 `;
 
 export const XArea = styled.div`
