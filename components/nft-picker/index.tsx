@@ -38,7 +38,7 @@ ContractBook.new = {
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
-
+const CANVAS_SIDE = 569;
 
 const timeout = (ms: number) => {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -54,9 +54,6 @@ export const NFTPicker = ({
 	openErrorModal,
 }: Props) => {
 	const isMobile = useMediaQuery("(max-width: 768px)");
-	const CANVAS_SIDE = useMemo(() => {
-		return isMobile ? window.innerWidth - 24 : 569;
-	}, [isMobile]);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -365,6 +362,7 @@ export const NFTPicker = ({
 						<ImageHolder>
 							<Spinner isShown={generatingImage} />
 							<canvas
+								style={{ overflow: "hidden"}}
 								ref={canvasRef}
 								width={`${CANVAS_SIDE}px`}
 								height={`${CANVAS_SIDE}px`}

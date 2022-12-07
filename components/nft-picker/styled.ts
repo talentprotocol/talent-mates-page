@@ -95,6 +95,7 @@ export const DisplayArea = styled.div`
 	
 	@media (max-width: 768px) {
 		padding: 0;
+		max-width: 100%;
 	}
 
 	img {
@@ -123,6 +124,11 @@ export const ImageHolder = styled.div`
 	align-items: center;
 	overflow: auto;
 	position: relative;
+
+	@media (max-width: 768px) {
+		max-width: calc(100% - 24px);
+		margin: auto;
+	}
 `;
 
 export const ActionArea = styled.div`
