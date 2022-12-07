@@ -2,6 +2,7 @@ import {
 	SyntheticEvent,
 	useCallback,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 } from "react";
@@ -14,6 +15,8 @@ import {
 	GenderPicker,
 	ImageHolder,
 	ActionArea,
+	SectionContainer,
+	TraitPickerAreaMobile,
 } from "./styled";
 import abi from "./talentNFT.json";
 import { useTrait } from "./hooks/use-trait";
@@ -24,6 +27,7 @@ import { ethers } from "ethers";
 import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
 import { createNFT } from "api-client";
 import { ContractBook } from "libs/contract-book";
+import { useMediaQuery } from "hooks/use-media-query";
 
 ContractBook.new = {
 	name: "TalentNFT",
@@ -34,7 +38,7 @@ ContractBook.new = {
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
-const CANVAS_SIDE = 569;
+
 
 const timeout = (ms: number) => {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -49,6 +53,10 @@ export const NFTPicker = ({
 	setImageSource,
 	openErrorModal,
 }: Props) => {
+	const isMobile = useMediaQuery("(max-width: 768px)");
+	const CANVAS_SIDE = useMemo(() => {
+		return isMobile ? window.innerWidth - 24 : 569;
+	}, [isMobile]);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -305,8 +313,7 @@ export const NFTPicker = ({
 	}, []);
 
 	return (
-		<>
-			<section>
+			<SectionContainer>
 				<PickerArea>
 					<TraitPickerArea>
 						<Trait
@@ -364,6 +371,68 @@ export const NFTPicker = ({
 							/>
 						</ImageHolder>
 					</DisplayArea>
+					<TraitPickerAreaMobile>
+						<Trait
+							trait={traits.backgroundTrait.name}
+							description={traits.backgroundTrait.description}
+							onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+							currentTraitNumber={traits.backgroundTrait.currentSelection}
+							totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.skinTrait.name}
+							description={traits.skinTrait.description}
+							onTraitSelection={traits.skinTrait.updateCurrentSelection}
+							currentTraitNumber={traits.skinTrait.currentSelection}
+							totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.hairTrait.name}
+							description={traits.hairTrait.description}
+							onTraitSelection={traits.hairTrait.updateCurrentSelection}
+							currentTraitNumber={traits.hairTrait.currentSelection}
+							totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.clothingTrait.name}
+							description={traits.clothingTrait.description}
+							onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+							currentTraitNumber={traits.clothingTrait.currentSelection}
+							totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.mouthTrait.name}
+							description={traits.mouthTrait.description}
+							onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+							currentTraitNumber={traits.mouthTrait.currentSelection}
+							totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.eyesTrait.name}
+							description={traits.eyesTrait.description}
+							onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+							currentTraitNumber={traits.eyesTrait.currentSelection}
+							totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.thinkingTrait.name}
+							description={traits.thinkingTrait.description}
+							onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+							currentTraitNumber={traits.thinkingTrait.currentSelection}
+							totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
+						/>
+						<Trait
+							trait={traits.backgroundObjectTrait.name}
+							description={traits.backgroundObjectTrait.description}
+							onTraitSelection={
+								traits.backgroundObjectTrait.updateCurrentSelection
+							}
+							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+							totalNumberOfTraits={
+								traits.backgroundObjectTrait.maxElements[gender]
+							}
+						/>
+					</TraitPickerAreaMobile>
 					<TraitPickerArea>
 						<Trait
 							trait={traits.mouthTrait.name}
@@ -413,7 +482,6 @@ export const NFTPicker = ({
 						/>
 					</div>
 				</ActionArea>
-			</section>
-		</>
+			</SectionContainer>
 	);
 };

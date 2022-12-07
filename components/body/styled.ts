@@ -10,6 +10,8 @@ export const BodyContainer = styled.main`
 	align-items: center;
 
 	@media (max-width: 768px) {
+		margin-top: 32px;
+		margin-bottom: 32px;
 		overflow-x: hidden;
 	}
 `;

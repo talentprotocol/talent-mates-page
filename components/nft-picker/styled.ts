@@ -14,10 +14,20 @@ export const InnerHeaderContainer = styled.div`
 	margin: auto;
 	width: 1160px;
 	display: flex;
+
+	@media (max-width: 768px) {
+		padding: 0 12px;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 `;
 
 export const StyledHeaderButton = styled(Button)`
 	padding: 8px 32px;
+`;
+
+export const SectionContainer = styled.section`
+	max-width: 100%;
 `;
 
 export const ButtonIcon = styled.span`
@@ -30,6 +40,10 @@ export const ButtonIcon = styled.span`
 
 export const TitleArea = styled.div`
 	margin-left: 32px;
+
+	@media (max-width: 768px) {
+		margin: 18px 0;
+	}
 `;
 
 export const PickerArea = styled.div`
@@ -38,12 +52,38 @@ export const PickerArea = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+
+	@media (max-width: 768px) {
+		margin-bottom: 16px;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+	}
 `;
 
 export const TraitPickerArea = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
+`;
+
+export const TraitPickerAreaMobile = styled.div`
+	@media (min-width: 768px) {
+		display: none;
+	}
+	
+	@media (max-width: 768px) {
+		margin-top: 24px;
+		padding: 0 12px 12px;
+		width: 100%;
+		display: flex;
+		gap: 24px;
+		overflow: scroll;
+	}
 `;
 
 export const DisplayArea = styled.div`
@@ -52,6 +92,10 @@ export const DisplayArea = styled.div`
 	padding-left: 24px;
 	padding-right: 24px;
 	height: 100%;
+	
+	@media (max-width: 768px) {
+		padding: 0;
+	}
 
 	img {
 		width: 100%;
@@ -85,4 +129,9 @@ export const ActionArea = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	gap: 8px;
+	
+	@media (max-width: 768px) {
+		flex-direction: column;
+		padding: 0 12px;
+	}
 `;
