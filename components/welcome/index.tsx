@@ -20,6 +20,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			if (ethereum.isMetaMask) {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				await provider.send("eth_requestAccounts", []);
+				// @TODO: change to polygon mainnet
 				if (ethereum.networkVersion !== "44787") {
 					openErrorModal(
 						`You are connected to the wrong network, we are on Alfajores Testnet with the chain id 44787`

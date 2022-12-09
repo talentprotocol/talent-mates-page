@@ -32,7 +32,7 @@ import { useMediaQuery } from "hooks/use-media-query";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0xAA2D10D9FFdf4959f186Ec34D2fF6B5bf6aabEC1",
+	address: "0x2eE9E381F5C6a018Ce88CA0A84E1fE9f179928F0",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
@@ -151,10 +151,10 @@ export const NFTPicker = ({
 			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
 		}
 		const isAvailable = await contract.isCombinationAvailable(combination);
-		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
+		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
 		if (!isWhitlisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
@@ -162,18 +162,15 @@ export const NFTPicker = ({
 		const content = await contract.connect(signer).mint();
 		// @ts-ignore
 		window.mintHash = content.hash;
+
+		const receipt = await content.wait();
+
+		const event = receipt.events?.find((e: any) => {
+			return e.event === "Transfer";
+		});
+
+		const tokenId = event.args[2].toNumber();
 		jumpToNextMintState();
-		let tokenId;
-		while (!tokenId) {
-			try {
-				tokenId = await contract
-					.connect(signer)
-					.tokenOfOwnerByIndex(accounts[0], 0);
-			} catch {
-				tokenId = false;
-				await timeout(1000);
-			}
-		}
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
