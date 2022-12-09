@@ -53,5 +53,6 @@ export const ImageList = styled.span`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	flex-wrap: wrap;
 `;

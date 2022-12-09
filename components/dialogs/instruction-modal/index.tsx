@@ -160,12 +160,20 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 					</ImageList>
 				</>
 			) : (
-				<img
-					width="170"
-					height="170"
-					src="https://d6cu1tnva62p2.cloudfront.net/body/male/01.png"
-					alt="buddy"
-				/>
+				<ImageList>
+					<img
+						width="170"
+						height="170"
+						src="https://d6cu1tnva62p2.cloudfront.net/body/male/01.png"
+						alt="buddy"
+					/>
+					<img
+						width="170"
+						height="170"
+						src="https://d6cu1tnva62p2.cloudfront.net/body/female/01.png"
+						alt="buddy"
+					/>
+				</ImageList>
 			)}
 			<Typography
 				type="h3"
