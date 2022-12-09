@@ -115,6 +115,7 @@ export const fullWidthStyles = css`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 `;
 
 export const ButtonContainer = styled.button<StyledButtonProps>`

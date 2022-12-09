@@ -114,6 +114,7 @@ export const GenderPicker = styled.div`
 	padding: 4px;
 	border: 1px solid ${COLORS.GREY};
 	border-radius: 24px;
+	gap: 16px;
 `;
 
 export const ImageHolder = styled.div`
