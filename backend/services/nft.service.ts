@@ -36,12 +36,11 @@ const PROPERTIES_LIST = [
 	"background",
 	"background-object",
 	"body",
-	"ear",
 	"hair",
-	"outfit",
+	"clothing",
 	"mouth",
 	"eyes",
-	"cloud",
+	"thinking",
 ];
 const MANDATORY_PROPERTIES_LIST = [
 	"gender",
