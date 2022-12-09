@@ -1,10 +1,8 @@
 import { Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
 import {
-	ActionArea,
 	Container,
 	ImageList,
-	StyledButton,
 	XArea,
 } from "./styled";
 import { Props, TIERS } from "./types";
@@ -15,7 +13,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 		typeof window !== "undefined" && window.accountTier > TIERS.USER
 	);
 	// @ts-ignore
-	const tierLevel = typeof window !== "undefined" && window.accountTier);
+	const tierLevel = typeof window !== "undefined" && window.accountTier;
 	return (
 		<Container
 			onClick={(e) => {

@@ -55,11 +55,3 @@ export const ImageList = styled.span`
 	align-items: center;
 	flex-wrap: wrap;
 `;
-
-export const ActionArea = styled.div`
-	display: flex;
-`;
-
-export const StyledButton = styled(Button)`
-	padding: 8px 32px;
-`;
