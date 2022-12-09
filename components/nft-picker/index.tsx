@@ -32,7 +32,7 @@ import { useMediaQuery } from "hooks/use-media-query";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x2eE9E381F5C6a018Ce88CA0A84E1fE9f179928F0",
+	address: "0x4F3adD3A80598a39Ba29548e998F0fCeAE525539",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
