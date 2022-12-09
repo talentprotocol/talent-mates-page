@@ -15,7 +15,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 		typeof window !== "undefined" && window.accountTier > TIERS.USER
 	);
 	// @ts-ignore
-	const tierLevel = typeof window !== "undefined" && window.accountTier);
+	const tierLevel = typeof window !== "undefined" && window.accountTier;
 	return (
 		<Container
 			onClick={(e) => {
