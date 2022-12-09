@@ -45,7 +45,7 @@ export const ImageArea = styled.div`
 
 	@media (max-width: 768px) {
 		flex-direction: column;
-		
+
 		> * {
 			:nth-child(2) {
 				display: none;

@@ -4,16 +4,17 @@ import { Button, COLORS } from "shared-ui";
 export const Container = styled.section`
 	position: relative;
 	min-width: 500px;
+	max-width: 800px;
+	max-height: 80%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	padding: 44px 40px 40px;
 	gap: 32px;
 	background: ${COLORS.WHITE};
 	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
 	border-radius: 24px;
 	text-align: center;
+	overflow-y: scroll;
 
 	img {
 		object-fit: cover;
@@ -44,6 +45,15 @@ export const XArea = styled.div`
 	right: 20px;
 	top: 20px;
 	cursor: pointer;
+`;
+
+export const ImageList = styled.span`
+	width: 100%;
+	max-width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: wrap;
 `;
 
 export const ActionArea = styled.div`

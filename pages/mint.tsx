@@ -71,7 +71,7 @@ const Home: NextPage = () => {
 				isOpen={instructionModalState.isOpen}
 				onCloseModal={instructionModalState.close}
 			>
-				<InstructionModalDialog closeModal={instructionModalState.close}/>
+				<InstructionModalDialog closeModal={instructionModalState.close} />
 			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}

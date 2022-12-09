@@ -257,7 +257,7 @@ export const NFTPicker = ({
 						// @ts-ignore
 						if (traits[trait].currentSelection !== -1) {
 							const traitImage = new Image();
-							traitImage.crossOrigin = 'Anonymous';
+							traitImage.crossOrigin = "Anonymous";
 							// @ts-ignore
 							traitImage.src = traits[trait].image;
 							const traitPromise = new Promise<HTMLImageElement>(
@@ -307,187 +307,192 @@ export const NFTPicker = ({
 	}, []);
 
 	return (
-			<SectionContainer>
-				<PickerArea>
-					<TraitPickerArea>
-						<Trait
-							trait={traits.backgroundTrait.name}
-							description={traits.backgroundTrait.description}
-							onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
-							currentTraitNumber={traits.backgroundTrait.currentSelection}
-							totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.skinTrait.name}
-							description={traits.skinTrait.description}
-							onTraitSelection={traits.skinTrait.updateCurrentSelection}
-							currentTraitNumber={traits.skinTrait.currentSelection}
-							totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.hairTrait.name}
-							description={traits.hairTrait.description}
-							onTraitSelection={traits.hairTrait.updateCurrentSelection}
-							currentTraitNumber={traits.hairTrait.currentSelection}
-							totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.clothingTrait.name}
-							description={traits.clothingTrait.description}
-							onTraitSelection={traits.clothingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.clothingTrait.currentSelection}
-							totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
-						/>
-					</TraitPickerArea>
-					<DisplayArea>
-						<GenderPicker>
-							<Button
-								text="Male"
-								type="button"
-								variant={gender === "male" ? "quaternary" : "secondary"}
-								fullWidth
-								onClick={() => setGender("male")}
-							/>
-							<Button
-								text="Female"
-								type="button"
-								variant={gender === "female" ? "quaternary" : "secondary"}
-								fullWidth
-								onClick={() => setGender("female")}
-							/>
-						</GenderPicker>
-						<ImageHolder>
-							<Spinner isShown={generatingImage} />
-							<canvas
-								style={{ overflow: "hidden"}}
-								ref={canvasRef}
-								width={`${CANVAS_SIDE}px`}
-								height={`${CANVAS_SIDE}px`}
-							/>
-						</ImageHolder>
-					</DisplayArea>
-					<TraitPickerAreaMobile>
-						<Trait
-							trait={traits.backgroundTrait.name}
-							description={traits.backgroundTrait.description}
-							onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
-							currentTraitNumber={traits.backgroundTrait.currentSelection}
-							totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.skinTrait.name}
-							description={traits.skinTrait.description}
-							onTraitSelection={traits.skinTrait.updateCurrentSelection}
-							currentTraitNumber={traits.skinTrait.currentSelection}
-							totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.hairTrait.name}
-							description={traits.hairTrait.description}
-							onTraitSelection={traits.hairTrait.updateCurrentSelection}
-							currentTraitNumber={traits.hairTrait.currentSelection}
-							totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.clothingTrait.name}
-							description={traits.clothingTrait.description}
-							onTraitSelection={traits.clothingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.clothingTrait.currentSelection}
-							totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.mouthTrait.name}
-							description={traits.mouthTrait.description}
-							onTraitSelection={traits.mouthTrait.updateCurrentSelection}
-							currentTraitNumber={traits.mouthTrait.currentSelection}
-							totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.eyesTrait.name}
-							description={traits.eyesTrait.description}
-							onTraitSelection={traits.eyesTrait.updateCurrentSelection}
-							currentTraitNumber={traits.eyesTrait.currentSelection}
-							totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.thinkingTrait.name}
-							description={traits.thinkingTrait.description}
-							onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.thinkingTrait.currentSelection}
-							totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.backgroundObjectTrait.name}
-							description={traits.backgroundObjectTrait.description}
-							onTraitSelection={
-								traits.backgroundObjectTrait.updateCurrentSelection
-							}
-							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
-							totalNumberOfTraits={
-								traits.backgroundObjectTrait.maxElements[gender]
-							}
-						/>
-					</TraitPickerAreaMobile>
-					<TraitPickerArea>
-						<Trait
-							trait={traits.mouthTrait.name}
-							description={traits.mouthTrait.description}
-							onTraitSelection={traits.mouthTrait.updateCurrentSelection}
-							currentTraitNumber={traits.mouthTrait.currentSelection}
-							totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.eyesTrait.name}
-							description={traits.eyesTrait.description}
-							onTraitSelection={traits.eyesTrait.updateCurrentSelection}
-							currentTraitNumber={traits.eyesTrait.currentSelection}
-							totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.thinkingTrait.name}
-							description={traits.thinkingTrait.description}
-							onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.thinkingTrait.currentSelection}
-							totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.backgroundObjectTrait.name}
-							description={traits.backgroundObjectTrait.description}
-							onTraitSelection={
-								traits.backgroundObjectTrait.updateCurrentSelection
-							}
-							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
-							totalNumberOfTraits={
-								traits.backgroundObjectTrait.maxElements[gender]
-							}
-						/>
-					</TraitPickerArea>
-				</PickerArea>
-				<ActionArea>
-					<div>
+		<SectionContainer>
+			<PickerArea>
+				<TraitPickerArea>
+					<Trait
+						trait={traits.backgroundTrait.name}
+						description={traits.backgroundTrait.description}
+						onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+						currentTraitNumber={traits.backgroundTrait.currentSelection}
+						totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.skinTrait.name}
+						description={traits.skinTrait.description}
+						onTraitSelection={traits.skinTrait.updateCurrentSelection}
+						currentTraitNumber={traits.skinTrait.currentSelection}
+						totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.hairTrait.name}
+						description={traits.hairTrait.description}
+						onTraitSelection={traits.hairTrait.updateCurrentSelection}
+						currentTraitNumber={traits.hairTrait.currentSelection}
+						totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.clothingTrait.name}
+						description={traits.clothingTrait.description}
+						onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.clothingTrait.currentSelection}
+						totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
+					/>
+				</TraitPickerArea>
+				<DisplayArea>
+					<GenderPicker>
 						<Button
-							text="Share on Twitter"
+							text="Male"
 							type="button"
-							variant="tertiary"
+							variant={gender === "male" ? "quaternary" : "secondary"}
 							fullWidth
-							onClick={() => { 
-								window.open(`https://twitter.com/intent/tweet?text=${encodeURI("Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol ")}&url=${window.location.origin}`, "_blank");
-							}}
+							onClick={() => setGender("male")}
 						/>
-					</div>
-					<div>
-						<ShuffleButton callback={(shuffleCombination)} />
-					</div>
-					<div>
 						<Button
-							text="Mint your NFT"
+							text="Female"
 							type="button"
-							variant="primary"
+							variant={gender === "female" ? "quaternary" : "secondary"}
 							fullWidth
-							onClick={openMintModal}
+							onClick={() => setGender("female")}
 						/>
-					</div>
-				</ActionArea>
-			</SectionContainer>
+					</GenderPicker>
+					<ImageHolder>
+						<Spinner isShown={generatingImage} />
+						<canvas
+							style={{ overflow: "hidden" }}
+							ref={canvasRef}
+							width={`${CANVAS_SIDE}px`}
+							height={`${CANVAS_SIDE}px`}
+						/>
+					</ImageHolder>
+				</DisplayArea>
+				<TraitPickerAreaMobile>
+					<Trait
+						trait={traits.backgroundTrait.name}
+						description={traits.backgroundTrait.description}
+						onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+						currentTraitNumber={traits.backgroundTrait.currentSelection}
+						totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.skinTrait.name}
+						description={traits.skinTrait.description}
+						onTraitSelection={traits.skinTrait.updateCurrentSelection}
+						currentTraitNumber={traits.skinTrait.currentSelection}
+						totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.hairTrait.name}
+						description={traits.hairTrait.description}
+						onTraitSelection={traits.hairTrait.updateCurrentSelection}
+						currentTraitNumber={traits.hairTrait.currentSelection}
+						totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.clothingTrait.name}
+						description={traits.clothingTrait.description}
+						onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.clothingTrait.currentSelection}
+						totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.mouthTrait.name}
+						description={traits.mouthTrait.description}
+						onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+						currentTraitNumber={traits.mouthTrait.currentSelection}
+						totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.eyesTrait.name}
+						description={traits.eyesTrait.description}
+						onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+						currentTraitNumber={traits.eyesTrait.currentSelection}
+						totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.thinkingTrait.name}
+						description={traits.thinkingTrait.description}
+						onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.thinkingTrait.currentSelection}
+						totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.backgroundObjectTrait.name}
+						description={traits.backgroundObjectTrait.description}
+						onTraitSelection={
+							traits.backgroundObjectTrait.updateCurrentSelection
+						}
+						currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+						totalNumberOfTraits={
+							traits.backgroundObjectTrait.maxElements[gender]
+						}
+					/>
+				</TraitPickerAreaMobile>
+				<TraitPickerArea>
+					<Trait
+						trait={traits.mouthTrait.name}
+						description={traits.mouthTrait.description}
+						onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+						currentTraitNumber={traits.mouthTrait.currentSelection}
+						totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.eyesTrait.name}
+						description={traits.eyesTrait.description}
+						onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+						currentTraitNumber={traits.eyesTrait.currentSelection}
+						totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.thinkingTrait.name}
+						description={traits.thinkingTrait.description}
+						onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.thinkingTrait.currentSelection}
+						totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.backgroundObjectTrait.name}
+						description={traits.backgroundObjectTrait.description}
+						onTraitSelection={
+							traits.backgroundObjectTrait.updateCurrentSelection
+						}
+						currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+						totalNumberOfTraits={
+							traits.backgroundObjectTrait.maxElements[gender]
+						}
+					/>
+				</TraitPickerArea>
+			</PickerArea>
+			<ActionArea>
+				<div>
+					<Button
+						text="Share on Twitter"
+						type="button"
+						variant="tertiary"
+						fullWidth
+						onClick={() => {
+							window.open(
+								`https://twitter.com/intent/tweet?text=${encodeURI(
+									"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+								)}&url=${window.location.origin}`,
+								"_blank"
+							);
+						}}
+					/>
+				</div>
+				<div>
+					<ShuffleButton callback={shuffleCombination} />
+				</div>
+				<div>
+					<Button
+						text="Mint your NFT"
+						type="button"
+						variant="primary"
+						fullWidth
+						onClick={openMintModal}
+					/>
+				</div>
+			</ActionArea>
+		</SectionContainer>
 	);
 };

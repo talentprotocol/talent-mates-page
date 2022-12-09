@@ -11,7 +11,7 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: center;
 	--animate-duration: 400ms;
-	
+
 	@media (max-width: 768px) {
 		padding: 0 12px;
 	}

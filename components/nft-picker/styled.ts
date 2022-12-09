@@ -75,7 +75,7 @@ export const TraitPickerAreaMobile = styled.div`
 	@media (min-width: 768px) {
 		display: none;
 	}
-	
+
 	@media (max-width: 768px) {
 		margin-top: 24px;
 		padding: 0 12px 12px;
@@ -92,7 +92,7 @@ export const DisplayArea = styled.div`
 	padding-left: 24px;
 	padding-right: 24px;
 	height: 100%;
-	
+
 	@media (max-width: 768px) {
 		padding: 0;
 		max-width: 100%;
@@ -136,7 +136,7 @@ export const ActionArea = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	gap: 8px;
-	
+
 	@media (max-width: 768px) {
 		flex-direction: column;
 		padding: 0 12px;
