@@ -70,9 +70,12 @@ export const NFTPicker = ({
 				ContractBook["TalentNFT"].abi,
 				provider
 			);
-			const accountTier = await contract.checkAccountTier(accounts[0]);
-			//openInstructionModal();
-			//console.log(accountTier);
+			if (typeof window !== undefined) {
+				const accountTier = await contract.checkAccountTier(accounts[0]);
+				// @ts-ignore
+				window.accountTier = accountTier;
+				openInstructionModal();
+			}
 		})();
 	}, []);
 	const traits = {

@@ -20,6 +20,7 @@ import ErrorModal from "components/error-modal";
 import { ApproveTransactionDialog } from "components/dialogs/approve-transaction";
 import { CheckingElegibilityDialog } from "components/dialogs/checking-eligibility";
 import { TransactionInProgressDialog } from "components/dialogs/transaction-in-progress";
+import { InstructionModalDialog } from "components/dialogs/instruction-modal";
 
 const Home: NextPage = () => {
 	const [imageSource, setImageSource] = useState<string | undefined>(
@@ -70,7 +71,7 @@ const Home: NextPage = () => {
 				isOpen={instructionModalState.isOpen}
 				onCloseModal={instructionModalState.close}
 			>
-				<div>cenas</div>
+				<InstructionModalDialog closeModal={instructionModalState.close}/>
 			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}

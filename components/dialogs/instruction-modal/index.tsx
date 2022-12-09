@@ -4,6 +4,8 @@ import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
 
 export const InstructionModalDialog = ({ closeModal }: Props) => {
+	// @ts-ignore
+	const isRare = !!(typeof window !== "undefined" && window.accountTier > 2);
 	return (
 		<Container
 			onClick={(e) => {
@@ -20,7 +22,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				src="https://d6cu1tnva62p2.cloudfront.net/body/male/01.png"
 				alt="buddy"
 			/>
-			<Typography type="h3" text="Congratulation, buddy!" />
+			<Typography type="h3" text={isRare ? "You look rare, mate!" : "Welcome, mate!"} />
 			<Typography
 				type="body1"
 				text="We’re super happy to give this rare skin trait only for Talent House Alumni!"
