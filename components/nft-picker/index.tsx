@@ -53,7 +53,6 @@ export const NFTPicker = ({
 	setImageSource,
 	openErrorModal,
 }: Props) => {
-	const isMobile = useMediaQuery("(max-width: 768px)");
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -73,7 +72,7 @@ export const NFTPicker = ({
 			);
 			const accountTier = await contract.checkAccountTier(accounts[0]);
 			//openInstructionModal();
-			console.log(accountTier);
+			//console.log(accountTier);
 		})();
 	}, []);
 	const traits = {
@@ -186,7 +185,11 @@ export const NFTPicker = ({
 			options["gender"] = gender;
 			await createNFT(options, signature, accounts[0], tokenId)
 				.then(() => {
-					jumpToNextMintState();
+					if (typeof window !== "undefined" && canvasRef.current) {
+						const url = canvasRef.current.toDataURL("image/png");
+						setImageSource(url);
+						jumpToNextMintState();
+					}
 				})
 				.catch((err) => {
 					closeModal();
@@ -213,12 +216,6 @@ export const NFTPicker = ({
 			openModal(event);
 			try {
 				await mintNFT();
-
-				// TODO: fix paited tints CORS
-				if (typeof window !== "undefined" && canvasRef.current) {
-					//const url = canvasRef.current.toDataURL("image/png");
-					//setImageSource(url);
-				}
 			} catch (err) {
 				closeModal();
 				// @ts-ignore
@@ -260,7 +257,7 @@ export const NFTPicker = ({
 						// @ts-ignore
 						if (traits[trait].currentSelection !== -1) {
 							const traitImage = new Image();
-							//traitImage.crossOrigin = 'Anonymous';
+							traitImage.crossOrigin = 'Anonymous';
 							// @ts-ignore
 							traitImage.src = traits[trait].image;
 							const traitPromise = new Promise<HTMLImageElement>(
@@ -468,7 +465,18 @@ export const NFTPicker = ({
 				</PickerArea>
 				<ActionArea>
 					<div>
-						<ShuffleButton callback={shuffleCombination} />
+						<Button
+							text="Share on Twitter"
+							type="button"
+							variant="tertiary"
+							fullWidth
+							onClick={() => { 
+								window.open(`https://twitter.com/intent/tweet?text=${encodeURI("Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol ")}&url=${window.location.origin}`, "_blank");
+							}}
+						/>
+					</div>
+					<div>
+						<ShuffleButton callback={(shuffleCombination)} />
 					</div>
 					<div>
 						<Button
