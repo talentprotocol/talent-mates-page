@@ -30,14 +30,14 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 						<img
 							width="170"
 							height="170"
-							src="https://d6cu1tnva62p2.cloudfront.net/body/male/09.png"
+							src="https://d6cu1tnva62p2.cloudfront.net/body/male/09.png" // 6
 							alt="buddy"
 						/>
 						{tierLevel > TIERS.TALENT_HOUSE && (
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/17.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/17.png"// 7
 								alt="buddy"
 							/>
 						)}
@@ -45,7 +45,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/06.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/06.png" // 8
 								alt="buddy"
 							/>
 						)}
@@ -53,7 +53,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/07.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/07.png" // 9
 								alt="buddy"
 							/>
 						)}
@@ -63,7 +63,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/10.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/10.png" // 10
 								alt="buddy"
 							/>
 						)}
@@ -71,7 +71,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/13.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/13.png" // 11
 								alt="buddy"
 							/>
 						)}
@@ -79,7 +79,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/14.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/14.png" // 12
 								alt="buddy"
 							/>
 						)}
@@ -87,7 +87,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 							<img
 								width="170"
 								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/16.png"
+								src="https://d6cu1tnva62p2.cloudfront.net/body/male/16.png" // 13
 								alt="buddy"
 							/>
 						)}
