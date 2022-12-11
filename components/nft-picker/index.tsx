@@ -27,7 +27,6 @@ import { ethers } from "ethers";
 import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
 import { createNFT } from "api-client";
 import { ContractBook } from "libs/contract-book";
-import { useMediaQuery } from "hooks/use-media-query";
 
 ContractBook.new = {
 	name: "TalentNFT",
@@ -53,6 +52,7 @@ export const NFTPicker = ({
 	setImageSource,
 	openErrorModal,
 }: Props) => {
+	const [accountTier, setAccountTier] = useState(0);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -74,6 +74,7 @@ export const NFTPicker = ({
 				const accountTier = await contract.checkAccountTier(accounts[0]);
 				// @ts-ignore
 				window.accountTier = accountTier;
+				setAccountTier(accountTier);
 				openInstructionModal();
 			}
 		})();
@@ -94,7 +95,9 @@ export const NFTPicker = ({
 		skinTrait: useTrait({
 			name: "body",
 			description: "Skin",
-			maxElements: { male: 17, female: 17 },
+			// Skins are ordered from 5 and above, 
+			// For each account tier level there is one more skin unlocked
+			maxElements: { male: 5 + accountTier, female: 5 + accountTier },
 			gender,
 		}),
 		clothingTrait: useTrait({
