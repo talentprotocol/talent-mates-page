@@ -26,7 +26,9 @@ const ErrorModal = ({
 					<CrossSVG />
 				</XArea>
 				<Typography type="h3" text="Something went wrong" />
-				<Typography type="body2" text={errorText} />
+				<Typography type="body2">
+					<>{errorText}</>
+				</Typography>
 				<Footer>
 					Reach us on{" "}
 					<a

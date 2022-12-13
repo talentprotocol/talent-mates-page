@@ -19,6 +19,7 @@ export const ContentArea = styled.div`
 	flex-direction: column;
 	flex-basis: 568px;
 	min-width: 532px;
+	padding: 0px 24px;
 	gap: 32px;
 
 	@media (max-width: 768px) {

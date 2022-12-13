@@ -15,7 +15,7 @@ export interface Props {
 	type: TypographyType;
 	text?: string;
 	color?: AvailableColors;
-	children?: JSX.Element;
+	children?: JSX.Element | JSX.Element[];
 }
 
 export interface StyledTypographyProps {

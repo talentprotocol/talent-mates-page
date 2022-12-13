@@ -22,6 +22,7 @@ export const InnerContainer = styled.div`
 	${fontNormal}
 	font-weight: 400;
 	font-size: 14px;
+	padding: 0px 24px;
 
 	@media (max-width: 768px) {
 		flex-direction: column;

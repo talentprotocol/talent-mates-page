@@ -5,7 +5,9 @@ export const Footer = ({ fixed = false }) => (
 		<InnerContainer>
 			Talent Protocol MTU © 2022
 			<div />
-			contact@talentprotocol.com
+			<a href="mailto:contact@talentprotocol.com">
+				contact@talentprotocol.com
+			</a>
 			<section>
 				<a
 					target="_blank"
