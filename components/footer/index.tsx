@@ -3,20 +3,18 @@ import { Container, InnerContainer } from "./styled";
 export const Footer = ({ fixed = false }) => (
 	<Container positionFixed={fixed}>
 		<InnerContainer>
-			Talent Protocol MTU © 2022
+			<a
+				target="_blank"
+				rel="noreferrer"
+				href="https://www.talentprotocol.com/"
+			>
+				Talent Protocol MTU © 2022
+			</a>
 			<div />
 			<a href="mailto:contact@talentprotocol.com">
 				contact@talentprotocol.com
 			</a>
 			<section>
-				<a
-					target="_blank"
-					rel="noreferrer"
-					href="https://www.talentprotocol.com/"
-				>
-					Talent Protocol
-				</a>
-				<div />
 				<a
 					target="_blank"
 					rel="noreferrer"

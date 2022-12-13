@@ -34,3 +34,20 @@ export const TraitSwitchInfo = styled.span`
 	border-radius: 32px;
 	background-color: ${COLORS.LIGHTER_GREY};
 `;
+
+export const TraitTitle = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: row;
+	justify-content: space-between;
+	width: 100%;
+`;
+
+export const CommunityLevel = styled.div`
+	padding: 2px 8px;
+	background-color: ${COLORS.LIGHT_PURPLE};
+	border-radius: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;

@@ -4,8 +4,21 @@ import {
 	TraitSwitchInfo,
 	TraitArea,
 	TraitSwitchArea,
+	TraitTitle,
+	CommunityLevel
 } from "./styled";
 import { TraitProps } from "./types";
+import TRAITS from "libs/traits/list.json";
+
+const numberToTraitNumber = (value: Number): string => {
+	if (value < 10) {
+		// @ts-ignore
+		return TRAITS["body"]["female"][`0${value}`];
+	} else {
+		// @ts-ignore
+		return TRAITS["body"]["female"][value.toString()];
+	}
+}
 
 export const Trait = ({
 	description,
@@ -14,7 +27,10 @@ export const Trait = ({
 	totalNumberOfTraits,
 }: TraitProps) => (
 	<TraitArea>
-		<Typography type="body1" text={description} color="BLACK" />
+		<TraitTitle>
+			<Typography type="body1" text={description} color="BLACK" />
+			{description == "Skin" && <CommunityLevel><Typography type="body2" text={numberToTraitNumber(currentTraitNumber)} color="WHITE" /></CommunityLevel>}
+		</TraitTitle>
 		<TraitSwitchArea>
 			<Button
 				type="button"
@@ -31,10 +47,10 @@ export const Trait = ({
 				<TraitSwitchButton>--E</TraitSwitchButton>
 			</Button>
 			<TraitSwitchInfo>
-				<Typography type="body2" color="BLACK">
+				<Typography type="body1" color="BLACK">
 					<>
 						{currentTraitNumber !== -1
-							? `${currentTraitNumber}/${totalNumberOfTraits}`
+							? <><>{currentTraitNumber}</><span style={{color: "#697F8F"}}>/{totalNumberOfTraits.toString()}</span></>
 							: "None"}
 					</>
 				</Typography>

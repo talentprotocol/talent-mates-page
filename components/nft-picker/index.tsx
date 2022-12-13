@@ -99,7 +99,7 @@ export const NFTPicker = ({
 		backgroundObjectTrait: useTrait({
 			name: "background-object",
 			description: "Background Object",
-			maxElements: { male: 21, female: 21 },
+			maxElements: { male: 25, female: 25 },
 			gender,
 		}),
 		skinTrait: useTrait({
@@ -107,25 +107,25 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above, 
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 5, female: 5 },
+			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
 			gender,
 		}),
 		clothingTrait: useTrait({
 			name: "clothing",
 			description: "Clothes",
-			maxElements: { male: 24, female: 24 },
+			maxElements: { male: 27, female: 27 },
 			gender,
 		}),
 		hairTrait: useTrait({
 			name: "hair",
 			description: "Head",
-			maxElements: { male: 25, female: 27 },
+			maxElements: { male: 24, female: 24 },
 			gender,
 		}),
 		mouthTrait: useTrait({
 			name: "mouth",
 			description: "Mouth",
-			maxElements: { male: 12, female: 11 },
+			maxElements: { male: 14, female: 14 },
 			gender,
 		}),
 		eyesTrait: useTrait({
@@ -137,7 +137,7 @@ export const NFTPicker = ({
 		thinkingTrait: useTrait({
 			name: "thinking",
 			description: "Thinking Cloud",
-			maxElements: { male: 17, female: 17 },
+			maxElements: { male: 15, female: 15 },
 			gender,
 		}),
 	};

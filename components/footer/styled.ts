@@ -31,6 +31,21 @@ export const InnerContainer = styled.div`
 		font-size: 16px;
 	}
 
+	> a {
+		text-decoration: none;
+		outline: none;
+		color: ${COLORS.NOT_SO_LIGHT_GREY};
+		font-size: 14px;
+
+		@media (max-width: 768px) {
+			color: ${COLORS.LIGHT_GREY};
+		}
+
+		:hover {
+			color: ${COLORS.BLACK};
+		}
+	}
+
 	> section {
 		flex-grow: 1;
 		display: flex;

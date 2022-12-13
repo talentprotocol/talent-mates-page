@@ -35,7 +35,7 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 					type="general"
 					color="LIGHT_GREY"
 				>
-					<>Talent Protocol{"’"}s mission is to make talented builders more visible and this NFT collection is about giving our users a new way to express themselves on-chain. To claim your Talent Mate, first create a Talent Protocol account <a href="https://beta.talentprotocol.com/join" target="_blank">here</a> and then go to <a href="https://avatar.talentprotocol.com" target="_blank">avatar.talentprotocol.com</a> to collect your avatar.</>
+					<>Talent Protocol{"’"}s mission is to make talented builders more visible and this NFT collection is about giving our users a new way to express themselves on-chain. To claim your Talent Mate, first create a Talent Protocol account <a href="https://beta.talentprotocol.com/join" target="_blank" rel="noreferrer">here</a> and then go to <a href="https://avatar.talentprotocol.com" target="_blank" rel="noreferrer">avatar.talentprotocol.com</a> to collect your avatar.</>
 				</Typography>
 			</div>
 			<ActionArea>
