@@ -31,9 +31,9 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x856D28Ee835E44999721916A8A0B95f1A54d2276",
-	network: "https://alfajores-forno.celo-testnet.org",
-	chainId: "44787",
+	address: "0x47f1184FBC56E273f61bEFCF689e0Ab8C2e3976E",
+	network: "https://polygon-rpc.com/",
+	chainId: "137",
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
@@ -240,7 +240,9 @@ export const NFTPicker = ({
 		async (event: SyntheticEvent) => {
 			openModal(event);
 			try {
-				await mintNFT();
+				// temp disable for "go-live"
+				// await mintNFT();
+				return;
 			} catch (err) {
 				closeModal();
 				// @ts-ignore
