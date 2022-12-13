@@ -107,7 +107,7 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above, 
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
+			maxElements: { male: 5, female: 5 },
 			gender,
 		}),
 		clothingTrait: useTrait({
