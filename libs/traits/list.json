@@ -51,13 +51,12 @@
       "16": "Paint Roller",
       "17": "Chair",
       "18": "Fishing Pole",
-      "19": "Portuguese Flag",
-      "20": "Robotic Hand",
-      "21": "Graffiti Cans",
-      "22": "Wings",
-      "23": "Dark Cat",
-      "24": "Purple Electric Guitar",
-      "25": "Dog"
+      "19": "Robotic Hand",
+      "20": "Graffiti Cans",
+      "21": "Wings",
+      "22": "Dark Cat",
+      "23": "Purple Electric Guitar",
+      "24": "Dog"
     },
     "male": {
       "01": "Backpack",
@@ -79,12 +78,11 @@
       "17": "Paint Roller",
       "18": "Chair",
       "19": "Fishing Pole",
-      "20": "Portuguese Flag",
-      "21": "Robotic Hand",
-      "22": "Graffiti Cans",
-      "23": "Dark Cat",
-      "24": "Purple Electric Guitar",
-      "25": "Dog"
+      "20": "Robotic Hand",
+      "21": "Graffiti Cans",
+      "22": "Dark Cat",
+      "23": "Purple Electric Guitar",
+      "24": "Dog"
     }
   },
   "body": {

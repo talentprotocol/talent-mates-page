@@ -40,10 +40,6 @@ const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
 const BASE_URI = "TalentNFT";
 
-const timeout = (ms: number) => {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
 export const NFTPicker = ({
 	openModal,
 	openInstructionModal,
@@ -99,7 +95,7 @@ export const NFTPicker = ({
 		backgroundObjectTrait: useTrait({
 			name: "background-object",
 			description: "Background Object",
-			maxElements: { male: 25, female: 25 },
+			maxElements: { male: 24, female: 24 },
 			gender,
 		}),
 		skinTrait: useTrait({
@@ -107,7 +103,7 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above, 
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
+			maxElements: { male: 15, female: 15 },
 			gender,
 		}),
 		clothingTrait: useTrait({
