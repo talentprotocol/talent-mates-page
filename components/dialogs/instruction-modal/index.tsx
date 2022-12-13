@@ -51,7 +51,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/15.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/15.png`}
 				alt="buddy"
 			/>;
 		}
@@ -59,7 +59,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/14.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/14.png`}
 				alt="buddy"
 			/>;
 		}
@@ -67,7 +67,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/13.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/13.png`}
 				alt="buddy"
 			/>;
 		}
@@ -75,7 +75,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/12.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/12.png`}
 				alt="buddy"
 			/>;
 		}
@@ -83,7 +83,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/11.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/11.png`}
 				alt="buddy"
 			/>;
 		}
@@ -91,7 +91,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/10.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/10.png`}
 				alt="buddy"
 			/>;
 		}
@@ -99,7 +99,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/09.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/09.png`}
 				alt="buddy"
 			/>;
 		}
@@ -107,7 +107,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/08.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/08.png`}
 				alt="buddy"
 			/>;
 		}
@@ -115,7 +115,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/07.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/07.png`}
 				alt="buddy"
 			/>;
 		}
@@ -123,14 +123,14 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			return <img
 				width="170"
 				height="170"
-				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/06.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/06.png`}
 				alt="buddy"
 			/>;
 		}
 		return <img
 			width="170"
 			height="170"
-			src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/05.png`}
+			src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/05.png`}
 			alt="buddy"
 		/>;
 	};
@@ -157,13 +157,13 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 					<img
 						width="170"
 						height="170"
-						src="https://d6cu1tnva62p2.cloudfront.net/body/male/01.png"
+						src="https://d2hlxeotl5sfi8.cloudfront.net/body/male/01.png"
 						alt="buddy"
 					/>
 					<img
 						width="170"
 						height="170"
-						src="https://d6cu1tnva62p2.cloudfront.net/body/female/01.png"
+						src="https://d2hlxeotl5sfi8.cloudfront.net/body/female/01.png"
 						alt="buddy"
 					/>
 				</ImageList>
