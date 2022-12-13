@@ -33,16 +33,19 @@ const setMetaData = async (
 			});
 		}
 		const client = new NFTStorage({ token: TOKEN });
+		
+		// -> replace traits with attributes (check pugs example)
 		const metadata = await client.store({
-			name: "Talent Protocol NFT",
+			name: `Talent Mate #${tokenId}`,
 			description:
-				"Talent Protocol NFT. Owners of this NFT are considered cool",
+				"Talent Mates. An NFT collection by Talent Protocol.",
 			image,
 			properties: {
 				type: "image",
 				traits: fileName,
 			},
 		});
+
 		await contract.connect(owner).setTokenURI(tokenId, metadata.url, fileName, owner, selectedSkin);
 		return Promise.resolve({
 			status: 200,

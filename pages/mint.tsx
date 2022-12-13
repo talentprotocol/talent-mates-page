@@ -100,6 +100,7 @@ const Home: NextPage = () => {
 			<Body>
 				<NFTPicker
 					jumpToNextMintState={modalState.jumpToNextState}
+					skipNextMintState={modalState.skipNextState}
 					openModal={modalState.open}
 					closeModal={modalState.close}
 					openInstructionModal={instructionModalState.open}

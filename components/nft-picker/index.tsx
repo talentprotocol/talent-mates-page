@@ -31,13 +31,14 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x3B0763225cbfF3a7e19580Eb2f3d514b848E4671",
+	address: "0x856D28Ee835E44999721916A8A0B95f1A54d2276",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
+const BASE_URI = "TalentNFT";
 
 const timeout = (ms: number) => {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -48,6 +49,7 @@ export const NFTPicker = ({
 	openInstructionModal,
 	closeInstructionModal,
 	jumpToNextMintState,
+	skipNextMintState,
 	closeModal,
 	setImageSource,
 	openErrorModal,
@@ -74,6 +76,14 @@ export const NFTPicker = ({
 				const accountTier = await contract.checkAccountTier(accounts[0]);
 				// @ts-ignore
 				window.accountTier = accountTier;
+
+				try {
+					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+					// @ts-ignore
+					window.tokenIdOfUser = tokenIdOfUser;
+				} catch {
+					// user does not have any minted token;
+				}
 				setAccountTier(accountTier);
 				openInstructionModal();
 			}
@@ -149,31 +159,42 @@ export const NFTPicker = ({
 			ContractBook["TalentNFT"].abi,
 			provider
 		);
-		const userBalance = await contract.balanceOf(await signer.getAddress());
-		if (userBalance > 0) {
-			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
-		}
+
 		const isAvailable = await contract.isCombinationAvailable(combination);
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
-		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
-		if (!isWhitlisted) {
+		const isWhitelisted = await contract.isWhitelisted(accounts[0]);
+		if (!isWhitelisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
-		jumpToNextMintState();
-		const content = await contract.connect(signer).mint();
-		// @ts-ignore
-		window.mintHash = content.hash;
 
-		const receipt = await content.wait();
+		const userBalance = await contract.balanceOf(await signer.getAddress());
+		let tokenId;
+		if (userBalance > 0) {
+			tokenId = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+			const tokenURI = await contract.tokenURI(tokenId);
+			if (tokenURI == BASE_URI) {
+				skipNextMintState();
+			} else {
+				throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
+			}
+		} else {
+			jumpToNextMintState();
+			const content = await contract.connect(signer).mint();
+			// @ts-ignore
+			window.mintHash = content.hash;
 
-		const event = receipt.events?.find((e: any) => {
-			return e.event === "Transfer";
-		});
+			const receipt = await content.wait();
 
-		const tokenId = event.args[2].toNumber();
-		jumpToNextMintState();
+			const event = receipt.events?.find((e: any) => {
+				return e.event === "Transfer";
+			});
+
+			tokenId = event.args[2].toNumber();
+			jumpToNextMintState();
+		}
+		
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
@@ -182,6 +203,7 @@ export const NFTPicker = ({
 			}
 			return acc;
 		}, {});
+
 		try {
 			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 			// @ts-ignore
@@ -360,7 +382,7 @@ export const NFTPicker = ({
 						/>
 					</GenderPicker>
 					<ImageHolder>
-						<Spinner isShown={generatingImage} />
+						<Spinner isShown={generatingImage}/>
 						<canvas
 							style={{ overflow: "hidden" }}
 							ref={canvasRef}

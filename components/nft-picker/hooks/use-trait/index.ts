@@ -6,7 +6,6 @@ const MANDATORY_PROPERTIES_LIST = {
 	gender: true,
 	body: true,
 	background: true,
-	eyes: true,
 	mouth: true,
 };
 

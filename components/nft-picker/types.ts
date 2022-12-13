@@ -8,6 +8,7 @@ export interface Props {
 	setImageSource: Function;
 	openErrorModal: ReactEventHandler;
 	jumpToNextMintState: Function;
+	skipNextMintState: Function;
 }
 
 export interface SpinnerAreaProps {

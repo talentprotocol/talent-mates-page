@@ -46,7 +46,6 @@ const MANDATORY_PROPERTIES_LIST = [
 	"gender",
 	"body",
 	"background",
-	"eyes",
 	"mouth",
 ];
 
