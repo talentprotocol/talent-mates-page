@@ -14,6 +14,127 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 	);
 	// @ts-ignore
 	const tierLevel = typeof window !== "undefined" && window.accountTier;
+
+	const tierLevelName = () => {
+		if (tierLevel > TIERS.ACTIVE_CONTRIBUTOR) {
+			return "the core team";
+		}
+		if (tierLevel > TIERS.CONTRIBUTOR) {
+			return "active contributors";
+		}
+		if (tierLevel > TIERS.INVESTOR_SUMMER) {
+			return "contributors";
+		}
+		if (tierLevel > TIERS.INVESTOR_FALL) {
+			return "investors";
+		}
+		if (tierLevel > TIERS.INVESTOR_WINTER) {
+			return "investors";
+		}
+		if (tierLevel > TIERS.TALENT) {
+			return "investors";
+		}
+		if (tierLevel > TIERS.TOKEN_HOLDER) {
+			return "talent";
+		}
+		if (tierLevel > TIERS.TALENT_HOUSE) {
+			return "token holders";
+		}
+		if (tierLevel > TIERS.USER) {
+			return "Talent House";
+		}
+		return "users";
+	};
+
+	const tierImage = (gender: String) => {
+		if (tierLevel == TIERS.CORE_TEAM) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/15.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.ACTIVE_CONTRIBUTOR) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/14.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.CONTRIBUTOR) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/13.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.INVESTOR_SUMMER) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/12.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.INVESTOR_FALL) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/11.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.INVESTOR_WINTER) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/10.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.TALENT) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/09.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.TOKEN_HOLDER) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/08.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.TALENT_HOUSE) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/07.png`}
+				alt="buddy"
+			/>;
+		}
+		if (tierLevel == TIERS.USER) {
+			return <img
+				width="170"
+				height="170"
+				src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/06.png`}
+				alt="buddy"
+			/>;
+		}
+		return <img
+			width="170"
+			height="170"
+			src={`https://d6cu1tnva62p2.cloudfront.net/body/${gender}/05.png`}
+			alt="buddy"
+		/>;
+	};
+
 	return (
 		<Container
 			onClick={(e) => {
@@ -27,136 +148,8 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			{isRare ? (
 				<>
 					<ImageList>
-						<img
-							width="170"
-							height="170"
-							src="https://d6cu1tnva62p2.cloudfront.net/body/male/09.png" // 6
-							alt="buddy"
-						/>
-						{tierLevel > TIERS.TALENT_HOUSE && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/17.png"// 7
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.PARTNER && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/06.png" // 8
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.TOKEN_HOLDER && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/07.png" // 9
-								alt="buddy"
-							/>
-						)}
-					</ImageList>
-					<ImageList>
-						{tierLevel > TIERS.TALENT && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/10.png" // 10
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.INVESTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/13.png" // 11
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.CONTRIBUTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/14.png" // 12
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.ACTIVE_CONTRIBUTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/male/16.png" // 13
-								alt="buddy"
-							/>
-						)}
-					</ImageList>
-					<ImageList>
-						<img
-							width="170"
-							height="170"
-							src="https://d6cu1tnva62p2.cloudfront.net/body/female/09.png"
-							alt="buddy"
-						/>
-						{tierLevel > TIERS.TALENT_HOUSE && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/17.png"
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.PARTNER && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/06.png"
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.TOKEN_HOLDER && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/07.png"
-								alt="buddy"
-							/>
-						)}
-					</ImageList>
-					<ImageList>
-						{tierLevel > TIERS.TALENT && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/10.png"
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.INVESTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/13.png"
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.CONTRIBUTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/14.png"
-								alt="buddy"
-							/>
-						)}
-						{tierLevel > TIERS.ACTIVE_CONTRIBUTOR && (
-							<img
-								width="170"
-								height="170"
-								src="https://d6cu1tnva62p2.cloudfront.net/body/female/16.png"
-								alt="buddy"
-							/>
-						)}
+						{tierImage("male")}
+						{tierImage("female")}
 					</ImageList>
 				</>
 			) : (
@@ -183,7 +176,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				type="body1"
 				text={
 					isRare
-						? "Congratulations! You unlocked these special skins, only available to [Contributors/Investors/…]. Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique."
+						? `Congratulations! You unlocked this special skin, only available to ${tierLevelName()}! The higher the community level, the more skins you have access to. Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique.`
 						: "As a verified Talent Protocol user, you can choose between 5 basic skins for your NFT. Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique."
 				}
 				color="LIGHT_GREY"

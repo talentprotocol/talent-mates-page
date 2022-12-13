@@ -26,6 +26,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
       const { ethereum } = window;
 			const provider = new ethers.providers.Web3Provider(ethereum);
       await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
+			window.location.href = "/mint";
     } catch (error: any) {
       console.log(error);
       // metamask mobile throws an error but that error has no code
@@ -37,6 +38,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
       if (!!error.code || error.code === 4902) {
 				await provider.send("wallet_addEthereumChain", [paramsForMetamask]);
         await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
+				window.location.href = "/mint";
       }
 		}
 	}

@@ -31,7 +31,7 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x4F3adD3A80598a39Ba29548e998F0fCeAE525539",
+	address: "0x3B0763225cbfF3a7e19580Eb2f3d514b848E4671",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
@@ -97,7 +97,7 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above, 
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 5 + accountTier, female: 5 + accountTier },
+			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
 			gender,
 		}),
 		clothingTrait: useTrait({
