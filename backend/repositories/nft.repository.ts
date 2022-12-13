@@ -11,7 +11,9 @@ const TOKEN = process.env.NFT_STORAGE_TOKEN as string;
 const setMetaData = async (
 	fileName: string,
 	image: Blob,
-	tokenId: number
+	tokenId: number,
+	owner: string,
+	selectedSkin: number
 ): Promise<DefaultResponse> => {
 	try {
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
@@ -41,7 +43,7 @@ const setMetaData = async (
 				traits: fileName,
 			},
 		});
-		await contract.connect(owner).setTokenURI(tokenId, metadata.url, fileName);
+		await contract.connect(owner).setTokenURI(tokenId, metadata.url, fileName, owner, selectedSkin);
 		return Promise.resolve({
 			status: 200,
 			message: "successfully setted nft metadata",
