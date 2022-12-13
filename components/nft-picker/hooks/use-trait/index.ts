@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Props } from "./types";
 
-const BASE_URL = "https://d6cu1tnva62p2.cloudfront.net";
+const BASE_URL = "https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com";
 const MANDATORY_PROPERTIES_LIST = {
 	gender: true,
 	body: true,
