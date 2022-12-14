@@ -180,7 +180,12 @@ export const NFTPicker = ({
 			}
 		} else {
 			jumpToNextMintState();
-			const content = await contract.connect(signer).mint();
+
+			// @ts-ignore
+			const url = new URL(document.location);
+			const code = url.searchParams.get("code") || "";
+
+			const content = await contract.connect(signer).mint(code);
 			// @ts-ignore
 			window.mintHash = content.hash;
 

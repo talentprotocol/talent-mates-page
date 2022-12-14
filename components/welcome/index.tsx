@@ -25,6 +25,21 @@ const paramsForMetamask = {
 	iconUrls: ["future"],
 };
 
+const getCode = (): string | null => {
+	// @ts-ignore
+	const url = new URL(document.location);
+	return url.searchParams.get("code");
+}
+
+const getURL = (): string => {
+	const code = getCode();
+	if (code) {
+		return `/mint?code=${code}`;
+	} else {
+		return "/mint";
+	}
+}
+
 const Welcome = ({ openModal, openErrorModal }: Props) => {
 	const router = useRouter();
 	const [alreadyConnected, setAlreadyConnected] = useState(false);
@@ -38,7 +53,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			await provider.send("wallet_switchEthereumChain", [
 				{ chainId: chainHex },
 			]);
-			window.location.href = "/mint";
+			window.location.href = getURL();
 		} catch (error: any) {
 			console.log(error);
 			// metamask mobile throws an error but that error has no code
@@ -52,14 +67,14 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 				await provider.send("wallet_switchEthereumChain", [
 					{ chainId: chainHex },
 				]);
-				window.location.href = "/mint";
+				window.location.href = getURL();
 			}
 		}
 	};
 
 	const connectToWallet = useCallback(async () => {
 		if (alreadyConnected) {
-			window.location.href = "/mint";
+			window.location.href = getURL();
 			return;
 		}
 
