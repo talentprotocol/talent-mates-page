@@ -1,6 +1,12 @@
 import { Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
-import { Container, ImageList, XArea, StyledButton, ActionArea } from "./styled";
+import {
+	Container,
+	ImageList,
+	XArea,
+	StyledButton,
+	ActionArea,
+} from "./styled";
 import { Props, TIERS } from "./types";
 
 export const InstructionModalDialog = ({ closeModal }: Props) => {
@@ -166,31 +172,31 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 			{isRare ? (
 				<>
 					<ImageList>
-						<div style={{backgroundColor: "#B2B4FA", borderRadius: 24}}>
-						{tierImage("male")}
+						<div style={{ backgroundColor: "#B2B4FA", borderRadius: 24 }}>
+							{tierImage("male")}
 						</div>
-						<div style={{backgroundColor: "#B2B4FA", borderRadius: 24}}>
-						{tierImage("female")}
+						<div style={{ backgroundColor: "#B2B4FA", borderRadius: 24 }}>
+							{tierImage("female")}
 						</div>
 					</ImageList>
 				</>
 			) : (
 				<ImageList>
-					<div style={{backgroundColor: "#B2B4FA", borderRadius: 24}}>
-					<img
-						width="170"
-						height="170"
-						src="https://d2hlxeotl5sfi8.cloudfront.net/body/male/02.png"
-						alt="buddy"
-					/>
+					<div style={{ backgroundColor: "#B2B4FA", borderRadius: 24 }}>
+						<img
+							width="170"
+							height="170"
+							src="https://d2hlxeotl5sfi8.cloudfront.net/body/male/02.png"
+							alt="buddy"
+						/>
 					</div>
-					<div style={{backgroundColor: "#B2B4FA", borderRadius: 24}}>
-					<img
-						width="170"
-						height="170"
-						src="https://d2hlxeotl5sfi8.cloudfront.net/body/female/02.png"
-						alt="buddy"
-					/>
+					<div style={{ backgroundColor: "#B2B4FA", borderRadius: 24 }}>
+						<img
+							width="170"
+							height="170"
+							src="https://d2hlxeotl5sfi8.cloudfront.net/body/female/02.png"
+							alt="buddy"
+						/>
 					</div>
 				</ImageList>
 			)}
@@ -208,13 +214,13 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				color="LIGHT_GREY"
 			/>
 			<ActionArea>
-			<StyledButton
-				text="Awesome! Let's do this!"
-				type="button"
-				variant="quaternary"
-				fullWidth={false}
-				onClick={closeModal}
-			/>
+				<StyledButton
+					text="Awesome! Let's do this!"
+					type="button"
+					variant="quaternary"
+					fullWidth={false}
+					onClick={closeModal}
+				/>
 			</ActionArea>
 		</Container>
 	);

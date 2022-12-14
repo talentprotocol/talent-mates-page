@@ -15,23 +15,29 @@ const valueToNumber = (value: number) => {
 	} else {
 		return `0${value}`;
 	}
-}
+};
 
 const propertiesToAttributes = (properties: any) => {
-	return Object.keys(properties).filter((k) => k != "gender").map((key) => {
-		return {
-			// @ts-ignore
-			"trait_type": TRAITS_LIST[key]["name"],
-			// @ts-ignore
-			"value": TRAITS_LIST[key][properties["gender"]][valueToNumber(properties[key])]};
-	});
-}
+	return Object.keys(properties)
+		.filter((k) => k != "gender")
+		.map((key) => {
+			return {
+				// @ts-ignore
+				trait_type: TRAITS_LIST[key]["name"],
+				// @ts-ignore
+				value:
+					TRAITS_LIST[key][properties["gender"]][
+						valueToNumber(properties[key])
+					],
+			};
+		});
+};
 
 const setMetaData = async (
 	fileName: string,
 	image: Blob,
 	tokenId: number,
-	properties: any,
+	properties: any
 ): Promise<DefaultResponse> => {
 	try {
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
@@ -57,18 +63,26 @@ const setMetaData = async (
 		// -> replace traits with attributes (check pugs example)
 		const metadata = await client.store({
 			name: `Talent Mate ${tokenId}`,
-			description:
-				"Talent Mates. An NFT collection by Talent Protocol.",
+			description: "Talent Mates. An NFT collection by Talent Protocol.",
 			image,
 			properties: {
 				type: "image",
 			},
-			attributes: [...propertiesToAttributes(properties), {"trait_type": "Revealed", "value": "Yes"}]
+			attributes: [
+				...propertiesToAttributes(properties),
+				{ trait_type: "Revealed", value: "Yes" },
+			],
 		});
 
 		await contract
 			.connect(owner)
-			.setTokenURI(tokenId, metadata.url, fileName, owner.address, selectedSkin);
+			.setTokenURI(
+				tokenId,
+				metadata.url,
+				fileName,
+				owner.address,
+				selectedSkin
+			);
 
 		return Promise.resolve({
 			status: 200,

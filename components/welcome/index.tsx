@@ -6,16 +6,24 @@ import { FirstSVG } from "./assets/first-svg";
 import { SecondSVG } from "./assets/second-svg";
 import { TwitterSVG } from "./assets/twitter-svg";
 import { OpenseaSVG } from "./assets/opensea-svg";
-import { ActionArea, Container, ContentArea, ImageArea, CalloutArea, SocialArea, StyledButton } from "./styled";
+import {
+	ActionArea,
+	Container,
+	ContentArea,
+	ImageArea,
+	CalloutArea,
+	SocialArea,
+	StyledButton,
+} from "./styled";
 import { Props } from "./types";
 
 const paramsForMetamask = {
-	"chainId": "0xaef3",
-	"chainName": "Alfajores Testnet",
-	"nativeCurrency": { "name": "Alfajores Celo", "symbol": "A-CELO", "decimals": 18 },
-	"rpcUrls": ["https://alfajores-forno.celo-testnet.org"],
-	"blockExplorerUrls": ["https://alfajores-blockscout.celo-testnet.org/"],
-	"iconUrls": ["future"]
+	chainId: "0xaef3",
+	chainName: "Alfajores Testnet",
+	nativeCurrency: { name: "Alfajores Celo", symbol: "A-CELO", decimals: 18 },
+	rpcUrls: ["https://alfajores-forno.celo-testnet.org"],
+	blockExplorerUrls: ["https://alfajores-blockscout.celo-testnet.org/"],
+	iconUrls: ["future"],
 };
 
 // const paramsForMetamask = {
@@ -31,7 +39,7 @@ const getCode = (): string | null => {
 	// @ts-ignore
 	const url = new URL(document.location);
 	return url.searchParams.get("code");
-}
+};
 
 const getURL = (): string => {
 	const code = getCode();
@@ -40,7 +48,7 @@ const getURL = (): string => {
 	} else {
 		return "/mint";
 	}
-}
+};
 
 const Welcome = ({ openModal, openErrorModal }: Props) => {
 	const router = useRouter();
@@ -164,37 +172,53 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 								onClick={openModal}
 							/>
 						</ActionArea>
+						<SocialArea>
+							<StyledButton
+								type="button"
+								variant="hexanary"
+								fullWidth={false}
+								onClick={() => {
+									window.open(
+										`https://twitter.com/intent/tweet?text=${encodeURI(
+											"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+										)}&url=${window.location.origin}`,
+										"_blank"
+									);
+								}}
+							>
+								<>
+									Share on{" "}
+									<div style={{ marginLeft: "6px", display: "flex" }}>
+										<TwitterSVG />
+									</div>
+									<span style={{ color: "black", marginLeft: "4px" }}>
+										Twitter
+									</span>
+								</>
+							</StyledButton>
+							<StyledButton
+								type="link"
+								variant="hexanary"
+								href="https://opensea.io/collection/talentprotocol"
+								target="_blank"
+							>
+								<>
+									Buy on{" "}
+									<div style={{ marginLeft: "6px", display: "flex" }}>
+										<OpenseaSVG />
+									</div>
+									<span style={{ color: "black", marginLeft: "4px" }}>
+										Opensea
+									</span>
+								</>
+							</StyledButton>
+						</SocialArea>
 					</ContentArea>
 					<ImageArea>
 						<FirstSVG />
 						<SecondSVG />
 					</ImageArea>
 				</CalloutArea>
-				<SocialArea>
-				<StyledButton
-					type="button"
-					variant="hexanary"
-					fullWidth={false}
-					onClick={() => {
-						window.open(
-							`https://twitter.com/intent/tweet?text=${encodeURI(
-								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-							)}&url=${window.location.origin}`,
-							"_blank"
-						);
-					}}
-				>
-					<>Share on <div style={{marginLeft: "6px", display: "flex"}}><TwitterSVG/></div><span style={{color: "black", marginLeft: "4px"}}>Twitter</span></>
-				</StyledButton>
-				<StyledButton
-					type="link"
-					variant="hexanary"
-					href="https://opensea.io/collection/talentprotocol"
-					target="_blank"
-				>
-					<>Buy on <div style={{marginLeft: "6px", display: "flex"}}><OpenseaSVG /></div><span style={{color: "black", marginLeft: "4px"}}>Opensea</span></>
-				</StyledButton>
-				</SocialArea>
 			</Container>
 		</>
 	);

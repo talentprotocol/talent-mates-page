@@ -43,12 +43,7 @@ const PROPERTIES_LIST = [
 	"thinking",
 ];
 
-const MANDATORY_PROPERTIES_LIST = [
-	"gender",
-	"body",
-	"background",
-	"mouth",
-];
+const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background", "mouth"];
 
 const createBlobFromPath = async (filePath: string) => {
 	const content = await fs.promises.readFile(filePath);

@@ -10,6 +10,7 @@ export const CalloutArea = styled.div`
 	display: flex;
 	gap: 72px;
 	align-items: center;
+	justify-content: center;
 
 	@media (max-width: 768px) {
 		max-width: 100%;
@@ -64,10 +65,9 @@ export const ImageArea = styled.div`
 export const SocialArea = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: start;
+	justify-content: flex-start;
 	align-items: center;
 	gap: 40px;
-	padding: 0px 24px;
 
 	@media (max-width: 768px) {
 		display: flex;

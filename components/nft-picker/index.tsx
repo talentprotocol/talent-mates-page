@@ -38,7 +38,8 @@ ContractBook.new = {
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
-const BASE_URI = "ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
+const BASE_URI =
+	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
 
 export const NFTPicker = ({
 	openModal,
@@ -72,7 +73,10 @@ export const NFTPicker = ({
 				// @ts-ignore
 				const url = new URL(document.location);
 				const code = url.searchParams.get("code") || "";
-				const accountTier = await contract.checkAccountOrCodeTier(accounts[0], code);
+				const accountTier = await contract.checkAccountOrCodeTier(
+					accounts[0],
+					code
+				);
 				// @ts-ignore
 				window.accountTier = accountTier;
 
