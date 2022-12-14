@@ -24,8 +24,8 @@ const propertiesToAttributes = (properties: any) => {
 			return {
 				// @ts-ignore
 				trait_type: TRAITS_LIST[key]["name"],
-				// @ts-ignore
 				value:
+					// @ts-ignore
 					TRAITS_LIST[key][properties["gender"]][
 						valueToNumber(properties[key])
 					],
