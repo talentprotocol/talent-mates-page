@@ -67,7 +67,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 				if (ethereum.networkVersion !== "137") {
 					openErrorModal(
 						<div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-							<div>You are connected to the wrong network, we are on Polygon with the chain id 137</div>
+							<div style={{marginBottom: 24}}>You are connected to the wrong network, we are on Polygon with the chain id 137</div>
 							<Button
 								type="button"
 								variant="primary"
