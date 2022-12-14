@@ -178,7 +178,7 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				text={
 					isRare
 						? `Congratulations! You unlocked this special skin, only available to ${tierLevelName()}! The higher the community level, the more skins you have access to. Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique.`
-						: "All Talent Protocol users, will be able to choose between 5 basic skins for your NFT. If you have a higher community level, you'll have more skins available! Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique."
+						: "All Talent Protocol verified users will be able to choose between 5 basic skins for your NFT. If you have a higher community level, you'll have more skins available! Use the arrows to browse various items and traits to customize your avatar. There are billions of possible combination, but each Talent Mate is unique."
 				}
 				color="LIGHT_GREY"
 			/>

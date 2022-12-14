@@ -35,7 +35,7 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 					type="general"
 					color="LIGHT_GREY"
 				>
-					<>To claim your Talent Mate, first create a Talent Protocol account <a href="https://beta.talentprotocol.com/join" target="_blank" rel="noreferrer">here</a>.</>
+					<>To claim your Talent Mate, first create a Talent Protocol account and get verified!</>
 				</Typography>
 			</TextArea>
 			<ActionArea>
