@@ -31,7 +31,7 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0xc905AF9E75e7b42330f5fA3176998cbe4927eFF2",
+	address: "0xb1B38114644581b3199084AB287bD57A95d9f2EE",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
@@ -69,7 +69,10 @@ export const NFTPicker = ({
 				provider
 			);
 			if (typeof window !== undefined) {
-				const accountTier = await contract.checkAccountTier(accounts[0]);
+				// @ts-ignore
+				const url = new URL(document.location);
+				const code = url.searchParams.get("code") || "";
+				const accountTier = await contract.checkAccountOrCodeTier(accounts[0], code);
 				// @ts-ignore
 				window.accountTier = accountTier;
 
@@ -163,7 +166,11 @@ export const NFTPicker = ({
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
-		const isWhitelisted = await contract.isWhitelisted(accounts[0]);
+
+		// @ts-ignore
+		const url = new URL(document.location);
+		const code = url.searchParams.get("code") || "";
+		const isWhitelisted = await contract.isWhitelisted(accounts[0], code);
 		if (!isWhitelisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
@@ -180,10 +187,6 @@ export const NFTPicker = ({
 			}
 		} else {
 			jumpToNextMintState();
-
-			// @ts-ignore
-			const url = new URL(document.location);
-			const code = url.searchParams.get("code") || "";
 
 			const content = await contract.connect(signer).mint(code);
 			// @ts-ignore
