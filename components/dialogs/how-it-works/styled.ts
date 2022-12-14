@@ -40,11 +40,14 @@ export const XArea = styled.div`
 	right: 20px;
 	top: 20px;
 	cursor: pointer;
+	overflow: hidden !important;
 `;
 
 export const ActionArea = styled.div`
 	display: flex;
 	margin-top: 24px;
+	overflow: hidden !important;
+
 	@media (max-width: 768px) {
 		margin: 0;
 	}
@@ -52,4 +55,8 @@ export const ActionArea = styled.div`
 
 export const StyledButton = styled(Button)`
 	padding: 8px 32px;
+`;
+
+export const TextArea = styled.div`
+	overflow: hidden !important;
 `;

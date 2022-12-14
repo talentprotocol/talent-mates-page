@@ -4,6 +4,7 @@ import {
 	Container,
 	ImageList,
 	XArea,
+	StyledButton
 } from "./styled";
 import { Props, TIERS } from "./types";
 
@@ -181,6 +182,12 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				}
 				color="LIGHT_GREY"
 			/>
+			<StyledButton
+					text="Let's do this!"
+					type="button"
+					variant="quaternary"
+					onClick={closeModal}
+				/>
 		</Container>
 	);
 };

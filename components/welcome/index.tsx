@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
 import { SecondSVG } from "./assets/second-svg";
@@ -27,6 +27,7 @@ const paramsForMetamask = {
 
 const Welcome = ({ openModal, openErrorModal }: Props) => {
 	const router = useRouter();
+	const [alreadyConnected, setAlreadyConnected] = useState(false);
 
 	const switchNetwork = async () => {
 		const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(44787));
@@ -53,6 +54,11 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	}
 
 	const connectToWallet = useCallback(async () => {
+		if (alreadyConnected) {
+			window.location.href = "/mint";
+			return;
+		}
+
 		try {
 			// @ts-ignore
 			const { ethereum } = window;
@@ -84,7 +90,25 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 			console.error(err);
 			openErrorModal("Something happened when connecting to Metamask");
 		}
-	}, []);
+	}, [alreadyConnected]);
+
+	const checkForWalletConnection = async () => {
+		// @ts-ignore
+		const { ethereum } = window;
+
+		if (ethereum.isMetaMask) {
+			const provider = new ethers.providers.Web3Provider(ethereum);
+			const accounts = await provider.send("eth_accounts", []);
+			if (accounts.length > 0) {
+				setAlreadyConnected(true);
+			}
+		}
+	};
+
+	useEffect(() => {
+		checkForWalletConnection();
+	});
+
 	return (
 		<Container>
 			<ContentArea>
@@ -97,7 +121,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 					<Button
 						type="button"
 						variant="primary"
-						text="Connect wallet"
+						text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
 						onClick={connectToWallet}
 					/>
 					<Button

@@ -1,6 +1,6 @@
 import { Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
-import { ActionArea, Container, StyledButton, XArea } from "./styled";
+import { ActionArea, Container, StyledButton, XArea, TextArea } from "./styled";
 import { Props } from "./types";
 
 export const HowItWorksDialog = ({ closeModal }: Props) => {
@@ -15,7 +15,7 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 				<CrossSVG />
 			</XArea>
 			<Typography type="h3" text="How it works" />
-			<div>
+			<TextArea>
 				<Typography
 					type="general"
 					text="Talent Mates is a customizable NFT collection, exclusive for the Talent Protocol community."
@@ -37,7 +37,7 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 				>
 					<>To claim your Talent Mate, first create a Talent Protocol account <a href="https://beta.talentprotocol.com/join" target="_blank" rel="noreferrer">here</a>.</>
 				</Typography>
-			</div>
+			</TextArea>
 			<ActionArea>
 				<StyledButton
 					text="Create account"
