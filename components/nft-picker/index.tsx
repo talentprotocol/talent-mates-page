@@ -488,6 +488,18 @@ export const NFTPicker = ({
 			</PickerArea>
 			<ActionArea>
 				<div>
+					<ShuffleButton callback={shuffleCombination} />
+				</div>
+				<div>
+					<Button
+						text="Mint your NFT"
+						type="button"
+						variant="primary"
+						fullWidth
+						onClick={openMintModal}
+					/>
+				</div>
+				<div>
 					<Button
 						text="Share on Twitter"
 						type="button"
@@ -501,18 +513,6 @@ export const NFTPicker = ({
 								"_blank"
 							);
 						}}
-					/>
-				</div>
-				<div>
-					<ShuffleButton callback={shuffleCombination} />
-				</div>
-				<div>
-					<Button
-						text="Mint your NFT"
-						type="button"
-						variant="primary"
-						fullWidth
-						onClick={openMintModal}
 					/>
 				</div>
 			</ActionArea>
