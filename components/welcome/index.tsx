@@ -17,12 +17,12 @@ import { Props } from "./types";
 // };
 
 const paramsForMetamask = {
-	"chainId": "0x89",
-	"chainName": "Polygon",
-	"nativeCurrency": { "name": "MATIC", "symbol": "MATIC", "decimals": 18 },
-	"rpcUrls": ["https://polygon-rpc.com/"],
-	"blockExplorerUrls": ["https://polygonscan.com/"],
-	"iconUrls": ["future"]
+	chainId: "0x89",
+	chainName: "Polygon",
+	nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+	rpcUrls: ["https://polygon-rpc.com/"],
+	blockExplorerUrls: ["https://polygonscan.com/"],
+	iconUrls: ["future"],
 };
 
 const Welcome = ({ openModal, openErrorModal }: Props) => {
@@ -33,25 +33,29 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 		const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(44787));
 		try {
 			// @ts-ignore
-      const { ethereum } = window;
+			const { ethereum } = window;
 			const provider = new ethers.providers.Web3Provider(ethereum);
-      await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
+			await provider.send("wallet_switchEthereumChain", [
+				{ chainId: chainHex },
+			]);
 			window.location.href = "/mint";
-    } catch (error: any) {
-      console.log(error);
-      // metamask mobile throws an error but that error has no code
-      // https://github.com/MetaMask/metamask-mobile/issues/3312
+		} catch (error: any) {
+			console.log(error);
+			// metamask mobile throws an error but that error has no code
+			// https://github.com/MetaMask/metamask-mobile/issues/3312
 			// @ts-ignore
-      const { ethereum } = window;
+			const { ethereum } = window;
 			const provider = new ethers.providers.Web3Provider(ethereum);
 
-      if (!!error.code || error.code === 4902) {
+			if (!!error.code || error.code === 4902) {
 				await provider.send("wallet_addEthereumChain", [paramsForMetamask]);
-        await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
+				await provider.send("wallet_switchEthereumChain", [
+					{ chainId: chainHex },
+				]);
 				window.location.href = "/mint";
-      }
+			}
 		}
-	}
+	};
 
 	const connectToWallet = useCallback(async () => {
 		if (alreadyConnected) {
@@ -72,8 +76,18 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 				// @TODO: change to polygon mainnet
 				if (ethereum.networkVersion !== "137") {
 					openErrorModal(
-						<div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-							<div style={{marginBottom: 24}}>You are connected to the wrong network, we are on Polygon with the chain id 137</div>
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<div style={{ marginBottom: 24 }}>
+								You are connected to the wrong network, we are on Polygon with
+								the chain id 137
+							</div>
 							<Button
 								type="button"
 								variant="primary"

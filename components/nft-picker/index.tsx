@@ -74,7 +74,10 @@ export const NFTPicker = ({
 				window.accountTier = accountTier;
 
 				try {
-					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(
+						accounts[0],
+						0
+					);
 					// @ts-ignore
 					window.tokenIdOfUser = tokenIdOfUser;
 				} catch {
@@ -101,7 +104,7 @@ export const NFTPicker = ({
 		skinTrait: useTrait({
 			name: "body",
 			description: "Skin",
-			// Skins are ordered from 5 and above, 
+			// Skins are ordered from 5 and above,
 			// For each account tier level there is one more skin unlocked
 			maxElements: { male: 15, female: 15 },
 			gender,
@@ -190,7 +193,7 @@ export const NFTPicker = ({
 			tokenId = event.args[2].toNumber();
 			jumpToNextMintState();
 		}
-		
+
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
@@ -380,7 +383,7 @@ export const NFTPicker = ({
 						/>
 					</GenderPicker>
 					<ImageHolder>
-						<Spinner isShown={generatingImage}/>
+						<Spinner isShown={generatingImage} />
 						<canvas
 							style={{ overflow: "hidden" }}
 							ref={canvasRef}

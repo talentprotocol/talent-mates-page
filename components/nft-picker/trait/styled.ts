@@ -43,6 +43,40 @@ export const TraitTitle = styled.div`
 	width: 100%;
 `;
 
+export const TraitTooltipWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+	position: relative;
+
+	*:nth-child(2) {
+		cursor: pointer;
+	}
+
+	*:nth-child(2):hover {
+		cursor: pointer;
+		*:nth-child(2) {
+			display: flex;
+		}
+	}
+`;
+
+export const TraitTooltip = styled.div`
+	display: none;
+	${fontNormal}
+	width: 210px;
+	position: absolute;
+	left: calc(100% + 8px);
+	top: -30%;
+	border-radius: 6px;
+	padding: 12px;
+	border: 1px solid ${COLORS.GREY};
+	background: ${COLORS.WHITE};
+	z-index: 20;
+	transition-duration: 0.5s;
+`;
+
 export const CommunityLevel = styled.div`
 	padding: 2px 8px;
 	background-color: ${COLORS.LIGHT_PURPLE};

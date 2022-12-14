@@ -1,17 +1,12 @@
 import { Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
-import {
-	Container,
-	ImageList,
-	XArea,
-	StyledButton
-} from "./styled";
+import { Container, ImageList, XArea, StyledButton } from "./styled";
 import { Props, TIERS } from "./types";
 
 export const InstructionModalDialog = ({ closeModal }: Props) => {
 	const isRare = !!(
 		// @ts-ignore
-		typeof window !== "undefined" && window.accountTier > TIERS.USER
+		(typeof window !== "undefined" && window.accountTier > TIERS.USER)
 	);
 	// @ts-ignore
 	const tierLevel = typeof window !== "undefined" && window.accountTier;
@@ -49,91 +44,113 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 
 	const tierImage = (gender: String) => {
 		if (tierLevel == TIERS.CORE_TEAM) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/15.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/15.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.ACTIVE_CONTRIBUTOR) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/14.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/14.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.CONTRIBUTOR) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/13.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/13.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.INVESTOR_SUMMER) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/12.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/12.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.INVESTOR_FALL) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/11.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/11.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.INVESTOR_WINTER) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/10.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/10.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.TALENT) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/09.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/09.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.TOKEN_HOLDER) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/08.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/08.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.TALENT_HOUSE) {
-			return <img
-				width="170"
-				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/07.png`}
-				alt="buddy"
-			/>;
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/07.png`}
+					alt="buddy"
+				/>
+			);
 		}
 		if (tierLevel == TIERS.USER) {
-			return <img
+			return (
+				<img
+					width="170"
+					height="170"
+					src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/06.png`}
+					alt="buddy"
+				/>
+			);
+		}
+		return (
+			<img
 				width="170"
 				height="170"
-				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/06.png`}
+				src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/05.png`}
 				alt="buddy"
-			/>;
-		}
-		return <img
-			width="170"
-			height="170"
-			src={`https://d2hlxeotl5sfi8.cloudfront.net/body/${gender}/05.png`}
-			alt="buddy"
-		/>;
+			/>
+		);
 	};
 
 	return (
@@ -183,11 +200,11 @@ export const InstructionModalDialog = ({ closeModal }: Props) => {
 				color="LIGHT_GREY"
 			/>
 			<StyledButton
-					text="Let's do this!"
-					type="button"
-					variant="quaternary"
-					onClick={closeModal}
-				/>
+				text="Let's do this!"
+				type="button"
+				variant="quaternary"
+				onClick={closeModal}
+			/>
 		</Container>
 	);
 };
