@@ -43,10 +43,10 @@ export const CongratulationsBuddyDialog = ({
 					}}
 				/>
 				<StyledButton
-					text="Awesome! Let’s do this!"
+					text="Check it on opensea!"
 					type="link"
 					variant="quaternary"
-					href="https://beta.talentprotocol.com/join"
+					href="https://opensea.io/collection/talentprotocol"
 					target="_blank"
 				/>
 			</ActionArea>
