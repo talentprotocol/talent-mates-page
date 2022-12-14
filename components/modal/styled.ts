@@ -6,9 +6,13 @@ export const Container = styled.div`
 	width: 100%;
 	height: 100%;
 	background: ${COLORS.LIGHTER_BLACK}80;
-	z-index: 10;
+	z-index: 11;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	--animate-duration: 400ms;
+
+	@media (max-width: 768px) {
+		padding: 0 12px;
+	}
 `;

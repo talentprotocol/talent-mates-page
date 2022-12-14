@@ -2,6 +2,7 @@ import {
 	SyntheticEvent,
 	useCallback,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 } from "react";
@@ -14,6 +15,8 @@ import {
 	GenderPicker,
 	ImageHolder,
 	ActionArea,
+	SectionContainer,
+	TraitPickerAreaMobile,
 } from "./styled";
 import abi from "./talentNFT.json";
 import { useTrait } from "./hooks/use-trait";
@@ -28,25 +31,26 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x305208bE76Af2bCDfE3d6e66A953759571422dd5",
-	network: "https://alfajores-forno.celo-testnet.org",
-	chainId: "44787",
+	address: "0x47f1184FBC56E273f61bEFCF689e0Ab8C2e3976E",
+	network: "https://polygon-rpc.com/",
+	chainId: "137",
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
-
-const timeout = (ms: number) => {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-};
+const BASE_URI = "TalentNFT";
 
 export const NFTPicker = ({
 	openModal,
+	openInstructionModal,
+	closeInstructionModal,
 	jumpToNextMintState,
+	skipNextMintState,
 	closeModal,
 	setImageSource,
 	openErrorModal,
 }: Props) => {
+	const [accountTier, setAccountTier] = useState(0);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -64,8 +68,21 @@ export const NFTPicker = ({
 				ContractBook["TalentNFT"].abi,
 				provider
 			);
-			const accountTier = await contract.checkAccountTier(accounts[0]);
-			alert(accountTier);
+			if (typeof window !== undefined) {
+				const accountTier = await contract.checkAccountTier(accounts[0]);
+				// @ts-ignore
+				window.accountTier = accountTier;
+
+				try {
+					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+					// @ts-ignore
+					window.tokenIdOfUser = tokenIdOfUser;
+				} catch {
+					// user does not have any minted token;
+				}
+				setAccountTier(accountTier);
+				openInstructionModal();
+			}
 		})();
 	}, []);
 	const traits = {
@@ -78,31 +95,33 @@ export const NFTPicker = ({
 		backgroundObjectTrait: useTrait({
 			name: "background-object",
 			description: "Background Object",
-			maxElements: { male: 21, female: 21 },
+			maxElements: { male: 24, female: 24 },
 			gender,
 		}),
 		skinTrait: useTrait({
 			name: "body",
 			description: "Skin",
-			maxElements: { male: 17, female: 17 },
+			// Skins are ordered from 5 and above, 
+			// For each account tier level there is one more skin unlocked
+			maxElements: { male: 15, female: 15 },
 			gender,
 		}),
 		clothingTrait: useTrait({
 			name: "clothing",
 			description: "Clothes",
-			maxElements: { male: 24, female: 24 },
+			maxElements: { male: 27, female: 27 },
 			gender,
 		}),
 		hairTrait: useTrait({
 			name: "hair",
-			description: "Hair",
-			maxElements: { male: 25, female: 27 },
+			description: "Head",
+			maxElements: { male: 24, female: 24 },
 			gender,
 		}),
 		mouthTrait: useTrait({
 			name: "mouth",
 			description: "Mouth",
-			maxElements: { male: 12, female: 11 },
+			maxElements: { male: 14, female: 14 },
 			gender,
 		}),
 		eyesTrait: useTrait({
@@ -114,7 +133,7 @@ export const NFTPicker = ({
 		thinkingTrait: useTrait({
 			name: "thinking",
 			description: "Thinking Cloud",
-			maxElements: { male: 17, female: 17 },
+			maxElements: { male: 15, female: 15 },
 			gender,
 		}),
 	};
@@ -136,34 +155,42 @@ export const NFTPicker = ({
 			ContractBook["TalentNFT"].abi,
 			provider
 		);
-		const userBalance = await contract.balanceOf(await signer.getAddress());
-		if (userBalance > 0) {
-			throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
-		}
+
 		const isAvailable = await contract.isCombinationAvailable(combination);
-		const isWhitlisted = await contract.isWhitelisted(accounts[0]);
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
-		if (!isWhitlisted) {
+		const isWhitelisted = await contract.isWhitelisted(accounts[0]);
+		if (!isWhitelisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
-		jumpToNextMintState();
-		const content = await contract.connect(signer).mint();
-		// @ts-ignore
-		window.mintHash = content.hash;
-		jumpToNextMintState();
+
+		const userBalance = await contract.balanceOf(await signer.getAddress());
 		let tokenId;
-		while (!tokenId) {
-			try {
-				tokenId = await contract
-					.connect(signer)
-					.tokenOfOwnerByIndex(accounts[0], 0);
-			} catch {
-				tokenId = false;
-				await timeout(1000);
+		if (userBalance > 0) {
+			tokenId = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+			const tokenURI = await contract.tokenURI(tokenId);
+			if (tokenURI == BASE_URI) {
+				skipNextMintState();
+			} else {
+				throw MINT_ERROR_CODES.USER_ALREADY_OWNS_NFT;
 			}
+		} else {
+			jumpToNextMintState();
+			const content = await contract.connect(signer).mint();
+			// @ts-ignore
+			window.mintHash = content.hash;
+
+			const receipt = await content.wait();
+
+			const event = receipt.events?.find((e: any) => {
+				return e.event === "Transfer";
+			});
+
+			tokenId = event.args[2].toNumber();
+			jumpToNextMintState();
 		}
+		
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
@@ -172,13 +199,18 @@ export const NFTPicker = ({
 			}
 			return acc;
 		}, {});
+
 		try {
 			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 			// @ts-ignore
 			options["gender"] = gender;
 			await createNFT(options, signature, accounts[0], tokenId)
 				.then(() => {
-					jumpToNextMintState();
+					if (typeof window !== "undefined" && canvasRef.current) {
+						const url = canvasRef.current.toDataURL("image/png");
+						setImageSource(url);
+						jumpToNextMintState();
+					}
 				})
 				.catch((err) => {
 					closeModal();
@@ -204,13 +236,9 @@ export const NFTPicker = ({
 		async (event: SyntheticEvent) => {
 			openModal(event);
 			try {
-				await mintNFT();
-
-				// TODO: fix paited tints CORS
-				if (typeof window !== "undefined" && canvasRef.current) {
-					//const url = canvasRef.current.toDataURL("image/png");
-					//setImageSource(url);
-				}
+				// temp disable for "go-live"
+				// await mintNFT();
+				return;
 			} catch (err) {
 				closeModal();
 				// @ts-ignore
@@ -252,7 +280,7 @@ export const NFTPicker = ({
 						// @ts-ignore
 						if (traits[trait].currentSelection !== -1) {
 							const traitImage = new Image();
-							//traitImage.crossOrigin = 'Anonymous';
+							traitImage.crossOrigin = "Anonymous";
 							// @ts-ignore
 							traitImage.src = traits[trait].image;
 							const traitPromise = new Promise<HTMLImageElement>(
@@ -302,115 +330,192 @@ export const NFTPicker = ({
 	}, []);
 
 	return (
-		<>
-			<section>
-				<PickerArea>
-					<TraitPickerArea>
-						<Trait
-							trait={traits.backgroundTrait.name}
-							description={traits.backgroundTrait.description}
-							onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
-							currentTraitNumber={traits.backgroundTrait.currentSelection}
-							totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.skinTrait.name}
-							description={traits.skinTrait.description}
-							onTraitSelection={traits.skinTrait.updateCurrentSelection}
-							currentTraitNumber={traits.skinTrait.currentSelection}
-							totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.hairTrait.name}
-							description={traits.hairTrait.description}
-							onTraitSelection={traits.hairTrait.updateCurrentSelection}
-							currentTraitNumber={traits.hairTrait.currentSelection}
-							totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.clothingTrait.name}
-							description={traits.clothingTrait.description}
-							onTraitSelection={traits.clothingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.clothingTrait.currentSelection}
-							totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
-						/>
-					</TraitPickerArea>
-					<DisplayArea>
-						<GenderPicker>
-							<Button
-								text="Male"
-								type="button"
-								variant={gender === "male" ? "quaternary" : "secondary"}
-								fullWidth
-								onClick={() => setGender("male")}
-							/>
-							<Button
-								text="Female"
-								type="button"
-								variant={gender === "female" ? "quaternary" : "secondary"}
-								fullWidth
-								onClick={() => setGender("female")}
-							/>
-						</GenderPicker>
-						<ImageHolder>
-							<Spinner isShown={generatingImage} />
-							<canvas
-								ref={canvasRef}
-								width={`${CANVAS_SIDE}px`}
-								height={`${CANVAS_SIDE}px`}
-							/>
-						</ImageHolder>
-					</DisplayArea>
-					<TraitPickerArea>
-						<Trait
-							trait={traits.mouthTrait.name}
-							description={traits.mouthTrait.description}
-							onTraitSelection={traits.mouthTrait.updateCurrentSelection}
-							currentTraitNumber={traits.mouthTrait.currentSelection}
-							totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.eyesTrait.name}
-							description={traits.eyesTrait.description}
-							onTraitSelection={traits.eyesTrait.updateCurrentSelection}
-							currentTraitNumber={traits.eyesTrait.currentSelection}
-							totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.thinkingTrait.name}
-							description={traits.thinkingTrait.description}
-							onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
-							currentTraitNumber={traits.thinkingTrait.currentSelection}
-							totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
-						/>
-						<Trait
-							trait={traits.backgroundObjectTrait.name}
-							description={traits.backgroundObjectTrait.description}
-							onTraitSelection={
-								traits.backgroundObjectTrait.updateCurrentSelection
-							}
-							currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
-							totalNumberOfTraits={
-								traits.backgroundObjectTrait.maxElements[gender]
-							}
-						/>
-					</TraitPickerArea>
-				</PickerArea>
-				<ActionArea>
-					<div>
-						<ShuffleButton callback={shuffleCombination} />
-					</div>
-					<div>
+		<SectionContainer>
+			<PickerArea>
+				<TraitPickerArea>
+					<Trait
+						trait={traits.backgroundTrait.name}
+						description={traits.backgroundTrait.description}
+						onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+						currentTraitNumber={traits.backgroundTrait.currentSelection}
+						totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.skinTrait.name}
+						description={traits.skinTrait.description}
+						onTraitSelection={traits.skinTrait.updateCurrentSelection}
+						currentTraitNumber={traits.skinTrait.currentSelection}
+						totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.hairTrait.name}
+						description={traits.hairTrait.description}
+						onTraitSelection={traits.hairTrait.updateCurrentSelection}
+						currentTraitNumber={traits.hairTrait.currentSelection}
+						totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.clothingTrait.name}
+						description={traits.clothingTrait.description}
+						onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.clothingTrait.currentSelection}
+						totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
+					/>
+				</TraitPickerArea>
+				<DisplayArea>
+					<GenderPicker>
 						<Button
-							text="Mint your NFT"
+							text="Male"
 							type="button"
-							variant="primary"
+							variant={gender === "male" ? "quaternary" : "secondary"}
 							fullWidth
-							onClick={openMintModal}
+							onClick={() => setGender("male")}
 						/>
-					</div>
-				</ActionArea>
-			</section>
-		</>
+						<Button
+							text="Female"
+							type="button"
+							variant={gender === "female" ? "quaternary" : "secondary"}
+							fullWidth
+							onClick={() => setGender("female")}
+						/>
+					</GenderPicker>
+					<ImageHolder>
+						<Spinner isShown={generatingImage}/>
+						<canvas
+							style={{ overflow: "hidden" }}
+							ref={canvasRef}
+							width={`${CANVAS_SIDE}px`}
+							height={`${CANVAS_SIDE}px`}
+						/>
+					</ImageHolder>
+				</DisplayArea>
+				<TraitPickerAreaMobile>
+					<Trait
+						trait={traits.backgroundTrait.name}
+						description={traits.backgroundTrait.description}
+						onTraitSelection={traits.backgroundTrait.updateCurrentSelection}
+						currentTraitNumber={traits.backgroundTrait.currentSelection}
+						totalNumberOfTraits={traits.backgroundTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.skinTrait.name}
+						description={traits.skinTrait.description}
+						onTraitSelection={traits.skinTrait.updateCurrentSelection}
+						currentTraitNumber={traits.skinTrait.currentSelection}
+						totalNumberOfTraits={traits.skinTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.hairTrait.name}
+						description={traits.hairTrait.description}
+						onTraitSelection={traits.hairTrait.updateCurrentSelection}
+						currentTraitNumber={traits.hairTrait.currentSelection}
+						totalNumberOfTraits={traits.hairTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.clothingTrait.name}
+						description={traits.clothingTrait.description}
+						onTraitSelection={traits.clothingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.clothingTrait.currentSelection}
+						totalNumberOfTraits={traits.clothingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.mouthTrait.name}
+						description={traits.mouthTrait.description}
+						onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+						currentTraitNumber={traits.mouthTrait.currentSelection}
+						totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.eyesTrait.name}
+						description={traits.eyesTrait.description}
+						onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+						currentTraitNumber={traits.eyesTrait.currentSelection}
+						totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.thinkingTrait.name}
+						description={traits.thinkingTrait.description}
+						onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.thinkingTrait.currentSelection}
+						totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.backgroundObjectTrait.name}
+						description={traits.backgroundObjectTrait.description}
+						onTraitSelection={
+							traits.backgroundObjectTrait.updateCurrentSelection
+						}
+						currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+						totalNumberOfTraits={
+							traits.backgroundObjectTrait.maxElements[gender]
+						}
+					/>
+				</TraitPickerAreaMobile>
+				<TraitPickerArea>
+					<Trait
+						trait={traits.mouthTrait.name}
+						description={traits.mouthTrait.description}
+						onTraitSelection={traits.mouthTrait.updateCurrentSelection}
+						currentTraitNumber={traits.mouthTrait.currentSelection}
+						totalNumberOfTraits={traits.mouthTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.eyesTrait.name}
+						description={traits.eyesTrait.description}
+						onTraitSelection={traits.eyesTrait.updateCurrentSelection}
+						currentTraitNumber={traits.eyesTrait.currentSelection}
+						totalNumberOfTraits={traits.eyesTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.thinkingTrait.name}
+						description={traits.thinkingTrait.description}
+						onTraitSelection={traits.thinkingTrait.updateCurrentSelection}
+						currentTraitNumber={traits.thinkingTrait.currentSelection}
+						totalNumberOfTraits={traits.thinkingTrait.maxElements[gender]}
+					/>
+					<Trait
+						trait={traits.backgroundObjectTrait.name}
+						description={traits.backgroundObjectTrait.description}
+						onTraitSelection={
+							traits.backgroundObjectTrait.updateCurrentSelection
+						}
+						currentTraitNumber={traits.backgroundObjectTrait.currentSelection}
+						totalNumberOfTraits={
+							traits.backgroundObjectTrait.maxElements[gender]
+						}
+					/>
+				</TraitPickerArea>
+			</PickerArea>
+			<ActionArea>
+				<div>
+					<Button
+						text="Share on Twitter"
+						type="button"
+						variant="tertiary"
+						fullWidth
+						onClick={() => {
+							window.open(
+								`https://twitter.com/intent/tweet?text=${encodeURI(
+									"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+								)}&url=${window.location.origin}`,
+								"_blank"
+							);
+						}}
+					/>
+				</div>
+				<div>
+					<ShuffleButton callback={shuffleCombination} />
+				</div>
+				<div>
+					<Button
+						text="Mint your NFT"
+						type="button"
+						variant="primary"
+						fullWidth
+						onClick={openMintModal}
+					/>
+				</div>
+			</ActionArea>
+		</SectionContainer>
 	);
 };

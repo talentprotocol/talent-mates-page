@@ -1,12 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 import { Props } from "./types";
 
-const BASE_URL = "https://d6cu1tnva62p2.cloudfront.net";
+const BASE_URL = "https://d2hlxeotl5sfi8.cloudfront.net";
 const MANDATORY_PROPERTIES_LIST = {
 	gender: true,
 	body: true,
 	background: true,
-	eyes: true,
 	mouth: true,
 };
 
@@ -55,9 +54,9 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 			} else {
 				if (computedAmount === -2) {
 					setFileName(
-						computedAmount < 10
-							? `0${Math.abs(computedAmount)}.png`
-							: `${Math.abs(computedAmount)}.png`
+						maxElements[gender] < 10
+							? `0${Math.abs(maxElements[gender])}.png`
+							: `${Math.abs(maxElements[gender])}.png`
 					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
@@ -81,7 +80,7 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 
 	const shuffle = useCallback(() => {
 		const newSelection = Math.floor(
-			Math.random() * (maxElements[gender] + 1) +
+			Math.random() * maxElements[gender] +
 				// @ts-ignore(
 				(MANDATORY_PROPERTIES_LIST[name] ? 1 : 0)
 		);

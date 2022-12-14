@@ -17,12 +17,31 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<Head>
-				<title>Talent Mates</title>
+				<title>Talent Mates NFTs by Talent Protocol</title>
 				<meta
 					name="description"
 					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
 				/>
+				<meta
+					name="viewport"
+					content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+				></meta>
 				<link rel="icon" href="/favicon.ico" />
+				<meta
+          property="og:url"
+          content="https://mates.talentprotocol.com"
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Talent Mates NFTs by Talent Protocol"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="og:description"
+          content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
+        />
+				<meta property="og:image" content="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg" />
 			</Head>
 			<Modal
 				isOpen={invalidAccountModalState.isOpen}
@@ -41,13 +60,13 @@ const Home: NextPage = () => {
 				onCloseModal={errorModalState.close}
 				errorText={errorModalState.errorMessage}
 			/>
-			<Body fullHeight={true}>
+			<Body fullHeight>
 				<Welcome
 					openModal={howItWorksModalState.open}
 					openErrorModal={errorModalState.open}
 				/>
 			</Body>
-			<Footer fixed={true} />
+			<Footer fixed />
 		</div>
 	);
 };

@@ -26,7 +26,9 @@ const ErrorModal = ({
 					<CrossSVG />
 				</XArea>
 				<Typography type="h3" text="Something went wrong" />
-				<Typography type="body2" text={errorText} />
+				<Typography type="body1">
+					<>{errorText}</>
+				</Typography>
 				<Footer>
 					Reach us on{" "}
 					<a
@@ -37,7 +39,7 @@ const ErrorModal = ({
 						Discord
 					</a>{" "}
 					or via email to{" "}
-					<a href="mailto:contact@talentprotocol.com">
+					<a href="mailto:contact@talentprotocol.com" target="_blank" rel="noreferrer">
 						contact@talentprotocol.com
 					</a>
 					.

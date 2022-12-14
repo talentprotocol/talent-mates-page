@@ -2,6 +2,7 @@ import { Typography } from "shared-ui";
 import { CrossSVG } from "../assets/cross-svg";
 import { ActionArea, Container, StyledButton, XArea } from "./styled";
 import { Props } from "./types";
+import { Button } from "shared-ui";
 
 export const CongratulationsBuddyDialog = ({
 	closeModal,
@@ -23,10 +24,24 @@ export const CongratulationsBuddyDialog = ({
 			<Typography type="h3" text="Congratulation, buddy!" />
 			<Typography
 				type="body1"
-				text="We’re super happy to give this rare skin trait only for Talent House Alumni!"
+				text="We’re super happy to give you this NFT!"
 				color="LIGHT_GREY"
 			/>
 			<ActionArea>
+				<Button
+					text="Share on Twitter"
+					type="button"
+					variant="tertiary"
+					fullWidth
+					onClick={() => {
+						window.open(
+							`https://twitter.com/intent/tweet?text=${encodeURI(
+								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+							)}&url=${window.location.origin}`,
+							"_blank"
+						);
+					}}
+				/>
 				<StyledButton
 					text="Awesome! Let’s do this!"
 					type="link"

@@ -8,6 +8,12 @@ export const BodyContainer = styled.main`
 	margin-left: auto;
 	display: flex;
 	align-items: center;
+
+	@media (max-width: 768px) {
+		margin-top: 32px;
+		margin-bottom: 32px;
+		overflow-x: hidden;
+	}
 `;
 
 export const FullHeightBody = styled.main`
@@ -17,4 +23,8 @@ export const FullHeightBody = styled.main`
 	margin-left: auto;
 	display: flex;
 	align-items: center;
+
+	@media (max-width: 768px) {
+		overflow-x: hidden;
+	}
 `;

@@ -20,22 +20,43 @@ import ErrorModal from "components/error-modal";
 import { ApproveTransactionDialog } from "components/dialogs/approve-transaction";
 import { CheckingElegibilityDialog } from "components/dialogs/checking-eligibility";
 import { TransactionInProgressDialog } from "components/dialogs/transaction-in-progress";
+import { InstructionModalDialog } from "components/dialogs/instruction-modal";
 
 const Home: NextPage = () => {
 	const [imageSource, setImageSource] = useState<string | undefined>(
 		"https://upload.wikimedia.org/wikipedia/en/archive/b/b1/20210811082420%21Portrait_placeholder.png"
 	);
 	const modalState = useModalState();
+	const instructionModalState = useModalState();
 	const errorModalState = useErrorModalState();
 	return (
 		<>
 			<Head>
-				<title>Talent Mates</title>
+				<title>Talent Mates NFTs by Talent Protocol</title>
 				<meta
 					name="description"
 					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
 				/>
+				<meta
+					name="viewport"
+					content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+				></meta>
 				<link rel="icon" href="/favicon.ico" />
+				<meta
+          property="og:url"
+          content="https://mates.talentprotocol.com"
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Talent Mates NFTs by Talent Protocol"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="og:description"
+          content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
+        />
+				<meta property="og:image" content="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg" />
 			</Head>
 			<Modal
 				isOpen={modalState.isOpen}
@@ -61,6 +82,12 @@ const Home: NextPage = () => {
 					/>,
 				]}
 			></Modal>
+			<Modal
+				isOpen={instructionModalState.isOpen}
+				onCloseModal={instructionModalState.close}
+			>
+				<InstructionModalDialog closeModal={instructionModalState.close} />
+			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
 				onCloseModal={errorModalState.close}
@@ -88,8 +115,11 @@ const Home: NextPage = () => {
 			<Body>
 				<NFTPicker
 					jumpToNextMintState={modalState.jumpToNextState}
+					skipNextMintState={modalState.skipNextState}
 					openModal={modalState.open}
 					closeModal={modalState.close}
+					openInstructionModal={instructionModalState.open}
+					closeInstructionModal={instructionModalState.close}
 					// @ts-ignore
 					openErrorModal={errorModalState.open}
 					setImageSource={setImageSource}

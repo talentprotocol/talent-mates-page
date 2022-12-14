@@ -1,11 +1,19 @@
 import { Container, InnerContainer } from "./styled";
 
 export const Footer = ({ fixed = false }) => (
-	<Container style={{ position: fixed ? "fixed" : "relative" }}>
+	<Container positionFixed={fixed}>
 		<InnerContainer>
-			Talent Protocol MTU © 2022
+			<a
+				target="_blank"
+				rel="noreferrer"
+				href="https://www.talentprotocol.com/"
+			>
+				Talent Protocol MTU © 2022
+			</a>
 			<div />
-			contact@talentprotocol.com
+			<a href="mailto:contact@talentprotocol.com" target="_blank" rel="noreferrer">
+				contact@talentprotocol.com
+			</a>
 			<section>
 				<a
 					target="_blank"
@@ -50,9 +58,9 @@ export const Footer = ({ fixed = false }) => (
 				<a
 					target="_blank"
 					rel="noreferrer"
-					href="https://talentprotocol.notion.site/Terms-Conditions-ec060cb6c06e49a98f17d235d0835773"
+					href="https://www.notion.so/talentprotocol/Talent-Mates-Terms-Conditions-a9a81a33fab5406ea496c4868fe2d830"
 				>
-					Terms & Conditions
+					Terms
 				</a>
 			</section>
 		</InnerContainer>

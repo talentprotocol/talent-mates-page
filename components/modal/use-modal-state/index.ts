@@ -13,11 +13,15 @@ export const useModalState = () => {
 	const jumpToNextState = useCallback(() => {
 		setModalState((state) => state + 1);
 	}, [modalState]);
+	const skipNextState = useCallback(() => {
+		setModalState((state) => state + 2);
+	}, [modalState]);
 	return {
 		isOpen,
 		open,
 		close,
 		jumpToNextState,
+		skipNextState,
 		modalState,
 	};
 };
