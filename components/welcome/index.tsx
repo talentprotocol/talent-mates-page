@@ -7,23 +7,23 @@ import { SecondSVG } from "./assets/second-svg";
 import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
 import { Props } from "./types";
 
-// const paramsForMetamask = {
-// 	"chainId": "0xaef3",
-// 	"chainName": "Alfajores Testnet",
-// 	"nativeCurrency": { "name": "Alfajores Celo", "symbol": "A-CELO", "decimals": 18 },
-// 	"rpcUrls": ["https://alfajores-forno.celo-testnet.org"],
-// 	"blockExplorerUrls": ["https://alfajores-blockscout.celo-testnet.org/"],
-// 	"iconUrls": ["future"]
-// };
-
 const paramsForMetamask = {
-	chainId: "0x89",
-	chainName: "Polygon",
-	nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
-	rpcUrls: ["https://polygon-rpc.com/"],
-	blockExplorerUrls: ["https://polygonscan.com/"],
-	iconUrls: ["future"],
+	"chainId": "0xaef3",
+	"chainName": "Alfajores Testnet",
+	"nativeCurrency": { "name": "Alfajores Celo", "symbol": "A-CELO", "decimals": 18 },
+	"rpcUrls": ["https://alfajores-forno.celo-testnet.org"],
+	"blockExplorerUrls": ["https://alfajores-blockscout.celo-testnet.org/"],
+	"iconUrls": ["future"]
 };
+
+// const paramsForMetamask = {
+// 	chainId: "0x89",
+// 	chainName: "Polygon",
+// 	nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+// 	rpcUrls: ["https://polygon-rpc.com/"],
+// 	blockExplorerUrls: ["https://polygonscan.com/"],
+// 	iconUrls: ["future"],
+// };
 
 const getCode = (): string | null => {
 	// @ts-ignore
@@ -89,7 +89,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				await provider.send("eth_requestAccounts", []);
 				// @TODO: change to polygon mainnet
-				if (ethereum.networkVersion !== "137") {
+				if (ethereum.networkVersion !== "44787") {
 					openErrorModal(
 						<div
 							style={{
@@ -100,8 +100,8 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 							}}
 						>
 							<div style={{ marginBottom: 24 }}>
-								You are connected to the wrong network, we are on Polygon with
-								the chain id 137
+								You are connected to the wrong network, we are on Alfajores with
+								the chain id 44787
 							</div>
 							<Button
 								type="button"
