@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           property="og:description"
           content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
         />
-				<meta property="og:image" content="/metaimage.jpg" />
+				<meta property="og:image" content="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg" />
 			</Head>
 			<Modal
 				isOpen={modalState.isOpen}
