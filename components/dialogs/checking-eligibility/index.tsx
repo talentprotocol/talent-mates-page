@@ -22,7 +22,7 @@ export const CheckingElegibilityDialog = ({ closeModal }: Props) => {
 				color="LIGHT_GREY"
 			/> */}
 			<Spinner isShown noBox />
-			<Typography type="h3" text="Minting Unavailable - official Release 20.12.2022!" />
+			<Typography type="h3" text="Minting Unavailable - Official Release 20.12.2022!" />
 			<Typography
 				type="general"
 				text="It will stay loading for now... the team is putting in the final touches! official mint will start on 20.12.2022! Stay tuned"
