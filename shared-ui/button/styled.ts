@@ -70,14 +70,16 @@ const pentanaryStyles = css`
 `;
 
 const hexanaryStyles = css`
-	color: ${COLORS.LIGHT_YELLOW};
+	color: ${COLORS.LIGHT_GREY};
 	padding: 8px 32px;
 	display: flex;
 	align-items: center;
 	border-radius: 32px;
+	border: 0px;
+	background-color: transparent !important;
 
 	:hover {
-		background-color: ${COLORS.LIGHT_BLACK};
+		background-color: ${COLORS.SUPER_LIGHT_GREY} !important;
 	}
 `;
 

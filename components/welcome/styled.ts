@@ -1,6 +1,12 @@
 import styled from "styled-components";
+import { Button } from "shared-ui";
 
 export const Container = styled.section`
+	display: flex;
+	flex-direction: column;
+`;
+
+export const CalloutArea = styled.div`
 	display: flex;
 	gap: 72px;
 	align-items: center;
@@ -53,4 +59,25 @@ export const ImageArea = styled.div`
 			}
 		}
 	}
+`;
+
+export const SocialArea = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	gap: 40px;
+	padding: 0px 24px;
+
+	@media (max-width: 768px) {
+		display: flex;
+		justify-content: center;
+		gap: 0px !important;
+		margin-bottom: 24px;
+		padding: 0px;
+	}
+`;
+
+export const StyledButton = styled(Button)`
+	padding: 8px 8px;
 `;

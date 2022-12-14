@@ -1,6 +1,6 @@
 export const FirstSVG = () => (
 	<svg
-		width="375"
+		width="325"
 		height="441"
 		viewBox="0 0 375 441"
 		fill="none"

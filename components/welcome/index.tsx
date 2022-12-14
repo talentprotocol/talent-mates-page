@@ -4,7 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
 import { SecondSVG } from "./assets/second-svg";
-import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
+import { TwitterSVG } from "./assets/twitter-svg";
+import { OpenseaSVG } from "./assets/opensea-svg";
+import { ActionArea, Container, ContentArea, ImageArea, CalloutArea, SocialArea, StyledButton } from "./styled";
 import { Props } from "./types";
 
 const paramsForMetamask = {
@@ -139,33 +141,62 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	});
 
 	return (
-		<Container>
-			<ContentArea>
-				<Typography type="h1" text="Create your Talent Mate." />
-				<Typography
-					type="body1"
-					text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
-				/>
-				<ActionArea>
-					<Button
-						type="button"
-						variant="primary"
-						text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
-						onClick={connectToWallet}
-					/>
-					<Button
-						type="button"
-						variant="octonary"
-						text="How it works"
-						onClick={openModal}
-					/>
-				</ActionArea>
-			</ContentArea>
-			<ImageArea>
-				<FirstSVG />
-				<SecondSVG />
-			</ImageArea>
-		</Container>
+		<>
+			<Container>
+				<CalloutArea>
+					<ContentArea>
+						<Typography type="h1" text="Create your Talent Mate." />
+						<Typography
+							type="body1"
+							text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
+						/>
+						<ActionArea>
+							<Button
+								type="button"
+								variant="primary"
+								text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
+								onClick={connectToWallet}
+							/>
+							<Button
+								type="button"
+								variant="octonary"
+								text="How it works"
+								onClick={openModal}
+							/>
+						</ActionArea>
+					</ContentArea>
+					<ImageArea>
+						<FirstSVG />
+						<SecondSVG />
+					</ImageArea>
+				</CalloutArea>
+				<SocialArea>
+				<StyledButton
+					type="button"
+					variant="hexanary"
+					fullWidth={false}
+					onClick={() => {
+						window.open(
+							`https://twitter.com/intent/tweet?text=${encodeURI(
+								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+							)}&url=${window.location.origin}`,
+							"_blank"
+						);
+					}}
+				>
+					<>Share on <div style={{marginLeft: "6px", display: "flex"}}><TwitterSVG/></div><span style={{color: "black", marginLeft: "4px"}}>Twitter</span></>
+				</StyledButton>
+				<StyledButton
+					type="link"
+					variant="hexanary"
+					href="https://opensea.io/collection/talentprotocol"
+					target="_blank"
+				>
+					<>Buy on <div style={{marginLeft: "6px", display: "flex"}}><OpenseaSVG /></div><span style={{color: "black", marginLeft: "4px"}}>Opensea</span></>
+				</StyledButton>
+				</SocialArea>
+			</Container>
+		</>
 	);
 };
 
