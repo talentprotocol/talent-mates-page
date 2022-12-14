@@ -11,7 +11,7 @@ export const Footer = ({ fixed = false }) => (
 				Talent Protocol MTU © 2022
 			</a>
 			<div />
-			<a href="mailto:contact@talentprotocol.com">
+			<a href="mailto:contact@talentprotocol.com" target="_blank" rel="noreferrer">
 				contact@talentprotocol.com
 			</a>
 			<section>

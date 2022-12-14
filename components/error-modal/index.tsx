@@ -39,7 +39,7 @@ const ErrorModal = ({
 						Discord
 					</a>{" "}
 					or via email to{" "}
-					<a href="mailto:contact@talentprotocol.com">
+					<a href="mailto:contact@talentprotocol.com" target="_blank" rel="noreferrer">
 						contact@talentprotocol.com
 					</a>
 					.
