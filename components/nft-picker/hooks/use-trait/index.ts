@@ -54,9 +54,9 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 			} else {
 				if (computedAmount === -2) {
 					setFileName(
-						computedAmount < 10
-							? `0${Math.abs(computedAmount)}.png`
-							: `${Math.abs(computedAmount)}.png`
+						maxElements[gender] < 10
+							? `0${Math.abs(maxElements[gender])}.png`
+							: `${Math.abs(maxElements[gender])}.png`
 					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
