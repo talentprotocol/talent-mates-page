@@ -31,14 +31,14 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x47f1184FBC56E273f61bEFCF689e0Ab8C2e3976E",
-	network: "https://polygon-rpc.com/",
-	chainId: "137",
+	address: "0xc905AF9E75e7b42330f5fA3176998cbe4927eFF2",
+	network: "https://alfajores-forno.celo-testnet.org",
+	chainId: "44787",
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
-const BASE_URI = "TalentNFT";
+const BASE_URI = "ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
 
 export const NFTPicker = ({
 	openModal,
@@ -103,7 +103,7 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above, 
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 15, female: 15 },
+			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
 			gender,
 		}),
 		clothingTrait: useTrait({
@@ -237,8 +237,7 @@ export const NFTPicker = ({
 			openModal(event);
 			try {
 				// temp disable for "go-live"
-				// await mintNFT();
-				return;
+				await mintNFT();
 			} catch (err) {
 				closeModal();
 				// @ts-ignore

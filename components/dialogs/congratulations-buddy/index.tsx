@@ -21,7 +21,7 @@ export const CongratulationsBuddyDialog = ({
 			{imageSource && (
 				<img width="170" height="170" src={imageSource} alt="buddy" />
 			)}
-			<Typography type="h3" text="Congratulation, buddy!" />
+			<Typography type="h3" text="Congratulations, buddy!" />
 			<Typography
 				type="body1"
 				text="We’re super happy to give you this NFT!"
