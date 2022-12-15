@@ -21,7 +21,7 @@ import { Footer } from "components/footer";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x651cf1667307451537c6687649cB9bf4833072e3",
+	address: "0x8193958d27A0788C129703515751522fd0a1A7FC",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
