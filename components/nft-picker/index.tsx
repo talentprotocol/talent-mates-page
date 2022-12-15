@@ -36,7 +36,7 @@ ContractBook.new = {
 	chainId: "44787",
 };
 
-const AUTH_SIGNED_MESSAGE = "I'm signing this message";
+const AUTH_SIGNED_MESSAGE = "Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
 const CANVAS_SIDE = 569;
 const BASE_URI =
 	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
