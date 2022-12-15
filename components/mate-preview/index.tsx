@@ -103,7 +103,7 @@ export const MatePreview = ({ id }: Props) => {
 
 		const link = document.createElement('a')
 		link.href = imageURL
-		link.download = `Talent_Protocol_Mate_#${NFTData.tokenId}.png`;
+		link.download = `${NFTData.tokenId}.png`;
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
