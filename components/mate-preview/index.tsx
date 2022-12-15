@@ -9,7 +9,9 @@ import {
 	DescriptionArea,
 	Description,
 	StyledButton,
-	LimitedText
+	LimitedText,
+	ButtonArea,
+	ErrorContainer
 } from "./styled";
 import { ethers } from "ethers";
 import abi from "../nft-picker/talentNFT.json";
@@ -113,14 +115,18 @@ export const MatePreview = ({ id }: Props) => {
 			case PREVIEW_STATE.LOADING:
 				return (
 					<>
-						<Spinner isShown noBox/>
+						<ErrorContainer>
+							<Spinner isShown noBox/>
+						</ErrorContainer>
 						<Footer fixed/>
 					</>
 				);
 			case PREVIEW_STATE.ERROR:
 				return (
 					<>
-						<ErrorMessage>Mate not found</ErrorMessage>
+						<ErrorContainer>
+							<ErrorMessage>Mate not found</ErrorMessage>
+						</ErrorContainer>
 						<Footer fixed/>
 					</>
 				);
@@ -153,7 +159,7 @@ export const MatePreview = ({ id }: Props) => {
 									<Typography type="body2" text={NFTData.tokenId} color="BLACK"/>
 								</Description>
 							</DescriptionArea>
-							<DescriptionArea>
+							<ButtonArea>
 								<Button
 									type="button"
 									variant="primary"
@@ -166,7 +172,7 @@ export const MatePreview = ({ id }: Props) => {
 									href="https://opensea.io/collection/talentprotocol"
 									text="View on Opensea"
 								/>
-							</DescriptionArea>
+							</ButtonArea>
 						</TextArea>
 						<Footer fixed/>
 					</>

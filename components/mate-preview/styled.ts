@@ -16,12 +16,26 @@ export const ErrorMessage = styled.h1`
     ${fontNormal}
 `;
 
+export const ErrorContainer = styled.div`
+    @media (max-width: 768px) {
+        margin-bottom: 64px;
+        display: flex;
+        justify-content: center;
+    }
+`;
+
 export const Preview = styled.div`
     border: 1px solid ${COLORS.DARK_BLUE};
     border-radius: 24px;
     overflow: hidden;
     width: 468px;
     height: 456px;
+
+    @media (max-width: 768px) {
+		width: 300px;
+        height: 292px;
+        margin-top: 24px;
+	}
     
     * {
         width: 100%;
@@ -38,6 +52,7 @@ export const TextArea = styled.div`
 
     @media (max-width: 768px) {
 		margin-left: 24px;
+        margin-top: 40px;
 	}
 `;
 
@@ -47,6 +62,25 @@ export const DescriptionArea = styled.div`
     align-items: center;
     gap: 24px;
     margin-top: 40px;
+
+    @media (max-width: 768px) {
+        margin-top: 24px;
+		margin-bottom: 24px;
+	}
+`;
+
+export const ButtonArea = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    margin-top: 40px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        justify-content: center;
+		margin-bottom: 40px;
+	}
 `;
 
 export const Description = styled.div`
@@ -57,6 +91,10 @@ export const Description = styled.div`
 
 export const StyledButton = styled(Button)`
     padding: 8px 32px;
+
+    @media (max-width: 768px) {
+        padding: 10px 48px;
+	}
 `;
 
 export const LimitedText = styled.div`
