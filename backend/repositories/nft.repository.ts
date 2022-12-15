@@ -71,6 +71,7 @@ const setMetaData = async (
 			attributes: [
 				...propertiesToAttributes(properties),
 				{ trait_type: "Revealed", value: "Yes" },
+				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
 			],
 		});
 

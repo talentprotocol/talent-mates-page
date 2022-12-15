@@ -379,14 +379,14 @@ export const NFTPicker = ({
 				<DisplayArea>
 					<GenderPicker>
 						<Button
-							text="Male"
+							text="Body 1"
 							type="button"
 							variant={gender === "male" ? "quaternary" : "secondary"}
 							fullWidth
 							onClick={() => setGender("male")}
 						/>
 						<Button
-							text="Female"
+							text="Body 2"
 							type="button"
 							variant={gender === "female" ? "quaternary" : "secondary"}
 							fullWidth
