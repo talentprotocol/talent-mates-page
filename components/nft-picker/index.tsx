@@ -203,6 +203,8 @@ export const NFTPicker = ({
 			});
 
 			tokenId = event.args[2].toNumber();
+			// @ts-ignore
+			window.tokenIdOfUser = tokenId;
 			jumpToNextMintState();
 		}
 
