@@ -86,7 +86,7 @@ export const NFTPicker = ({
 						0
 					);
 					// @ts-ignore
-					window.tokenIdOfUser = tokenIdOfUser;
+					window.tokenIdOfUser = tokenIdOfUser.toNumber();
 				} catch {
 					// user does not have any minted token;
 				}
@@ -204,7 +204,7 @@ export const NFTPicker = ({
 
 			tokenId = event.args[2].toNumber();
 			// @ts-ignore
-			window.tokenIdOfUser = tokenId;
+			window.tokenIdOfUser = tokenId.toNumber();
 			jumpToNextMintState();
 		}
 
