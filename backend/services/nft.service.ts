@@ -130,9 +130,9 @@ const createNFT = async (
 	}
 	// @ts-ignore
 	const fileName = computeImageName(properties);
-	// const filePath = `${process.execPath}/temp-output/${fileName}`;
-	const filePath = `${process.cwd()}/temp-output/${fileName}`;
-	// const filePath = path.resolve(process.cwd(), `/temp-output/${fileName}`)
+	// const filePath = `${process.execPath}/tmp/${fileName}`;
+	const filePath = `${process.cwd()}/tmp/${fileName}`;
+	// const filePath = path.resolve(process.cwd(), `/tmp/${fileName}`)
 	const parsedProperties = { ...properties };
 	// @ts-ignore
 	delete parsedProperties.gender;

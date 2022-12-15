@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prepare-dev-build": "mkdir .next/server/pages/api/ && cp -r backend/trait-assets/ .next/server/pages/api/trait-assets/ && mkdir .next/server/pages/api/temp-output",
-    "build": "next build && cp -r backend/trait-assets/ .next/server/pages/api/trait-assets/ && mkdir .next/server/pages/api/temp-output",
+    "prepare-dev-build": "mkdir .next/server/pages/api/ && cp -r backend/trait-assets/ .next/server/pages/api/trait-assets/ && mkdir .next/server/pages/api/tmp",
+    "build": "next build && cp -r backend/trait-assets/ .next/server/pages/api/trait-assets/ && mkdir .next/server/pages/api/tmp",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --loglevel warn --write \"**/*.{ts,tsx,css,md}\"",
