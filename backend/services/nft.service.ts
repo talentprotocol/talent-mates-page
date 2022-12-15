@@ -1,6 +1,7 @@
 import sharp from "sharp";
 import fs from "fs";
 import mime from "mime";
+import axios from "axios";
 import { File } from "nft.storage";
 import { DefaultResponse } from "backend/types/response";
 import NFTRepository from "backend/repositories/nft.repository";
@@ -62,6 +63,36 @@ const getImagePath = (
 	return `${__dirname}/trait-assets/${traitName}/${gender}/${imageName}`;
 };
 
+let imageStorage = {};
+
+const getImageFromURL = async (
+	traitName: string,
+	index: number,
+	gender: "male" | "female"
+) => {
+	const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
+	// @ts-ignore
+	if(!imageStorage?.[traitName]?.[gender]?.[imageName]) {
+		const url = `https://d2hlxeotl5sfi8.cloudfront.net/${traitName}/${gender}/${imageName}`;
+		const image = (await axios({ url, responseType: "arraybuffer" })).data as Buffer;
+		// @ts-ignore
+		if (!imageStorage[traitName]) {
+			// @ts-ignore
+			imageStorage[traitName] = {}
+		}
+		// @ts-ignore
+		if (!imageStorage[traitName][gender]) {
+			// @ts-ignore
+			imageStorage[traitName][gender] = {}
+		}
+		// @ts-ignore
+		imageStorage[traitName][gender][imageName] = image;
+	}
+
+	// @ts-ignore
+	return imageStorage[traitName][gender][imageName];
+}
+
 const computeImageName = (properties: Record<string, number | string>) => {
 	let nameAsArray = PROPERTIES_LIST.map((el) =>
 		properties[el] ? `${properties[el]}-` : "x-"
@@ -105,14 +136,28 @@ const createNFT = async (
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
 	const traitKeysList = Object.keys(parsedProperties);
-	const imageList: string[] = traitList.map((el, index) =>
-		getImagePath(
+	const imagePromises: Promise<any>[] = traitList.map((el, index) =>
+		getImageFromURL(
 			traitKeysList[index],
 			// @ts-ignore
 			el,
 			properties.gender
 		)
-	);
+	)
+	let imageList: any[] = [];
+
+	imageList = await Promise.all(imagePromises);
+
+	// const imageList: string[] = traitList.map((el, index) =>
+	// 	getImageFromURL(
+	// 		traitKeysList[index],
+	// 		// @ts-ignore
+	// 		el,
+	// 		properties.gender
+	// 	)
+	// )
+
+	console.log(imageList);
 	traitList.shift();
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
