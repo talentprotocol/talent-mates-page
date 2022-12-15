@@ -34,7 +34,7 @@ export interface Props {
 	type: ButtonType;
 	variant: VariantType;
 	href?: string;
-	children?: JSX.Element;
+	children?: JSX.Element | JSX.Element[];
 	onClick?: ReactEventHandler;
 	onMouseEnter?: ReactEventHandler;
 	onMouseLeave?: ReactEventHandler;

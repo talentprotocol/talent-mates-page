@@ -31,14 +31,15 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x47f1184FBC56E273f61bEFCF689e0Ab8C2e3976E",
-	network: "https://polygon-rpc.com/",
-	chainId: "137",
+	address: "0x651cf1667307451537c6687649cB9bf4833072e3",
+	network: "https://alfajores-forno.celo-testnet.org",
+	chainId: "44787",
 };
 
 const AUTH_SIGNED_MESSAGE = "I'm signing this message";
 const CANVAS_SIDE = 569;
-const BASE_URI = "TalentNFT";
+const BASE_URI =
+	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
 
 export const NFTPicker = ({
 	openModal,
@@ -69,12 +70,21 @@ export const NFTPicker = ({
 				provider
 			);
 			if (typeof window !== undefined) {
-				const accountTier = await contract.checkAccountTier(accounts[0]);
+				// @ts-ignore
+				const url = new URL(document.location);
+				const code = url.searchParams.get("code") || "";
+				const accountTier = await contract.checkAccountOrCodeTier(
+					accounts[0],
+					code
+				);
 				// @ts-ignore
 				window.accountTier = accountTier;
 
 				try {
-					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(accounts[0], 0);
+					const tokenIdOfUser = await contract.tokenOfOwnerByIndex(
+						accounts[0],
+						0
+					);
 					// @ts-ignore
 					window.tokenIdOfUser = tokenIdOfUser;
 				} catch {
@@ -101,9 +111,9 @@ export const NFTPicker = ({
 		skinTrait: useTrait({
 			name: "body",
 			description: "Skin",
-			// Skins are ordered from 5 and above, 
+			// Skins are ordered from 5 and above,
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 15, female: 15 },
+			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
 			gender,
 		}),
 		clothingTrait: useTrait({
@@ -160,7 +170,11 @@ export const NFTPicker = ({
 		if (!isAvailable) {
 			throw MINT_ERROR_CODES.COMBINATION_TAKEN;
 		}
-		const isWhitelisted = await contract.isWhitelisted(accounts[0]);
+
+		// @ts-ignore
+		const url = new URL(document.location);
+		const code = url.searchParams.get("code") || "";
+		const isWhitelisted = await contract.isWhitelisted(accounts[0], code);
 		if (!isWhitelisted) {
 			throw MINT_ERROR_CODES.ACCOUNT_IN_BLACKLIST;
 		}
@@ -177,7 +191,8 @@ export const NFTPicker = ({
 			}
 		} else {
 			jumpToNextMintState();
-			const content = await contract.connect(signer).mint();
+
+			const content = await contract.connect(signer).mint(code);
 			// @ts-ignore
 			window.mintHash = content.hash;
 
@@ -190,7 +205,7 @@ export const NFTPicker = ({
 			tokenId = event.args[2].toNumber();
 			jumpToNextMintState();
 		}
-		
+
 		const options = Object.keys(traits).reduce((acc, t) => {
 			// @ts-ignore
 			if (traits[t].currentSelection !== -1) {
@@ -237,8 +252,7 @@ export const NFTPicker = ({
 			openModal(event);
 			try {
 				// temp disable for "go-live"
-				// await mintNFT();
-				return;
+				await mintNFT();
 			} catch (err) {
 				closeModal();
 				// @ts-ignore
@@ -365,14 +379,14 @@ export const NFTPicker = ({
 				<DisplayArea>
 					<GenderPicker>
 						<Button
-							text="Male"
+							text="Body 1"
 							type="button"
 							variant={gender === "male" ? "quaternary" : "secondary"}
 							fullWidth
 							onClick={() => setGender("male")}
 						/>
 						<Button
-							text="Female"
+							text="Body 2"
 							type="button"
 							variant={gender === "female" ? "quaternary" : "secondary"}
 							fullWidth
@@ -380,7 +394,7 @@ export const NFTPicker = ({
 						/>
 					</GenderPicker>
 					<ImageHolder>
-						<Spinner isShown={generatingImage}/>
+						<Spinner isShown={generatingImage} />
 						<canvas
 							style={{ overflow: "hidden" }}
 							ref={canvasRef}
@@ -487,22 +501,6 @@ export const NFTPicker = ({
 				</TraitPickerArea>
 			</PickerArea>
 			<ActionArea>
-				<div>
-					<Button
-						text="Share on Twitter"
-						type="button"
-						variant="tertiary"
-						fullWidth
-						onClick={() => {
-							window.open(
-								`https://twitter.com/intent/tweet?text=${encodeURI(
-									"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-								)}&url=${window.location.origin}`,
-								"_blank"
-							);
-						}}
-					/>
-				</div>
 				<div>
 					<ShuffleButton callback={shuffleCombination} />
 				</div>

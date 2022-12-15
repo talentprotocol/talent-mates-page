@@ -42,12 +42,8 @@ const PROPERTIES_LIST = [
 	"eyes",
 	"thinking",
 ];
-const MANDATORY_PROPERTIES_LIST = [
-	"gender",
-	"body",
-	"background",
-	"mouth",
-];
+
+const MANDATORY_PROPERTIES_LIST = ["gender", "body", "background", "mouth"];
 
 const createBlobFromPath = async (filePath: string) => {
 	const content = await fs.promises.readFile(filePath);
@@ -130,7 +126,7 @@ const createNFT = async (
 			)
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.setMetaData(fileName, image, tokenId, userAddress, properties.body);
+		await NFTRepository.setMetaData(fileName, image, tokenId, properties);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);

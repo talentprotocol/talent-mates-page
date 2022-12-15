@@ -31,11 +31,11 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 					text="Minting is free on Polygon (except for gas) for all verified Talent Protocol users. All traits, except for the skin, can be manually selected by the user during the minting process."
 					color="LIGHT_GREY"
 				/>
-				<Typography
-					type="general"
-					color="LIGHT_GREY"
-				>
-					<>To claim your Talent Mate, first create a Talent Protocol account <a href="https://beta.talentprotocol.com/join" target="_blank" rel="noreferrer">here</a>.</>
+				<Typography type="general" color="LIGHT_GREY">
+					<>
+						To claim your Talent Mate, first create a Talent Protocol account
+						and get verified!
+					</>
 				</Typography>
 			</TextArea>
 			<ActionArea>

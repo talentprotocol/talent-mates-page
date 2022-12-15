@@ -18,13 +18,12 @@ export const BodyContainer = styled.main`
 
 export const FullHeightBody = styled.main`
 	min-height: 100vh;
-	max-width: 1160px;
-	margin-right: auto;
-	margin-left: auto;
+	overflow-x: hidden;
+	padding-left: 24px;
 	display: flex;
 	align-items: center;
 
 	@media (max-width: 768px) {
-		overflow-x: hidden;
+		padding-left: 0px;
 	}
 `;

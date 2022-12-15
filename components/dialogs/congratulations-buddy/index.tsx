@@ -8,6 +8,27 @@ export const CongratulationsBuddyDialog = ({
 	closeModal,
 	imageSource,
 }: Props) => {
+	const secondButton = () => {
+		// @ts-ignore
+		const { tokenIdOfUser } = window;
+		if(tokenIdOfUser) {
+			return <StyledButton
+				text="Show me!"
+				type="link"
+				variant="quaternary"
+				href={`/mate/${tokenIdOfUser}`}
+				target="_blank"
+			/>;
+		} else {
+			return <StyledButton
+				text="Check it on opensea!"
+				type="link"
+				variant="quaternary"
+				href="https://opensea.io/collection/talentprotocol"
+				target="_blank"
+			/>
+		}
+	}
 	return (
 		<Container
 			onClick={(e) => {
@@ -21,7 +42,7 @@ export const CongratulationsBuddyDialog = ({
 			{imageSource && (
 				<img width="170" height="170" src={imageSource} alt="buddy" />
 			)}
-			<Typography type="h3" text="Congratulation, buddy!" />
+			<Typography type="h3" text="Congratulations, buddy!" />
 			<Typography
 				type="body1"
 				text="We’re super happy to give you this NFT!"
@@ -43,10 +64,10 @@ export const CongratulationsBuddyDialog = ({
 					}}
 				/>
 				<StyledButton
-					text="Awesome! Let’s do this!"
+					text="Check it on opensea!"
 					type="link"
 					variant="quaternary"
-					href="https://beta.talentprotocol.com/join"
+					href="https://opensea.io/collection/talentprotocol"
 					target="_blank"
 				/>
 			</ActionArea>

@@ -4,25 +4,50 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
 import { SecondSVG } from "./assets/second-svg";
-import { ActionArea, Container, ContentArea, ImageArea } from "./styled";
+import { TwitterSVG } from "./assets/twitter-svg";
+import { OpenseaSVG } from "./assets/opensea-svg";
+import {
+	ActionArea,
+	Container,
+	ContentArea,
+	ImageArea,
+	CalloutArea,
+	SocialArea,
+	StyledButton,
+} from "./styled";
 import { Props } from "./types";
 
+const paramsForMetamask = {
+	chainId: "0xaef3",
+	chainName: "Alfajores Testnet",
+	nativeCurrency: { name: "Alfajores Celo", symbol: "A-CELO", decimals: 18 },
+	rpcUrls: ["https://alfajores-forno.celo-testnet.org"],
+	blockExplorerUrls: ["https://alfajores-blockscout.celo-testnet.org/"],
+	iconUrls: ["future"],
+};
+
 // const paramsForMetamask = {
-// 	"chainId": "0xaef3",
-// 	"chainName": "Alfajores Testnet",
-// 	"nativeCurrency": { "name": "Alfajores Celo", "symbol": "A-CELO", "decimals": 18 },
-// 	"rpcUrls": ["https://alfajores-forno.celo-testnet.org"],
-// 	"blockExplorerUrls": ["https://alfajores-blockscout.celo-testnet.org/"],
-// 	"iconUrls": ["future"]
+// 	chainId: "0x89",
+// 	chainName: "Polygon",
+// 	nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+// 	rpcUrls: ["https://polygon-rpc.com/"],
+// 	blockExplorerUrls: ["https://polygonscan.com/"],
+// 	iconUrls: ["future"],
 // };
 
-const paramsForMetamask = {
-	"chainId": "0x89",
-	"chainName": "Polygon",
-	"nativeCurrency": { "name": "MATIC", "symbol": "MATIC", "decimals": 18 },
-	"rpcUrls": ["https://polygon-rpc.com/"],
-	"blockExplorerUrls": ["https://polygonscan.com/"],
-	"iconUrls": ["future"]
+const getCode = (): string | null => {
+	// @ts-ignore
+	const url = new URL(document.location);
+	return url.searchParams.get("code");
+};
+
+const getURL = (): string => {
+	const code = getCode();
+	if (code) {
+		return `/mint?code=${code}`;
+	} else {
+		return "/mint";
+	}
 };
 
 const Welcome = ({ openModal, openErrorModal }: Props) => {
@@ -33,29 +58,33 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 		const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(44787));
 		try {
 			// @ts-ignore
-      const { ethereum } = window;
+			const { ethereum } = window;
 			const provider = new ethers.providers.Web3Provider(ethereum);
-      await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
-			window.location.href = "/mint";
-    } catch (error: any) {
-      console.log(error);
-      // metamask mobile throws an error but that error has no code
-      // https://github.com/MetaMask/metamask-mobile/issues/3312
+			await provider.send("wallet_switchEthereumChain", [
+				{ chainId: chainHex },
+			]);
+			window.location.href = getURL();
+		} catch (error: any) {
+			console.log(error);
+			// metamask mobile throws an error but that error has no code
+			// https://github.com/MetaMask/metamask-mobile/issues/3312
 			// @ts-ignore
-      const { ethereum } = window;
+			const { ethereum } = window;
 			const provider = new ethers.providers.Web3Provider(ethereum);
 
-      if (!!error.code || error.code === 4902) {
+			if (!!error.code || error.code === 4902) {
 				await provider.send("wallet_addEthereumChain", [paramsForMetamask]);
-        await provider.send("wallet_switchEthereumChain", [{ chainId: chainHex }]);
-				window.location.href = "/mint";
-      }
+				await provider.send("wallet_switchEthereumChain", [
+					{ chainId: chainHex },
+				]);
+				window.location.href = getURL();
+			}
 		}
-	}
+	};
 
 	const connectToWallet = useCallback(async () => {
 		if (alreadyConnected) {
-			window.location.href = "/mint";
+			window.location.href = getURL();
 			return;
 		}
 
@@ -70,10 +99,20 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				await provider.send("eth_requestAccounts", []);
 				// @TODO: change to polygon mainnet
-				if (ethereum.networkVersion !== "137") {
+				if (ethereum.networkVersion !== "44787") {
 					openErrorModal(
-						<div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-							<div style={{marginBottom: 24}}>You are connected to the wrong network, we are on Polygon with the chain id 137</div>
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<div style={{ marginBottom: 24 }}>
+								You are connected to the wrong network, we are on Alfajores with
+								the chain id 44787
+							</div>
 							<Button
 								type="button"
 								variant="primary"
@@ -110,33 +149,78 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	});
 
 	return (
-		<Container>
-			<ContentArea>
-				<Typography type="h1" text="Create your Talent Mate." />
-				<Typography
-					type="body1"
-					text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
-				/>
-				<ActionArea>
-					<Button
-						type="button"
-						variant="primary"
-						text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
-						onClick={connectToWallet}
-					/>
-					<Button
-						type="button"
-						variant="octonary"
-						text="How it works"
-						onClick={openModal}
-					/>
-				</ActionArea>
-			</ContentArea>
-			<ImageArea>
-				<FirstSVG />
-				<SecondSVG />
-			</ImageArea>
-		</Container>
+		<>
+			<Container>
+				<CalloutArea>
+					<ContentArea>
+						<Typography type="h1" text="Create your Talent Mate." />
+						<Typography
+							type="body1"
+							text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
+						/>
+						<ActionArea>
+							<Button
+								type="button"
+								variant="primary"
+								text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
+								onClick={connectToWallet}
+							/>
+							<Button
+								type="button"
+								variant="octonary"
+								text="How it works"
+								onClick={openModal}
+							/>
+						</ActionArea>
+						<SocialArea>
+							<StyledButton
+								type="button"
+								variant="hexanary"
+								fullWidth={false}
+								onClick={() => {
+									window.open(
+										`https://twitter.com/intent/tweet?text=${encodeURI(
+											"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
+										)}&url=${window.location.origin}`,
+										"_blank"
+									);
+								}}
+							>
+								<>
+									Share on{" "}
+									<div style={{ marginLeft: "6px", display: "flex" }}>
+										<TwitterSVG />
+									</div>
+									<span style={{ color: "black", marginLeft: "4px" }}>
+										Twitter
+									</span>
+								</>
+							</StyledButton>
+							<StyledButton
+								type="link"
+								variant="hexanary"
+								href="https://opensea.io/collection/talentprotocol"
+								target="_blank"
+							>
+								<>
+									Buy on{" "}
+									<div style={{ marginLeft: "6px", display: "flex" }}>
+										<OpenseaSVG />
+									</div>
+									<span style={{ color: "black", marginLeft: "4px" }}>
+										Opensea
+									</span>
+								</>
+							</StyledButton>
+						</SocialArea>
+					</ContentArea>
+					<ImageArea>
+						<FirstSVG />
+						<SecondSVG />
+					</ImageArea>
+				</CalloutArea>
+			</Container>
+		</>
 	);
 };
 

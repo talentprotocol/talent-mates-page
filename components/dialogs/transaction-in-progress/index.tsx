@@ -15,22 +15,12 @@ export const TransactionInProgressDialog = ({ closeModal }: Props) => {
 				<CrossSVG />
 			</XArea>
 			<Spinner isShown noBox />
-			<Typography type="h3" text="Transaction in progress" />
+			<Typography type="h3" text="Making changes to your Mate!" />
 			<Typography
 				type="general"
-				text="This can take a few minutes depending on gas."
+				text="We're changing your mate to look exactly like you want it to! Keep this window open during the process."
 				color="LIGHT_GREY"
 			/>
-			<ActionArea>
-				<StyledButton
-					text="View transaction status"
-					type="link"
-					variant="quaternary"
-					target="_blank"
-					// @ts-ignore
-					href={`https://alfajores.celoscan.io/tx/${window.mintHash}`}
-				/>
-			</ActionArea>
 		</Container>
 	);
 };

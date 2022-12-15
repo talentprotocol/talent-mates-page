@@ -50,6 +50,7 @@ export const ImageList = styled.span`
 	width: 100%;
 	max-width: 100%;
 	display: flex;
+	gap: 32px;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -58,4 +59,10 @@ export const ImageList = styled.span`
 
 export const StyledButton = styled(Button)`
 	padding: 8px 32px;
+`;
+
+export const ActionArea = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;

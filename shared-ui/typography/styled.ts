@@ -64,6 +64,16 @@ export const BODY2 = styled.p<StyledTypographyProps>`
 		`}
 `;
 
+export const BODY3 = styled.p<StyledTypographyProps>`
+	${fontNormal}
+	font-size: 14px;
+	line-height: 140%;
+	${({ color }) =>
+		css`
+			color: ${COLORS[color || "BLACK"]};
+		`}
+`;
+
 export const GENERAL = styled.span<StyledTypographyProps>`
 	${fontNormal}
 	font-weight: 400;
