@@ -37,7 +37,8 @@ const setMetaData = async (
 	fileName: string,
 	image: Blob,
 	tokenId: number,
-	properties: any
+	properties: any,
+	signedMessageAddress: string,
 ): Promise<DefaultResponse> => {
 	try {
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
@@ -81,7 +82,7 @@ const setMetaData = async (
 				tokenId,
 				metadata.url,
 				fileName,
-				owner.address,
+				signedMessageAddress,
 				selectedSkin
 			);
 
