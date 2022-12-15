@@ -126,7 +126,7 @@ const createNFT = async (
 			)
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.setMetaData(fileName, image, tokenId, properties);
+		await NFTRepository.setMetaData(fileName, image, tokenId, properties, signedMessageAddress);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
