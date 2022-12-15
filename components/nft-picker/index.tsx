@@ -31,7 +31,7 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x8193958d27A0788C129703515751522fd0a1A7FC",
+	address: "0x0F5dcD59E859F8A840fa4D66cE0BB753e6Df4bd5",
 	network: "https://alfajores-forno.celo-testnet.org",
 	chainId: "44787",
 };
