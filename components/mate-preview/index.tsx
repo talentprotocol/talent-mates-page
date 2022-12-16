@@ -142,7 +142,9 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 				return (
 					<>
 						<Preview>
-							<img src={imageURL || NFTData.imageUrl}/>
+							<object data="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/0.png" type="image/png">
+								<img src={imageURL || NFTData.imageUrl}/>
+							</object>
 						</Preview>
 						<TextArea>
 							<Typography type="h3" text="Boom shakalak! Meet your new MATE!" color="DARK_BLUE"/>
