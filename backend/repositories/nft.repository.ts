@@ -2,12 +2,18 @@ import { ethers } from "ethers";
 import FactoryArtifact from "./contracts/talentNFT.json";
 import { DefaultResponse } from "backend/types/response";
 import { NFTStorage } from "nft.storage";
+import S3 from 'aws-sdk/clients/s3'
 import TRAITS_LIST from "libs/traits/list.json";
+import { FormData } from "nft.storage";
+import fs from "fs";
 
 const WALLET_PK = process.env.WALLET_PK as string;
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string;
 const NETWORK_URL = process.env.PROVIDER_URL as string;
 const TOKEN = process.env.NFT_STORAGE_TOKEN as string;
+const S3_ACCESS = process.env.ACCESS_KEY as string;
+const S3_SECRET = process.env.SECRET_KEY as string;
+const S3_BUCKET = process.env.BUCKET_NAME as string;
 
 const valueToNumber = (value: number) => {
 	if (value > 9) {
@@ -61,7 +67,6 @@ const setMetaData = async (
 		}
 		const client = new NFTStorage({ token: TOKEN });
 
-		// -> replace traits with attributes (check pugs example)
 		const metadata = await client.store({
 			name: `Talent Mate ${tokenId}`,
 			description: "Talent Mates. An NFT collection by Talent Protocol.",
@@ -75,6 +80,22 @@ const setMetaData = async (
 				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
 			],
 		});
+
+		// upload image to S3
+		const s3 = new S3({
+			apiVersion: '2006-03-01',
+			accessKeyId: S3_ACCESS,
+			secretAccessKey: S3_SECRET,
+			region: "eu-west-2"
+		})
+
+		const blob = fs.readFileSync(`/tmp/${fileName}`);
+
+		const uploadedImage = await s3.upload({
+			Bucket: S3_BUCKET,
+			Key: `mates/${tokenId}.png`,
+			Body: blob,
+		}).promise();
 
 		await contract
 			.connect(owner)

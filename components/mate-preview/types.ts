@@ -7,4 +7,5 @@ export enum PREVIEW_STATE {
 
 export interface Props {
 	id?: string;
+	imageURL?: string;
 }

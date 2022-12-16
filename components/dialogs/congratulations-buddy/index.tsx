@@ -63,13 +63,7 @@ export const CongratulationsBuddyDialog = ({
 						);
 					}}
 				/>
-				<StyledButton
-					text="Check it on opensea!"
-					type="link"
-					variant="quaternary"
-					href="https://opensea.io/collection/talentprotocol"
-					target="_blank"
-				/>
+				{secondButton()}
 			</ActionArea>
 		</Container>
 	);

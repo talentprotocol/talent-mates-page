@@ -43,7 +43,7 @@ const get = (url: string, params = {}) => {
   });
 };
 
-export const MatePreview = ({ id }: Props) => {
+export const MatePreview = ({ id, imageURL }: Props) => {
 	const [state, setState] = useState(PREVIEW_STATE.FIRST_LOAD);
 	const [NFTData, setNFTData] = useState({
 		imageUrl: "",
@@ -61,13 +61,20 @@ export const MatePreview = ({ id }: Props) => {
 			provider
 		);
 
-		const metadataURI = await contract.tokenURI(id);
-		const result = await get(ipfsToURL(metadataURI));
 		const owner = await contract.ownerOf(id);
-		const imageUrl = ipfsToURL(result.image);
+
+		const imageUrl = async (): Promise<string> => {
+			if(!imageURL) {
+				const metadataURI = await contract.tokenURI(id);
+				const result = await get(ipfsToURL(metadataURI));
+				return ipfsToURL(result.image);
+			} else {
+				return imageURL;
+			}
+		};
 
     setNFTData({
-			imageUrl,
+			imageUrl: await imageUrl(),
 			tokenId: id || "",
 			owner
 		});
@@ -135,7 +142,7 @@ export const MatePreview = ({ id }: Props) => {
 				return (
 					<>
 						<Preview>
-							<img src={NFTData.imageUrl}/>
+							<img src={imageURL || NFTData.imageUrl}/>
 						</Preview>
 						<TextArea>
 							<Typography type="h3" text="Boom shakalak! Meet your new MATE!" color="DARK_BLUE"/>
@@ -171,6 +178,7 @@ export const MatePreview = ({ id }: Props) => {
 									variant="secondary"
 									href="https://opensea.io/collection/talentprotocol"
 									text="View on Opensea"
+									target="_blank"
 								/>
 							</ButtonArea>
 						</TextArea>

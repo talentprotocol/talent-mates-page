@@ -5,7 +5,7 @@ import axios from "axios";
 import { File } from "nft.storage";
 import { DefaultResponse } from "backend/types/response";
 import NFTRepository from "backend/repositories/nft.repository";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 type NFTPropsKeys =
 	| "gender"
@@ -105,7 +105,7 @@ const computeImageName = (properties: Record<string, number | string>) => {
 const createNFT = async (
 	properties: NFTProps,
 	userAddress: string,
-	tokenId: number,
+	tokenId: BigNumber,
 	signature: string
 ): Promise<DefaultResponse> => {
 	if (
@@ -150,16 +150,6 @@ const createNFT = async (
 
 	imageList = await Promise.all(imagePromises);
 
-	// const imageList: string[] = traitList.map((el, index) =>
-	// 	getImageFromURL(
-	// 		traitKeysList[index],
-	// 		// @ts-ignore
-	// 		el,
-	// 		properties.gender
-	// 	)
-	// )
-
-	console.log(imageList);
 	traitList.shift();
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
@@ -173,7 +163,8 @@ const createNFT = async (
 			)
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
-		await NFTRepository.setMetaData(fileName, image, tokenId, properties, signedMessageAddress);
+
+		await NFTRepository.setMetaData(fileName, image, BigNumber.from(tokenId).toNumber(), properties, signedMessageAddress);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);

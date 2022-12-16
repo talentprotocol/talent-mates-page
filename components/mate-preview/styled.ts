@@ -29,11 +29,12 @@ export const Preview = styled.div`
     border-radius: 24px;
     overflow: hidden;
     width: 468px;
-    height: 456px;
+    height: auto;
+    display: flex;
 
     @media (max-width: 768px) {
-		width: 300px;
-        height: 292px;
+        width: 300px;
+        height: auto;
         margin-top: 24px;
 	}
     

@@ -196,6 +196,9 @@ export const NFTPicker = ({
 			// @ts-ignore
 			window.mintHash = content.hash;
 
+			// clear code from URL now that it's been used
+			window.history.pushState({}, document.location.href, document.location.href.replace(document.location.search, ""));
+
 			const receipt = await content.wait();
 
 			const event = receipt.events?.find((e: any) => {
@@ -204,7 +207,7 @@ export const NFTPicker = ({
 
 			tokenId = event.args[2].toNumber();
 			// @ts-ignore
-			window.tokenIdOfUser = tokenId.toNumber();
+			window.tokenIdOfUser = tokenId;
 			jumpToNextMintState();
 		}
 

@@ -7,10 +7,14 @@ const Mate = () => {
 	const router = useRouter();
 	const { id } = router.query;
 
+	const imageURL = () => {
+		return id ? `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}` : "https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg";
+	}
+
 	return (
 		<>
 			<Head>
-				<title>Talent Mate{id ? ` #${id}` : "s NFTs by Talent Protocol"}</title>
+				<title><>Talent Mate{id ? ` #${id}` : "s NFTs by Talent Protocol"}</></title>
 				<meta
 					name="description"
 					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
@@ -33,11 +37,11 @@ const Mate = () => {
 				/>
 				<meta
 					property="og:image"
-					content="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg"
+					content={imageURL()}
 				/>
 			</Head>
 			<Body fullHeight>
-				<MatePreview id={id as string} />
+				<MatePreview id={id as string} imageURL={id && `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}`} />
 			</Body>
 		</>
 	);
