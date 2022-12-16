@@ -8,7 +8,7 @@ const Mate = () => {
 	const { id } = router.query;
 
 	const imageURL = () => {
-		return id ? `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}` : "https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg";
+		return id ? `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}.png` : "https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg";
 	}
 
 	return (
@@ -41,7 +41,7 @@ const Mate = () => {
 				/>
 			</Head>
 			<Body fullHeight>
-				<MatePreview id={id as string} imageURL={id && `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}`} />
+				<MatePreview id={id as string} imageURL={id && `https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}.png`} />
 			</Body>
 		</>
 	);

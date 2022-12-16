@@ -4,7 +4,6 @@ import { DefaultResponse } from "backend/types/response";
 import { NFTStorage } from "nft.storage";
 import S3 from 'aws-sdk/clients/s3'
 import TRAITS_LIST from "libs/traits/list.json";
-import { FormData } from "nft.storage";
 import fs from "fs";
 
 const WALLET_PK = process.env.WALLET_PK as string;
