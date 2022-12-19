@@ -114,16 +114,7 @@ const setMetaData = async (
 			})
 			.promise();
 
-		const estimatedGasPrice = await contract
-			.connect(owner)
-			.estimateGas
-			.setTokenURI(
-				tokenId,
-				metadata.url,
-				fileName,
-				signedMessageAddress,
-				selectedSkin
-			);
+		const feeData = await provider.getFeeData();
 
 		await contract
 			.connect(owner)
@@ -134,7 +125,7 @@ const setMetaData = async (
 				signedMessageAddress,
 				selectedSkin,
 				{
-					gasLimit: estimatedGasPrice.mul(120).div(100), // increase amount by 20%
+					gasPrice: feeData.gasPrice,
 				}
 			);
 
