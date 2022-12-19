@@ -13,11 +13,15 @@ const Mate = () => {
 			: "https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/metaimage.jpg";
 	};
 
+	const title = () => {
+		return `Talent Mate ${id ? ` #${id}` : "s NFTs by Talent Protocol"}`
+	}
+
 	return (
 		<>
 			<Head>
 				<title>
-					<>Talent Mate{id ? ` #${id}` : "s NFTs by Talent Protocol"}</>
+					{title()}
 				</title>
 				<meta
 					name="description"
@@ -46,10 +50,7 @@ const Mate = () => {
 			<Body fullHeight>
 				<MatePreview
 					id={id as string}
-					imageURL={
-						id &&
-						`https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/${id}.png`
-					}
+					imageURL={imageURL()}
 				/>
 			</Body>
 		</>
