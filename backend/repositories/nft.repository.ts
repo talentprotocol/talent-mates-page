@@ -14,6 +14,8 @@ const S3_ACCESS = process.env.ACCESS_KEY as string;
 const S3_SECRET = process.env.SECRET_KEY as string;
 const S3_BUCKET = process.env.BUCKET_NAME as string;
 
+const FREE_SKINS_AMOUNT = 5;
+
 const valueToNumber = (value: number) => {
 	if (value > 9) {
 		return value.toString();
@@ -61,7 +63,7 @@ const setMetaData = async (
 			.connect(owner)
 			.checkAccountOrCodeTier(userAddress, code);
 
-		if (!(selectedSkin < 5 || accountTier === selectedSkin)) {
+		if (!(selectedSkin < FREE_SKINS_AMOUNT || accountTier === selectedSkin)) {
 			return Promise.reject({
 				status: 403,
 				message: "Skin locked",
