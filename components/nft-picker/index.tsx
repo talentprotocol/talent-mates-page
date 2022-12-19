@@ -58,8 +58,23 @@ export const NFTPicker = ({
 	useEffect(() => {
 		(async () => {
 			// @ts-ignore
+			const { ethereum } = window;
+			if (!ethereum || !ethereum.isMetaMask) {
+				setAccountTier(1);
+				return;
+			}
 			const defaultProvider = new ethers.providers.Web3Provider(ethereum);
 			const accounts = await defaultProvider.send("eth_requestAccounts", []);
+
+			const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(44787));
+			await defaultProvider.send("wallet_switchEthereumChain", [
+				{ chainId: chainHex },
+			]);
+
+			if (accounts.length == 0) {
+				setAccountTier(1);
+				openInstructionModal();
+			}
 			// @ts-ignore
 			const provider = new ethers.providers.JsonRpcProvider(
 				ContractBook["TalentNFT"].network
@@ -95,6 +110,15 @@ export const NFTPicker = ({
 			}
 		})();
 	}, []);
+
+	const getSkinLevel = () => {
+		if (accountTier > 2) {
+			return 3 + accountTier;
+		} else {
+			return 5;
+		}
+	}
+
 	const traits = {
 		backgroundTrait: useTrait({
 			name: "background",
@@ -113,7 +137,7 @@ export const NFTPicker = ({
 			description: "Skin",
 			// Skins are ordered from 5 and above,
 			// For each account tier level there is one more skin unlocked
-			maxElements: { male: 3 + accountTier, female: 3 + accountTier },
+			maxElements: { male: getSkinLevel(), female: getSkinLevel() },
 			gender,
 		}),
 		clothingTrait: useTrait({
@@ -152,6 +176,10 @@ export const NFTPicker = ({
 			Object.values(traits)
 				.map((t) => t.currentSelection)
 				.join("-") + ".png";
+		// @ts-ignore
+		if (!ethereum) {
+			throw MINT_ERROR_CODES.NO_METAMASK;
+		}
 		// @ts-ignore
 		const defaultProvider = new ethers.providers.Web3Provider(ethereum);
 		const signer = defaultProvider.getSigner();
