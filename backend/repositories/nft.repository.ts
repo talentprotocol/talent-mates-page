@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import FactoryArtifact from "./contracts/talentNFT.json";
 import { DefaultResponse } from "backend/types/response";
 import { NFTStorage } from "nft.storage";
-import S3 from 'aws-sdk/clients/s3'
+import S3 from "aws-sdk/clients/s3";
 import TRAITS_LIST from "libs/traits/list.json";
 import fs from "fs";
 
@@ -44,6 +44,8 @@ const setMetaData = async (
 	tokenId: number,
 	properties: any,
 	signedMessageAddress: string,
+	userAddress: string,
+	code?: string
 ): Promise<DefaultResponse> => {
 	try {
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
@@ -54,6 +56,18 @@ const setMetaData = async (
 			FactoryArtifact.abi,
 			provider
 		);
+
+		const accountTier = await contract
+			.connect(owner)
+			.checkAccountOrCodeTier(userAddress, code);
+
+		if (!(selectedSkin < 5 || accountTier === selectedSkin)) {
+			return Promise.reject({
+				status: 403,
+				message: "Skin locked",
+			});
+		}
+
 		const isCombinationAvailable = await contract
 			.connect(owner)
 			.isCombinationAvailable(fileName);
@@ -82,19 +96,21 @@ const setMetaData = async (
 
 		// upload image to S3
 		const s3 = new S3({
-			apiVersion: '2006-03-01',
+			apiVersion: "2006-03-01",
 			accessKeyId: S3_ACCESS,
 			secretAccessKey: S3_SECRET,
-			region: "eu-west-2"
-		})
+			region: "eu-west-2",
+		});
 
 		const blob = fs.readFileSync(`/tmp/${fileName}`);
 
-		const uploadedImage = await s3.upload({
-			Bucket: S3_BUCKET,
-			Key: `mates/${tokenId}.png`,
-			Body: blob,
-		}).promise();
+		const uploadedImage = await s3
+			.upload({
+				Bucket: S3_BUCKET,
+				Key: `mates/${tokenId}.png`,
+				Body: blob,
+			})
+			.promise();
 
 		await contract
 			.connect(owner)

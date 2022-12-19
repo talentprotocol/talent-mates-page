@@ -16,5 +16,5 @@ export const MINT_ERROR_CODES_TO_MESSAGES = {
 	MESSAGE_NOT_SIGNED:
 		"You must sign the message in order to update the look of your Talent Mate.",
 	NO_METAMASK:
-		"You need to use the metamask mobile browser or use a browser that uses a metamask extension."
+		"You need to use the metamask mobile browser or use a browser that uses a metamask extension.",
 };

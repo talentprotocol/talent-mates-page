@@ -17,7 +17,7 @@ const numberToTraitNumber = (value: Number): string => {
 	if (realValue > 5) {
 		// @ts-ignore
 		realValue = 3 + (!!window.accountTier ? window.accountTier : 0);
-	};
+	}
 
 	if (realValue < 10) {
 		// @ts-ignore

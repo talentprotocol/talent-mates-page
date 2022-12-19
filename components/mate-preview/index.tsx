@@ -11,7 +11,7 @@ import {
 	StyledButton,
 	LimitedText,
 	ButtonArea,
-	ErrorContainer
+	ErrorContainer,
 } from "./styled";
 import { ethers } from "ethers";
 import abi from "../nft-picker/talentNFT.json";
@@ -27,20 +27,20 @@ ContractBook.new = {
 };
 
 export const ipfsToURL = (ipfsAddress: string) => {
-  if (ipfsAddress.includes("http")) {
-    return ipfsAddress;
-  }
-  return "https://ipfs.io/" + ipfsAddress.replace("://", "/");
+	if (ipfsAddress.includes("http")) {
+		return ipfsAddress;
+	}
+	return "https://ipfs.io/" + ipfsAddress.replace("://", "/");
 };
 
 const get = (url: string, params = {}) => {
-  return fetch(url).then((response) => {
+	return fetch(url).then((response) => {
 		// @ts-ignore
-    if (params.ignoreJSON) {
-      return response;
-    }
-    return response.json();
-  });
+		if (params.ignoreJSON) {
+			return response;
+		}
+		return response.json();
+	});
 };
 
 export const MatePreview = ({ id, imageURL }: Props) => {
@@ -48,7 +48,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 	const [NFTData, setNFTData] = useState({
 		imageUrl: "",
 		tokenId: "",
-		owner: ""
+		owner: "",
 	});
 
 	const checkForNFT = async () => {
@@ -64,7 +64,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 		const owner = await contract.ownerOf(id);
 
 		const imageUrl = async (): Promise<string> => {
-			if(!imageURL) {
+			if (!imageURL) {
 				const metadataURI = await contract.tokenURI(id);
 				const result = await get(ipfsToURL(metadataURI));
 				return ipfsToURL(result.image);
@@ -73,20 +73,20 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 			}
 		};
 
-    setNFTData({
+		setNFTData({
 			imageUrl: await imageUrl(),
 			tokenId: id || "",
-			owner
+			owner,
 		});
-		
+
 		return Promise.resolve();
-	}
+	};
 
 	useEffect(() => {
 		if (state === PREVIEW_STATE.FIRST_LOAD || id === undefined) {
 			setState(PREVIEW_STATE.LOADING);
 			return;
-		};
+		}
 		if (!id) {
 			setState(PREVIEW_STATE.ERROR);
 		} else {
@@ -101,15 +101,15 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 			address.length - 4,
 			address.length
 		)}`;
-	}
+	};
 
-	const downloadImage = async() => {
+	const downloadImage = async () => {
 		const image = await fetch(NFTData.imageUrl);
-		const imageBlog = await image.blob()
-		const imageURL = URL.createObjectURL(imageBlog)
+		const imageBlog = await image.blob();
+		const imageURL = URL.createObjectURL(imageBlog);
 
-		const link = document.createElement('a')
-		link.href = imageURL
+		const link = document.createElement("a");
+		link.href = imageURL;
 		link.download = `${NFTData.tokenId}.png`;
 		document.body.appendChild(link);
 		link.click();
@@ -123,9 +123,9 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 				return (
 					<>
 						<ErrorContainer>
-							<Spinner isShown noBox/>
+							<Spinner isShown noBox />
 						</ErrorContainer>
-						<Footer fixed/>
+						<Footer fixed />
 					</>
 				);
 			case PREVIEW_STATE.ERROR:
@@ -134,7 +134,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 						<ErrorContainer>
 							<ErrorMessage>Mate not found</ErrorMessage>
 						</ErrorContainer>
-						<Footer fixed/>
+						<Footer fixed />
 					</>
 				);
 			case PREVIEW_STATE.FOUND:
@@ -142,30 +142,74 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 				return (
 					<>
 						<Preview>
-							<object data="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/0.png" type="image/png">
-								<img src={imageURL || NFTData.imageUrl}/>
+							<object
+								data="https://talentprotocol-mintingpage-qa.s3.eu-west-2.amazonaws.com/mates/0.png"
+								type="image/png"
+							>
+								<img src={imageURL || NFTData.imageUrl} />
 							</object>
 						</Preview>
 						<TextArea>
-							<Typography type="h3" text="Boom shakalak! Meet your new MATE!" color="DARK_BLUE"/>
-							<Typography type="body1" text={`Talent Protocol Mate #${NFTData.tokenId}`} color="NOT_SO_LIGHT_GREY"/>
+							<Typography
+								type="h3"
+								text="Boom shakalak! Meet your new MATE!"
+								color="DARK_BLUE"
+							/>
+							<Typography
+								type="body1"
+								text={`Talent Protocol Mate #${NFTData.tokenId}`}
+								color="NOT_SO_LIGHT_GREY"
+							/>
 							<LimitedText>
 								<Typography type="body3" color="NOT_SO_LIGHT_GREY">
-									<>Talent Mates come from a faraway planet, where everyone can find fulfilling work.<br/>Talent Mates is a customizable NFT collection, exclusive to the Talent Protocol community. Holding one Talent Mate will give you an all-access pass to new features, exclusive swag, and scholarships. Minting is free on Polygon (except for gas) for all verified Talent Protocol users.</>
+									<>
+										Talent Mates come from a faraway planet, where everyone can
+										find fulfilling work.
+										<br />
+										Talent Mates is a customizable NFT collection, exclusive to
+										the Talent Protocol community. Holding one Talent Mate will
+										give you an all-access pass to new features, exclusive swag,
+										and scholarships. Minting is free on Polygon (except for
+										gas) for all verified Talent Protocol users.
+									</>
 								</Typography>
 							</LimitedText>
 							<DescriptionArea>
 								<Description>
-									<Typography type="body2" text="Owned by" color="NOT_SO_LIGHT_GREY"/>
-									<Typography type="body2" text={shortenAddress(NFTData.owner)} color="LIGHT_PURPLE"/>
+									<Typography
+										type="body2"
+										text="Owned by"
+										color="NOT_SO_LIGHT_GREY"
+									/>
+									<Typography
+										type="body2"
+										text={shortenAddress(NFTData.owner)}
+										color="LIGHT_PURPLE"
+									/>
 								</Description>
 								<Description>
-									<Typography type="body2" text="Contract Address" color="NOT_SO_LIGHT_GREY"/>
-									<Typography type="body2" text={shortenAddress(ContractBook["TalentNFT"].address)} color="LIGHT_PURPLE"/>
+									<Typography
+										type="body2"
+										text="Contract Address"
+										color="NOT_SO_LIGHT_GREY"
+									/>
+									<Typography
+										type="body2"
+										text={shortenAddress(ContractBook["TalentNFT"].address)}
+										color="LIGHT_PURPLE"
+									/>
 								</Description>
 								<Description>
-									<Typography type="body2" text="Token ID" color="NOT_SO_LIGHT_GREY"/>
-									<Typography type="body2" text={NFTData.tokenId} color="BLACK"/>
+									<Typography
+										type="body2"
+										text="Token ID"
+										color="NOT_SO_LIGHT_GREY"
+									/>
+									<Typography
+										type="body2"
+										text={NFTData.tokenId}
+										color="BLACK"
+									/>
 								</Description>
 							</DescriptionArea>
 							<ButtonArea>
@@ -184,15 +228,11 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 								/>
 							</ButtonArea>
 						</TextArea>
-						<Footer fixed/>
+						<Footer fixed />
 					</>
-				)
+				);
 		}
 	}, [state]);
 
-	return (
-		<Container>
-			{content}
-		</Container>
-	);
+	return <Container>{content}</Container>;
 };

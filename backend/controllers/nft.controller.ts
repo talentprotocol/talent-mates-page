@@ -15,7 +15,8 @@ const POST = async (req: NextApiRequest): Promise<DefaultResponse> => {
 			req.body.properties,
 			req.body.userAddress,
 			req.body.tokenId,
-			req.body.signature
+			req.body.signature,
+			req.body.code
 		);
 	} catch (error) {
 		console.info("error happened while handling POST /api/nft");
