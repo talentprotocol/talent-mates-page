@@ -61,7 +61,7 @@ const setMetaData = async (
 
 		const accountTier = await contract
 			.connect(owner)
-			.checkAccountOrCodeTier(userAddress, code);
+			.checkAccountOrCodeTier(userAddress, "");
 
 		if (!(selectedSkin < FREE_SKINS_AMOUNT || 3 + accountTier === selectedSkin)) {
 			return Promise.reject({
