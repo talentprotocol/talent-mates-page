@@ -21,7 +21,7 @@ import { Footer } from "components/footer";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0xeAe42E39B4672c3cd20468031e956294F9EFF3a9",
+	address: "0x529872baCcfeeA84d43Cea2f0c4b3C38bBA45ce1",
 	network: "https://polygon-rpc.com/",
 	chainId: "137",
 };
