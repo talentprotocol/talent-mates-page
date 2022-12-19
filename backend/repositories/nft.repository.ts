@@ -106,7 +106,7 @@ const setMetaData = async (
 
 		const blob = fs.readFileSync(`/tmp/${fileName}`);
 
-		const uploadedImage = await s3
+		await s3
 			.upload({
 				Bucket: S3_BUCKET,
 				Key: `mates/${tokenId}.png`,
