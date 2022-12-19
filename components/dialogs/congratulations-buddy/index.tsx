@@ -11,24 +11,28 @@ export const CongratulationsBuddyDialog = ({
 	const secondButton = () => {
 		// @ts-ignore
 		const { tokenIdOfUser } = window;
-		if(tokenIdOfUser) {
-			return <StyledButton
-				text="Show me!"
-				type="link"
-				variant="quaternary"
-				href={`/mate/${tokenIdOfUser}`}
-				target="_blank"
-			/>;
+		if (tokenIdOfUser) {
+			return (
+				<StyledButton
+					text="Show me!"
+					type="link"
+					variant="quaternary"
+					href={`/mate/${tokenIdOfUser}`}
+					target="_blank"
+				/>
+			);
 		} else {
-			return <StyledButton
-				text="Check it on opensea!"
-				type="link"
-				variant="quaternary"
-				href="https://opensea.io/collection/talentprotocol"
-				target="_blank"
-			/>
+			return (
+				<StyledButton
+					text="Check it on opensea!"
+					type="link"
+					variant="quaternary"
+					href="https://opensea.io/collection/talentprotocol"
+					target="_blank"
+				/>
+			);
 		}
-	}
+	};
 	return (
 		<Container
 			onClick={(e) => {

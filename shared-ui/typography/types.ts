@@ -1,6 +1,13 @@
 import { AvailableColors } from "../colors";
 
-export type TypographyType = "h1" | "h2" | "h3" | "body1" | "body2" | "body3" | "general";
+export type TypographyType =
+	| "h1"
+	| "h2"
+	| "h3"
+	| "body1"
+	| "body2"
+	| "body3"
+	| "general";
 
 export enum TypographyTypeEnum {
 	H1 = "h1",

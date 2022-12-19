@@ -31,7 +31,8 @@ export interface NFTProps {
 	"background-object": number;
 }
 
-const AUTH_SIGNED_MESSAGE = "Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
+const AUTH_SIGNED_MESSAGE =
+	"Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
@@ -72,18 +73,19 @@ const getImageFromURL = async (
 ) => {
 	const imageName = index < 10 ? `0${index}.png` : `${index}.png`;
 	// @ts-ignore
-	if(!imageStorage?.[traitName]?.[gender]?.[imageName]) {
+	if (!imageStorage?.[traitName]?.[gender]?.[imageName]) {
 		const url = `https://d2hlxeotl5sfi8.cloudfront.net/${traitName}/${gender}/${imageName}`;
-		const image = (await axios({ url, responseType: "arraybuffer" })).data as Buffer;
+		const image = (await axios({ url, responseType: "arraybuffer" }))
+			.data as Buffer;
 		// @ts-ignore
 		if (!imageStorage[traitName]) {
 			// @ts-ignore
-			imageStorage[traitName] = {}
+			imageStorage[traitName] = {};
 		}
 		// @ts-ignore
 		if (!imageStorage[traitName][gender]) {
 			// @ts-ignore
-			imageStorage[traitName][gender] = {}
+			imageStorage[traitName][gender] = {};
 		}
 		// @ts-ignore
 		imageStorage[traitName][gender][imageName] = image;
@@ -91,7 +93,7 @@ const getImageFromURL = async (
 
 	// @ts-ignore
 	return imageStorage[traitName][gender][imageName];
-}
+};
 
 const computeImageName = (properties: Record<string, number | string>) => {
 	let nameAsArray = PROPERTIES_LIST.map((el) =>
@@ -106,7 +108,8 @@ const createNFT = async (
 	properties: NFTProps,
 	userAddress: string,
 	tokenId: BigNumber,
-	signature: string
+	signature: string,
+	code?: string
 ): Promise<DefaultResponse> => {
 	if (
 		MANDATORY_PROPERTIES_LIST.some(
@@ -145,7 +148,7 @@ const createNFT = async (
 			el,
 			properties.gender
 		)
-	)
+	);
 	let imageList: any[] = [];
 
 	imageList = await Promise.all(imagePromises);
@@ -164,7 +167,15 @@ const createNFT = async (
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
 
-		await NFTRepository.setMetaData(fileName, image, BigNumber.from(tokenId).toNumber(), properties, signedMessageAddress);
+		await NFTRepository.setMetaData(
+			fileName,
+			image,
+			BigNumber.from(tokenId).toNumber(),
+			properties,
+			signedMessageAddress,
+			userAddress,
+			code
+		);
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);

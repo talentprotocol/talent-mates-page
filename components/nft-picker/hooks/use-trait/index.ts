@@ -20,22 +20,28 @@ const getFileName = (name: string, fixedValue: any) => {
 		}
 	} else {
 		return fixedValue < 10 ? `0${fixedValue}.png` : `${fixedValue}.png`;
-	};
-}
+	}
+};
 
 const getFileNameFromMax = (name: string, fixedValue: any) => {
 	if (name == "body") {
 		if (fixedValue <= 5) {
-			return fixedValue < 10 ? `0${Math.abs(fixedValue)}.png` : `${Math.abs(fixedValue)}.png`;
+			return fixedValue < 10
+				? `0${Math.abs(fixedValue)}.png`
+				: `${Math.abs(fixedValue)}.png`;
 		} else {
 			// @ts-ignore
 			const realValue = 3 + (!!window.accountTier ? window.accountTier : 0);
-			return realValue < 10 ? `0${Math.abs(realValue)}.png` : `${Math.abs(realValue)}.png`;
+			return realValue < 10
+				? `0${Math.abs(realValue)}.png`
+				: `${Math.abs(realValue)}.png`;
 		}
 	} else {
-		return fixedValue < 10 ? `0${Math.abs(fixedValue)}.png` : `${Math.abs(fixedValue)}.png`;
-	};
-}
+		return fixedValue < 10
+			? `0${Math.abs(fixedValue)}.png`
+			: `${Math.abs(fixedValue)}.png`;
+	}
+};
 
 export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 	const [currentSelection, setCurrentSelection] = useState(1);

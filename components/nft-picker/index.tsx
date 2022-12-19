@@ -36,7 +36,8 @@ ContractBook.new = {
 	chainId: "44787",
 };
 
-const AUTH_SIGNED_MESSAGE = "Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
+const AUTH_SIGNED_MESSAGE =
+	"Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
 const CANVAS_SIDE = 569;
 const BASE_URI =
 	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
@@ -117,7 +118,7 @@ export const NFTPicker = ({
 		} else {
 			return 5;
 		}
-	}
+	};
 
 	const traits = {
 		backgroundTrait: useTrait({
@@ -225,7 +226,11 @@ export const NFTPicker = ({
 			window.mintHash = content.hash;
 
 			// clear code from URL now that it's been used
-			window.history.pushState({}, document.location.href, document.location.href.replace(document.location.search, ""));
+			window.history.pushState(
+				{},
+				document.location.href,
+				document.location.href.replace(document.location.search, "")
+			);
 
 			const receipt = await content.wait();
 
@@ -256,9 +261,9 @@ export const NFTPicker = ({
 			if (options["body"] > 5) {
 				// @ts-ignore
 				options["body"] = 3 + (!!window.accountTier ? window.accountTier : 0);
-			};
+			}
 
-			await createNFT(options, signature, accounts[0], tokenId)
+			await createNFT(options, signature, accounts[0], tokenId, code)
 				.then(() => {
 					if (typeof window !== "undefined" && canvasRef.current) {
 						const url = canvasRef.current.toDataURL("image/png");

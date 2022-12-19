@@ -9,7 +9,8 @@ export const createNFT = (
 	options: Options,
 	signature: string,
 	userAddress: string,
-	tokenId: number
+	tokenId: number,
+	code?: string
 ) =>
 	axios.post("/api/nft", {
 		properties: {
@@ -18,4 +19,5 @@ export const createNFT = (
 		signature,
 		userAddress,
 		tokenId,
+		code,
 	});
