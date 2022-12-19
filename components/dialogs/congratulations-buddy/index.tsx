@@ -67,7 +67,7 @@ export const CongratulationsBuddyDialog = ({
 						window.open(
 							`https://twitter.com/intent/tweet?text=${encodeURI(
 								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-							)}&url=${shareLink()}`,
+							)}&hashtags=talentmates&url=${shareLink()}`,
 							"_blank"
 						);
 					}}

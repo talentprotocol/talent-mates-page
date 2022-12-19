@@ -181,7 +181,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 									window.open(
 										`https://twitter.com/intent/tweet?text=${encodeURI(
 											"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-										)}&url=${window.location.origin}`,
+										)}&hashtags=talentmates&url=${window.location.origin}`,
 										"_blank"
 									);
 								}}
