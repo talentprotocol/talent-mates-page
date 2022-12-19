@@ -31,9 +31,9 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0xD3f121F2D4c27576a8C3054Fd952825Bd3A033d5",
-	network: "https://alfajores-forno.celo-testnet.org",
-	chainId: "44787",
+	address: "0xeAe42E39B4672c3cd20468031e956294F9EFF3a9",
+	network: "https://polygon-rpc.com/",
+	chainId: "137",
 };
 
 const AUTH_SIGNED_MESSAGE =
@@ -67,7 +67,7 @@ export const NFTPicker = ({
 			const defaultProvider = new ethers.providers.Web3Provider(ethereum);
 			const accounts = await defaultProvider.send("eth_requestAccounts", []);
 
-			const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(44787));
+			const chainHex = ethers.utils.hexValue(ethers.utils.hexlify(137));
 			await defaultProvider.send("wallet_switchEthereumChain", [
 				{ chainId: chainHex },
 			]);

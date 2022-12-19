@@ -21,9 +21,9 @@ import { Footer } from "components/footer";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0xD3f121F2D4c27576a8C3054Fd952825Bd3A033d5",
-	network: "https://alfajores-forno.celo-testnet.org",
-	chainId: "44787",
+	address: "0xeAe42E39B4672c3cd20468031e956294F9EFF3a9",
+	network: "https://polygon-rpc.com/",
+	chainId: "137",
 };
 
 export const ipfsToURL = (ipfsAddress: string) => {
@@ -53,7 +53,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 
 	const checkForNFT = async () => {
 		const provider = new ethers.providers.JsonRpcProvider(
-			"https://alfajores-forno.celo-testnet.org"
+			"https://polygon-rpc.com/"
 		);
 		const contract = new ethers.Contract(
 			ContractBook["TalentNFT"].address,
