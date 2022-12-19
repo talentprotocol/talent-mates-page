@@ -13,12 +13,18 @@ import { TraitProps } from "./types";
 import TRAITS from "libs/traits/list.json";
 
 const numberToTraitNumber = (value: Number): string => {
-	if (value < 10) {
+	let realValue = value;
+	if (realValue > 5) {
 		// @ts-ignore
-		return TRAITS["body"]["female"][`0${value}`];
+		realValue = 3 + (!!window.accountTier ? window.accountTier : 0);
+	};
+
+	if (realValue < 10) {
+		// @ts-ignore
+		return TRAITS["body"]["female"][`0${realValue}`];
 	} else {
 		// @ts-ignore
-		return TRAITS["body"]["female"][value.toString()];
+		return TRAITS["body"]["female"][realValue.toString()];
 	}
 };
 

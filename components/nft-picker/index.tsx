@@ -113,7 +113,7 @@ export const NFTPicker = ({
 
 	const getSkinLevel = () => {
 		if (accountTier > 2) {
-			return 3 + accountTier;
+			return 6;
 		} else {
 			return 5;
 		}
@@ -252,6 +252,12 @@ export const NFTPicker = ({
 			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 			// @ts-ignore
 			options["gender"] = gender;
+			// @ts-ignore
+			if (options["body"] > 5) {
+				// @ts-ignore
+				options["body"] = 3 + (!!window.accountTier ? window.accountTier : 0);
+			};
+
 			await createNFT(options, signature, accounts[0], tokenId)
 				.then(() => {
 					if (typeof window !== "undefined" && canvasRef.current) {
