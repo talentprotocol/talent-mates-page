@@ -41,6 +41,7 @@ const AUTH_SIGNED_MESSAGE =
 const CANVAS_SIDE = 569;
 const BASE_URI =
 	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
+const UNLOCKED_SKIN_REF = 6;
 
 export const NFTPicker = ({
 	openModal,
@@ -53,6 +54,7 @@ export const NFTPicker = ({
 	openErrorModal,
 }: Props) => {
 	const [accountTier, setAccountTier] = useState(0);
+	const [hasJumpedToUnlockedSkin, setHasJumpedToUnlockedSkin] = useState(false);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [gender, setGender] = useState<"male" | "female">("male");
 	const [generatingImage, setGeneratingImage] = useState(true);
@@ -114,7 +116,7 @@ export const NFTPicker = ({
 
 	const getSkinLevel = () => {
 		if (accountTier > 2) {
-			return 6;
+			return UNLOCKED_SKIN_REF;
 		} else {
 			return 5;
 		}
@@ -172,6 +174,14 @@ export const NFTPicker = ({
 			gender,
 		}),
 	};
+
+	useEffect(() => {
+		if (!hasJumpedToUnlockedSkin && traits.skinTrait.maxElements["male"] === UNLOCKED_SKIN_REF) {
+			setHasJumpedToUnlockedSkin(true);
+			traits.skinTrait.updateCurrentSelection(10000, { amount: UNLOCKED_SKIN_REF });
+		}
+	}, [traits.skinTrait, hasJumpedToUnlockedSkin]);
+
 	const mintNFT = useCallback(async () => {
 		const combination =
 			Object.values(traits)
