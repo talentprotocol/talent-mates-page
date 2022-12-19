@@ -33,6 +33,11 @@ export const CongratulationsBuddyDialog = ({
 			);
 		}
 	};
+
+	const shareLink = () => {
+		return window.location.href.replace(window.location.search, "");
+	};
+
 	return (
 		<Container
 			onClick={(e) => {
@@ -62,7 +67,7 @@ export const CongratulationsBuddyDialog = ({
 						window.open(
 							`https://twitter.com/intent/tweet?text=${encodeURI(
 								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-							)}&url=${window.location.origin}`,
+							)}&url=${shareLink()}`,
 							"_blank"
 						);
 					}}
