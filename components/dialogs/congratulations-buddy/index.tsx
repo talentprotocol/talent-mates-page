@@ -34,10 +34,6 @@ export const CongratulationsBuddyDialog = ({
 		}
 	};
 
-	const shareLink = () => {
-		return window.location.href.replace(window.location.search, "");
-	};
-
 	return (
 		<Container
 			onClick={(e) => {
@@ -66,8 +62,8 @@ export const CongratulationsBuddyDialog = ({
 					onClick={() => {
 						window.open(
 							`https://twitter.com/intent/tweet?text=${encodeURI(
-								"Check out Talent Mates, a customizable NFT avatar collection by @talentprotocol "
-							)}&hashtags=talentmates&url=${shareLink()}`,
+								"Check out Talent Mates, a customizable NFT avatar collection by @TalentProtocol "
+							)}&hashtags=TalentMates&url=${window.location.origin}`,
 							"_blank"
 						);
 					}}
