@@ -32,7 +32,7 @@ export interface NFTProps {
 }
 
 const AUTH_SIGNED_MESSAGE =
-	"Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata.";
+	"Sign this message for us to guarantee that you are the owner of the NFT and can change it's metadata!";
 const PROPERTIES_LIST = [
 	"gender",
 	"background",
