@@ -16,6 +16,25 @@ const S3_BUCKET = process.env.BUCKET_NAME as string;
 
 const FREE_SKINS_AMOUNT = 5;
 
+const ACCOUNT_TIER_MAP = {
+	"2": "1",
+	"3": "1",
+	"4": "2",
+	"5": "2",
+	"6": "2",
+	"7": "2",
+	"8": "2",
+	"9": "2",
+	"10": "3",
+	"11": "3",
+	"12": "4"
+};
+
+const accountTierToCommunityLevelConverter = (accountTier: number) => {
+	// @ts-ignore
+	return ACCOUNT_TIER_MAP[accountTier] || "1";
+} 
+
 const valueToNumber = (value: number) => {
 	if (value > 9) {
 		return value.toString();
@@ -93,6 +112,8 @@ const setMetaData = async (
 				...propertiesToAttributes(properties),
 				{ trait_type: "Revealed", value: "Yes" },
 				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
+				// @ts-ignore
+				{ trait_type: "CommunityLevel", value: accountTierToCommunityLevelConverter(accountTier) },
 			],
 		});
 
