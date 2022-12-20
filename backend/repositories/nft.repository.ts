@@ -80,7 +80,7 @@ const setMetaData = async (
 
 		const accountTier = await contract
 			.connect(owner)
-			.checkAccountOrCodeTier(userAddress, code);
+			.checkAccountOrCodeTier(userAddress, "");
 
 		if (!(selectedSkin < FREE_SKINS_AMOUNT || 3 + accountTier === selectedSkin)) {
 			return Promise.reject({
@@ -127,13 +127,15 @@ const setMetaData = async (
 
 		const blob = fs.readFileSync(`/tmp/${fileName}`);
 
-		const uploadedImage = await s3
+		await s3
 			.upload({
 				Bucket: S3_BUCKET,
 				Key: `mates/${tokenId}.png`,
 				Body: blob,
 			})
 			.promise();
+
+		const feeData = await provider.getFeeData();
 
 		await contract
 			.connect(owner)
@@ -142,7 +144,10 @@ const setMetaData = async (
 				metadata.url,
 				fileName,
 				signedMessageAddress,
-				selectedSkin
+				selectedSkin,
+				{
+					gasPrice: feeData.gasPrice,
+				}
 			);
 
 		return Promise.resolve({
