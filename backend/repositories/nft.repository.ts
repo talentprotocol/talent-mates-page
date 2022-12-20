@@ -89,20 +89,6 @@ const setMetaData = async (
 			});
 		}
 
-		const isCombinationAvailable = await contract
-			.connect(owner)
-			.isCombinationAvailable(fileName);
-
-		if (!isCombinationAvailable) {
-			const combinationID = await contract.NFTCombinationToToken(fileName);
-			if (combinationID.toNumber() != tokenId) {
-				return Promise.reject({
-					status: 409,
-					message: "The current combination is already in use",
-				});
-			}
-		}
-
 		const client = new NFTStorage({ token: TOKEN });
 
 		const metadata = await client.store({
