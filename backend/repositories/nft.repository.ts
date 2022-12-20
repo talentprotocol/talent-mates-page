@@ -94,11 +94,15 @@ const setMetaData = async (
 			.isCombinationAvailable(fileName);
 
 		if (!isCombinationAvailable) {
-			return Promise.reject({
-				status: 409,
-				message: "The current combination is already in use",
-			});
+			const combinationID = await contract.NFTCombinationToToken(fileName);
+			if (combinationID.toNumber() != tokenId) {
+				return Promise.reject({
+					status: 409,
+					message: "The current combination is already in use",
+				});
+			}
 		}
+
 		const client = new NFTStorage({ token: TOKEN });
 
 		const metadata = await client.store({
