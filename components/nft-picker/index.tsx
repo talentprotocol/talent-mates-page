@@ -41,7 +41,6 @@ const AUTH_SIGNED_MESSAGE =
 const CANVAS_SIDE = 569;
 const BASE_URI =
 	"ipfs://bafyreifuc7inyu6fhytj2vof6qhrejkla7ohd7qwac33gfwcc57mrbxfn4/metadata.json";
-const UNLOCKED_SKIN_REF = 6;
 
 export const NFTPicker = ({
 	openModal,
@@ -109,6 +108,7 @@ export const NFTPicker = ({
 					// user does not have any minted token;
 				}
 				setAccountTier(accountTier);
+				setHasJumpedToUnlockedSkin(false);
 				openInstructionModal();
 			}
 		})();
@@ -116,7 +116,7 @@ export const NFTPicker = ({
 
 	const getSkinLevel = () => {
 		if (accountTier > 2) {
-			return UNLOCKED_SKIN_REF;
+			return 3 + accountTier;
 		} else {
 			return 5;
 		}
@@ -176,9 +176,9 @@ export const NFTPicker = ({
 	};
 
 	useEffect(() => {
-		if (!hasJumpedToUnlockedSkin && traits.skinTrait.maxElements["male"] === UNLOCKED_SKIN_REF) {
+		if (!hasJumpedToUnlockedSkin && traits.skinTrait.maxElements["male"] === getSkinLevel()) {
 			setHasJumpedToUnlockedSkin(true);
-			traits.skinTrait.updateCurrentSelection(10000, { amount: UNLOCKED_SKIN_REF });
+			traits.skinTrait.updateCurrentSelection(10000, { amount: getSkinLevel() });
 		}
 	}, [traits.skinTrait, hasJumpedToUnlockedSkin]);
 
@@ -268,10 +268,6 @@ export const NFTPicker = ({
 			// @ts-ignore
 			options["gender"] = gender;
 			// @ts-ignore
-			if (options["body"] > 5) {
-				// @ts-ignore
-				options["body"] = 3 + (!!window.accountTier ? window.accountTier : 0);
-			}
 
 			await createNFT(options, signature, accounts[0], tokenId, code)
 				.then(() => {

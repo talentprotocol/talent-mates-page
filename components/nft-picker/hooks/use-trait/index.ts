@@ -54,7 +54,11 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 					// @ts-ignore
 					setCurrentSelection(MANDATORY_PROPERTIES_LIST[name] ? 1 : -1);
 				} else {
-					setFileName(getFileName(name, fixedValue.amount));
+					setFileName(
+						fixedValue.amount < 10
+							? `0${fixedValue.amount}.png`
+							: `${fixedValue.amount}.png`
+					);
 					if (fixedValue.amount > maxElements[gender]) {
 						setCurrentSelection(maxElements[gender]);
 					} else {
@@ -74,18 +78,28 @@ export const useTrait = ({ name, gender, maxElements, description }: Props) => {
 					// @ts-ignore
 					setCurrentSelection(MANDATORY_PROPERTIES_LIST[name] ? 1 : -1);
 				} else {
-					setFileName(getFileName(name, computedAmount));
+					setFileName(
+						computedAmount < 10
+							? `0${computedAmount}.png`
+							: `${computedAmount}.png`
+					);
 					setCurrentSelection(computedAmount);
 				}
 			} else {
 				if (computedAmount === -2) {
-					setFileName(getFileNameFromMax(name, maxElements[gender]));
+					setFileName(
+						maxElements[gender] < 10
+							? `0${Math.abs(maxElements[gender])}.png`
+							: `${Math.abs(maxElements[gender])}.png`
+					);
 					setCurrentSelection(maxElements[gender]);
 				} else {
 					setFileName(
 						// @ts-ignore
 						MANDATORY_PROPERTIES_LIST[name]
-							? getFileNameFromMax(name, maxElements[gender])
+							? maxElements[gender] < 10
+								? `0${Math.abs(maxElements[gender])}.png`
+								: `${Math.abs(maxElements[gender])}.png`
 							: "none"
 					);
 					setCurrentSelection(
