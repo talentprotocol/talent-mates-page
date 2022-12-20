@@ -82,7 +82,7 @@ const setMetaData = async (
 			.connect(owner)
 			.checkAccountOrCodeTier(userAddress, "");
 
-		if (!(selectedSkin < FREE_SKINS_AMOUNT || 3 + accountTier > selectedSkin)) {
+		if (!(selectedSkin < FREE_SKINS_AMOUNT || 3 + accountTier >= selectedSkin)) {
 			return Promise.reject({
 				status: 403,
 				message: "Skin locked",
