@@ -122,7 +122,12 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 						</div>
 					);
 				} else {
-					router.push("/mint");
+					const code = getCode();
+					if (code) {
+						router.push(`/mint?code=${code}`);
+					} else {
+						router.push("/mint");
+					}
 				}
 			}
 		} catch (err) {
