@@ -31,7 +31,7 @@ import { ContractBook } from "libs/contract-book";
 ContractBook.new = {
 	name: "TalentNFT",
 	abi: abi.abi,
-	address: "0x529872baCcfeeA84d43Cea2f0c4b3C38bBA45ce1",
+	address: "0x41033160a2351358ddc1B97eDd0bc6f00CdEca92",
 	network: "https://polygon-rpc.com/",
 	chainId: "137",
 };
