@@ -43,7 +43,7 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 					text="More info"
 					type="link"
 					variant="quaternary"
-					href="https://beta.talentprotocol.com/join"
+					href="https://talentprotocol.notion.site/Talent-Mates-Community-Avatars-c7bb915038d64e788ad35f3ce415597a"
 					target="_blank"
 				/>
 			</ActionArea>
