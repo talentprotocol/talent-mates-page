@@ -65,6 +65,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 	});
 
 	useEffect(() => {
+		if (!id) return;
 		(async () => {
 			try {
 				const metadataURI = await contract.tokenURI(Number(id));
@@ -72,7 +73,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 				setNFTAttributes(result.attributes);
 			} catch {}
 		})();
-	}, []);
+	}, [id]);
 
 	const checkForNFT = async () => {
 
@@ -187,7 +188,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 								{NFTAttributes.length && (
 									<TraitArea>
 										{NFTAttributes.map(el => (
-											<TraitBox>
+											<TraitBox key={el["trait_type"]}>
 												<span>{el["trait_type"]}</span>
 												<span>{el["value"]}</span>
 											</TraitBox>
