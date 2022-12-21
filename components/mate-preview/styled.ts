@@ -115,9 +115,10 @@ export const TraitArea = styled.section`
 
 export const TraitBox = styled.div`
 	${fontNormal}
-	width: 140px;
+	flex-basis: 40%;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
 	gap: 4px;
