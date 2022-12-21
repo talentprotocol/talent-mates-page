@@ -40,11 +40,11 @@ const ErrorModal = ({
 					</a>{" "}
 					or via email to{" "}
 					<a
-						href="mailto:contact@talentprotocol.com"
+						href="mailto:support@talentprotocol.com"
 						target="_blank"
 						rel="noreferrer"
 					>
-						contact@talentprotocol.com
+						support@talentprotocol.com
 					</a>
 					.
 				</Footer>

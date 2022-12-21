@@ -12,11 +12,11 @@ export const Footer = ({ fixed = false }) => (
 			</a>
 			<div />
 			<a
-				href="mailto:contact@talentprotocol.com"
+				href="mailto:support@talentprotocol.com"
 				target="_blank"
 				rel="noreferrer"
 			>
-				contact@talentprotocol.com
+				support@talentprotocol.com
 			</a>
 			<section>
 				<a
