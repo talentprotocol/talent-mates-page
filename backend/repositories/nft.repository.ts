@@ -103,7 +103,7 @@ const setMetaData = async (
 				{ trait_type: "Revealed", value: "Yes" },
 				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
 				// @ts-ignore
-				{ trait_type: "Community Level", value: accountTierToCommunityLevelConverter(accountTier) },
+				{ trait_type: "Community Level", value: code?.includes("invite-") ? "0" : accountTierToCommunityLevelConverter(accountTier) },
 			],
 		});
 
