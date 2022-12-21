@@ -121,6 +121,14 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 		document.body.removeChild(link);
 	};
 
+	const openSeaLink = () => {
+		if (id) {
+			return `https://opensea.io/assets/matic/0x41033160a2351358ddc1b97edd0bc6f00cdeca92/${id}`;
+		} else {
+			return "https://opensea.io/collection/talentprotocol";
+		}
+	}
+
 	const content = useMemo(() => {
 		switch (state) {
 			case PREVIEW_STATE.FIRST_LOAD:
@@ -218,7 +226,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 								<StyledButton
 									type="link"
 									variant="secondary"
-									href="https://opensea.io/collection/talentprotocol"
+									href={openSeaLink()}
 									text="View on Opensea"
 									target="_blank"
 								/>
