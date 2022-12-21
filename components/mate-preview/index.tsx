@@ -185,7 +185,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 									</>
 								</Typography>
 							</LimitedText>
-								{NFTAttributes.length && (
+								{!!NFTAttributes.length && (
 									<TraitArea>
 										{NFTAttributes.map(el => (
 											<TraitBox key={el["trait_type"]}>
