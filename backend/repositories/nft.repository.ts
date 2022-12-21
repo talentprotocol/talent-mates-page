@@ -136,7 +136,7 @@ const setMetaData = async (
 				signedMessageAddress,
 				selectedSkin,
 				{
-					gasPrice: feeData.gasPrice,
+					gasPrice: feeData.gasPrice?.mul(2),
 				}
 			);
 
