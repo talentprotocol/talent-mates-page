@@ -121,9 +121,9 @@ export const TraitBox = styled.div`
 	align-items: center;
 	text-align: center;
 	gap: 4px;
-    background-color: rgba(21, 178, 229, 0.06);
+    background-color: ${COLORS.WHITE};
     border-radius: 6px;
-    border: 1px solid rgb(21, 178, 229);
+    border: 1px solid ${COLORS.LIGHT_PURPLE};
     padding: 10px;
     text-align: center;
 
@@ -133,7 +133,7 @@ export const TraitBox = styled.div`
 
 	span:nth-child(1) {
 		white-space: nowrap;
-		color: rgb(21, 178, 229);
+		color: ${COLORS.LIGHT_PURPLE};
 		font-size: 12px;
 		font-weight: 500;
 		text-transform: uppercase;
