@@ -102,8 +102,9 @@ const setMetaData = async (
 				...propertiesToAttributes(properties),
 				{ trait_type: "Revealed", value: "Yes" },
 				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
+				// ALERT: check docs/invite-code before changing
 				// @ts-ignore
-				{ trait_type: "Community Level", value: accountTierToCommunityLevelConverter(accountTier) },
+				{ trait_type: "Community Level", value: code?.includes("invite-") ? "0" : accountTierToCommunityLevelConverter(accountTier) },
 			],
 		});
 
@@ -126,7 +127,7 @@ const setMetaData = async (
 			.promise();
 
 		const feeData = await provider.getFeeData();
-
+		
 		await contract
 			.connect(owner)
 			.setTokenURI(
@@ -146,6 +147,14 @@ const setMetaData = async (
 		});
 	} catch (error) {
 		console.log("error - ", error);
+		if (JSON.stringify(error).includes("max fee per gas less than block base fee")) {
+			return Promise.reject({
+				status: 500,
+				message: "The network is very busy right now and gas estimations can not be 100% accurate, as such we were unable to change your Talent Mate, please try again",
+				useMessage: true,
+				error,
+			});
+		}
 		return Promise.reject({
 			status: 500,
 			message: "error",

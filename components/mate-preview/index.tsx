@@ -12,6 +12,8 @@ import {
 	LimitedText,
 	ButtonArea,
 	ErrorContainer,
+	TraitArea,
+	TraitBox,
 } from "./styled";
 import { ethers } from "ethers";
 import abi from "../nft-picker/talentNFT.json";
@@ -43,23 +45,37 @@ const get = (url: string, params = {}) => {
 	});
 };
 
+
+const provider = new ethers.providers.JsonRpcProvider(
+	"https://polygon-rpc.com/"
+);
+const contract = new ethers.Contract(
+	ContractBook["TalentNFT"].address,
+	ContractBook["TalentNFT"].abi,
+	provider
+);
+
 export const MatePreview = ({ id, imageURL }: Props) => {
 	const [state, setState] = useState(PREVIEW_STATE.FIRST_LOAD);
+	const [NFTAttributes, setNFTAttributes] = useState([]);
 	const [NFTData, setNFTData] = useState({
 		imageUrl: "",
 		tokenId: "",
 		owner: "",
 	});
 
+	useEffect(() => {
+		if (!id) return;
+		(async () => {
+			try {
+				const metadataURI = await contract.tokenURI(Number(id));
+				const result = await get(ipfsToURL(metadataURI));
+				setNFTAttributes(result.attributes);
+			} catch {}
+		})();
+	}, [id]);
+
 	const checkForNFT = async () => {
-		const provider = new ethers.providers.JsonRpcProvider(
-			"https://polygon-rpc.com/"
-		);
-		const contract = new ethers.Contract(
-			ContractBook["TalentNFT"].address,
-			ContractBook["TalentNFT"].abi,
-			provider
-		);
 
 		const owner = await contract.ownerOf(id);
 
@@ -169,6 +185,16 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 									</>
 								</Typography>
 							</LimitedText>
+								{NFTAttributes.length && (
+									<TraitArea>
+										{NFTAttributes.map(el => (
+											<TraitBox key={el["trait_type"]}>
+												<span>{el["trait_type"]}</span>
+												<span>{el["value"]}</span>
+											</TraitBox>
+										))}
+									</TraitArea>
+								)}
 							<DescriptionArea>
 								<Description>
 									<Typography

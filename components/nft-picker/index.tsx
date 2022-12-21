@@ -279,7 +279,7 @@ export const NFTPicker = ({
 				})
 				.catch((err) => {
 					closeModal();
-					openErrorModal(err.toString());
+					openErrorModal(err.useMessage ? err.message : err.toString());
 				});
 		} catch {
 			throw MINT_ERROR_CODES.MESSAGE_NOT_SIGNED;
@@ -311,7 +311,7 @@ export const NFTPicker = ({
 					openErrorModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
 				} else {
 					// @ts-ignore
-					openErrorModal(err.toString());
+					openErrorModal(err.useMessage ? err.message : err.toString());
 				}
 			}
 		},
