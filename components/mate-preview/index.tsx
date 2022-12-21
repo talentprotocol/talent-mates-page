@@ -64,17 +64,6 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 		owner: "",
 	});
 
-	useEffect(() => {
-		if (!id) return;
-		(async () => {
-			try {
-				const metadataURI = await contract.tokenURI(Number(id));
-				const result = await get(ipfsToURL(metadataURI));
-				setNFTAttributes(result.attributes);
-			} catch {}
-		})();
-	}, [id]);
-
 	const checkForNFT = async () => {
 
 		const owner = await contract.ownerOf(id);
@@ -174,27 +163,13 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 							<LimitedText>
 								<Typography type="body3" color="NOT_SO_LIGHT_GREY">
 									<>
-										Talent Mates come from a faraway planet, where everyone can
-										find fulfilling work.
-										<br />
 										Talent Mates is a customizable NFT collection, exclusive to
 										the Talent Protocol community. Holding one Talent Mate will
 										give you an all-access pass to new features, exclusive swag,
-										and scholarships. Minting is free on Polygon (except for
-										gas) for all verified Talent Protocol users.
+										and scholarships.
 									</>
 								</Typography>
 							</LimitedText>
-								{!!NFTAttributes.length && (
-									<TraitArea>
-										{NFTAttributes.map(el => (
-											<TraitBox key={el["trait_type"]}>
-												<span>{el["trait_type"]}</span>
-												<span>{el["value"]}</span>
-											</TraitBox>
-										))}
-									</TraitArea>
-								)}
 							<DescriptionArea>
 								<Description>
 									<Typography
