@@ -253,7 +253,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 					</>
 				);
 		}
-	}, [state, NFTData]);
+	}, [state, NFTData, NFTAttributes]);
 
 	return <Container>{content}</Container>;
 };
