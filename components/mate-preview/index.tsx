@@ -67,7 +67,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const metadataURI = await contract.tokenURI(24);
+				const metadataURI = await contract.tokenURI(Number(id));
 				const result = await get(ipfsToURL(metadataURI));
 				setNFTAttributes(result.attributes);
 			} catch {}
