@@ -126,7 +126,7 @@ const setMetaData = async (
 			.promise();
 
 		const feeData = await provider.getFeeData();
-
+		
 		await contract
 			.connect(owner)
 			.setTokenURI(
@@ -136,7 +136,7 @@ const setMetaData = async (
 				signedMessageAddress,
 				selectedSkin,
 				{
-					gasPrice: feeData.gasPrice,
+					gasPrice: feeData.gasPrice?.mul(2),
 				}
 			);
 
@@ -146,6 +146,14 @@ const setMetaData = async (
 		});
 	} catch (error) {
 		console.log("error - ", error);
+		if (JSON.stringify(error).includes("max fee per gas less than block base fee")) {
+			return Promise.reject({
+				status: 500,
+				message: "The network is very busy right now and gas estimations can not be 100% accurate, as such we were unable to change your Talent Mate, please try again",
+				useMessage: true,
+				error,
+			});
+		}
 		return Promise.reject({
 			status: 500,
 			message: "error",
