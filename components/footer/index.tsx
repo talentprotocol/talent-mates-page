@@ -30,7 +30,7 @@ export const Footer = ({ fixed = false }) => (
 				<a
 					target="_blank"
 					rel="noreferrer"
-					href="https://talentprotocol.notion.site/Talent-Protocol-101-26a6c4b9f8284e5e8f55603a38629e76"
+					href="https://talentprotocol.notion.site/Talent-Mates-Community-Avatars-c7bb915038d64e788ad35f3ce415597a"
 				>
 					About
 				</a>
@@ -38,7 +38,7 @@ export const Footer = ({ fixed = false }) => (
 				<a
 					target="_blank"
 					rel="noreferrer"
-					href="https://help.talentprotocol.com/"
+					href="https://talentprotocol.notion.site/Talent-Mates-Community-Avatars-c7bb915038d64e788ad35f3ce415597a"
 				>
 					FAQ
 				</a>

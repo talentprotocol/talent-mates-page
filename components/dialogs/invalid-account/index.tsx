@@ -22,7 +22,7 @@ export const InvalidAccountDialog = ({ closeModal }: Props) => {
 			/>
 			<ActionArea>
 				<StyledButton
-					text="Create account"
+					text="More info"
 					type="link"
 					variant="quaternary"
 					href="https://beta.talentprotocol.com/join"
