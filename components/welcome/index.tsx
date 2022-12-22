@@ -110,8 +110,8 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 							}}
 						>
 							<div style={{ marginBottom: 24 }}>
-								You are connected to the wrong network, we are on Matic (Polygon) with
-								the chain id 137
+								You are connected to the wrong network, we are on Matic
+								(Polygon) with the chain id 137
 							</div>
 							<Button
 								type="button"

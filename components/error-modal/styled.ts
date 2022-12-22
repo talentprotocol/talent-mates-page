@@ -51,6 +51,8 @@ export const Footer = styled.p`
 	${fontNormal}
 	color: ${COLORS.DARK_BLUE};
 	font-weight: 300;
+	display: flex;
+	flex-direction: column;
 
 	a {
 		font-weight: 500;

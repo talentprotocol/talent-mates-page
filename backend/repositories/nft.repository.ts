@@ -27,13 +27,13 @@ const ACCOUNT_TIER_MAP = {
 	"9": "2",
 	"10": "3",
 	"11": "3",
-	"12": "4"
+	"12": "4",
 };
 
 const accountTierToCommunityLevelConverter = (accountTier: number) => {
 	// @ts-ignore
 	return ACCOUNT_TIER_MAP[accountTier] || "1";
-} 
+};
 
 const valueToNumber = (value: number) => {
 	if (value > 9) {
@@ -82,7 +82,9 @@ const setMetaData = async (
 			.connect(owner)
 			.checkAccountOrCodeTier(userAddress, "");
 
-		if (!(selectedSkin <= FREE_SKINS_AMOUNT || 3 + accountTier >= selectedSkin)) {
+		if (
+			!(selectedSkin <= FREE_SKINS_AMOUNT || 3 + accountTier >= selectedSkin)
+		) {
 			return Promise.reject({
 				status: 403,
 				message: "Skin locked",
@@ -104,7 +106,12 @@ const setMetaData = async (
 				{ trait_type: "Body", value: properties["gender"] == "female" ? 2 : 1 },
 				// ALERT: check docs/invite-code before changing
 				// @ts-ignore
-				{ trait_type: "Community Level", value: code?.includes("invite-") ? "0" : accountTierToCommunityLevelConverter(accountTier) },
+				{
+					trait_type: "Community Level",
+					value: code?.includes("invite-")
+						? "0"
+						: accountTierToCommunityLevelConverter(accountTier),
+				},
 			],
 		});
 
@@ -127,7 +134,7 @@ const setMetaData = async (
 			.promise();
 
 		const feeData = await provider.getFeeData();
-		
+
 		await contract
 			.connect(owner)
 			.setTokenURI(
@@ -147,10 +154,13 @@ const setMetaData = async (
 		});
 	} catch (error) {
 		console.log("error - ", error);
-		if (JSON.stringify(error).includes("max fee per gas less than block base fee")) {
+		if (
+			JSON.stringify(error).includes("max fee per gas less than block base fee")
+		) {
 			return Promise.reject({
 				status: 500,
-				message: "The network is very busy right now and gas estimations can not be 100% accurate, as such we were unable to change your Talent Mate, please try again",
+				message:
+					"The network is very busy right now and gas estimations can not be 100% accurate, as such we were unable to change your Talent Mate, please try again",
 				useMessage: true,
 				error,
 			});

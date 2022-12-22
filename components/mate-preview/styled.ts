@@ -110,7 +110,6 @@ export const TraitArea = styled.section`
 	flex-wrap: wrap;
 	gap: 12px;
 	margin-top: 12px;
-
 `;
 
 export const TraitBox = styled.div`
@@ -122,11 +121,11 @@ export const TraitBox = styled.div`
 	align-items: center;
 	text-align: center;
 	gap: 4px;
-    background-color: ${COLORS.WHITE};
-    border-radius: 6px;
-    border: 1px solid ${COLORS.LIGHT_PURPLE};
-    padding: 10px;
-    text-align: center;
+	background-color: ${COLORS.WHITE};
+	border-radius: 6px;
+	border: 1px solid ${COLORS.LIGHT_PURPLE};
+	padding: 10px;
+	text-align: center;
 
 	@media (max-width: 768px) {
 		width: 100%;
@@ -148,5 +147,4 @@ export const TraitBox = styled.div`
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-
 `;

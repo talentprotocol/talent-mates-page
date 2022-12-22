@@ -176,9 +176,14 @@ export const NFTPicker = ({
 	};
 
 	useEffect(() => {
-		if (!hasJumpedToUnlockedSkin && traits.skinTrait.maxElements["male"] === getSkinLevel()) {
+		if (
+			!hasJumpedToUnlockedSkin &&
+			traits.skinTrait.maxElements["male"] === getSkinLevel()
+		) {
 			setHasJumpedToUnlockedSkin(true);
-			traits.skinTrait.updateCurrentSelection(10000, { amount: getSkinLevel() });
+			traits.skinTrait.updateCurrentSelection(10000, {
+				amount: getSkinLevel(),
+			});
 		}
 	}, [traits.skinTrait, hasJumpedToUnlockedSkin]);
 

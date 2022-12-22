@@ -45,7 +45,6 @@ const get = (url: string, params = {}) => {
 	});
 };
 
-
 const provider = new ethers.providers.JsonRpcProvider(
 	"https://polygon-rpc.com/"
 );
@@ -65,7 +64,6 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 	});
 
 	const checkForNFT = async () => {
-
 		const owner = await contract.ownerOf(id);
 
 		const imageUrl = async (): Promise<string> => {
@@ -127,7 +125,7 @@ export const MatePreview = ({ id, imageURL }: Props) => {
 		} else {
 			return "https://opensea.io/collection/talentprotocol";
 		}
-	}
+	};
 
 	const content = useMemo(() => {
 		switch (state) {
