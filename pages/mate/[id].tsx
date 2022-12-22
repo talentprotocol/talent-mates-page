@@ -14,15 +14,13 @@ const Mate = () => {
 	};
 
 	const title = () => {
-		return `Talent Mate ${id ? ` #${id}` : "s NFTs by Talent Protocol"}`
-	}
+		return `Talent Mate ${id ? ` #${id}` : "s NFTs by Talent Protocol"}`;
+	};
 
 	return (
 		<>
 			<Head>
-				<title>
-					{title()}
-				</title>
+				<title>{title()}</title>
 				<meta
 					name="description"
 					content="Talent Mates is a new NFT avatar collection, exclusive for the Talent Protocol community. Mint your NFT to enter a world where both talent and opportunities are abundant."
@@ -48,10 +46,7 @@ const Mate = () => {
 				<meta property="og:image" content={imageURL()} />
 			</Head>
 			<Body fullHeight>
-				<MatePreview
-					id={id as string}
-					imageURL={imageURL()}
-				/>
+				<MatePreview id={id as string} imageURL={imageURL()} />
 			</Body>
 		</>
 	);

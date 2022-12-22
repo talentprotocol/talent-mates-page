@@ -30,23 +30,28 @@ const ErrorModal = ({
 					<>{errorText}</>
 				</Typography>
 				<Footer>
-					Reach us on{" "}
-					<a
-						target="_blank"
-						href="https://discord.gg/talentprotocol"
-						rel="noreferrer"
-					>
-						Discord
-					</a>{" "}
-					or via email to{" "}
-					<a
-						href="mailto:support@talentprotocol.com"
-						target="_blank"
-						rel="noreferrer"
-					>
-						support@talentprotocol.com
-					</a>
-					.
+					<span>
+						Please pay attention to the eligibility{" "}
+						<a
+							target="_blank"
+							href="https://bit.ly/talentmates"
+							rel="noreferrer"
+						>
+							criteria
+						</a>{" "}
+						to mint.
+					</span>
+					<span>
+						We also a video clarifying the{" "}
+						<a
+							href="https://tella.video/talent-mates-mint-tutorial-and-faq-1-2iwa"
+							target="_blank"
+							rel="noreferrer"
+						>
+							minting conditions
+						</a>
+						.
+					</span>
 				</Footer>
 			</InnerContainer>
 		</Container>
