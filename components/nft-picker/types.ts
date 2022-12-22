@@ -7,6 +7,7 @@ export interface Props {
 	closeInstructionModal: Function;
 	setImageSource: Function;
 	openErrorModal: ReactEventHandler;
+	openErrorContactsModal: ReactEventHandler;
 	jumpToNextMintState: Function;
 	skipNextMintState: Function;
 }

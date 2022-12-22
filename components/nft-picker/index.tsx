@@ -51,6 +51,7 @@ export const NFTPicker = ({
 	closeModal,
 	setImageSource,
 	openErrorModal,
+	openErrorContactsModal
 }: Props) => {
 	const [accountTier, setAccountTier] = useState(0);
 	const [hasJumpedToUnlockedSkin, setHasJumpedToUnlockedSkin] = useState(false);
@@ -309,14 +310,16 @@ export const NFTPicker = ({
 				// temp disable for "go-live"
 				await mintNFT();
 			} catch (err) {
+				console.log("MINTING ERROR");
+				console.log(err);
 				closeModal();
 				// @ts-ignore
 				if (MINT_ERROR_CODES[err]) {
 					// @ts-ignore
-					openErrorModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
+					openErrorContactsModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
 				} else {
 					// @ts-ignore
-					openErrorModal(err.useMessage ? err.message : err.toString());
+					openErrorContactsModal(err.useMessage ? err.message : err.toString());
 				}
 			}
 		},

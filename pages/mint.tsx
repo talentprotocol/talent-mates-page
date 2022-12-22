@@ -17,6 +17,7 @@ import {
 } from "components/nft-picker/styled";
 import { Typography } from "shared-ui";
 import ErrorModal from "components/error-modal";
+import ErrorModalWithContacts from "components/error-modal/modal-with-support-footer";
 import { ApproveTransactionDialog } from "components/dialogs/approve-transaction";
 import { CheckingElegibilityDialog } from "components/dialogs/checking-eligibility";
 import { TransactionInProgressDialog } from "components/dialogs/transaction-in-progress";
@@ -29,6 +30,7 @@ const Home: NextPage = () => {
 	const modalState = useModalState();
 	const instructionModalState = useModalState();
 	const errorModalState = useErrorModalState();
+	const errorModalContactsState = useErrorModalState();
 	return (
 		<>
 			<Head>
@@ -93,6 +95,11 @@ const Home: NextPage = () => {
 				onCloseModal={errorModalState.close}
 				errorText={errorModalState.errorMessage}
 			></ErrorModal>
+			<ErrorModalWithContacts
+				isOpen={errorModalContactsState.isOpen}
+				onCloseModal={errorModalContactsState.close}
+				errorText={errorModalContactsState.errorMessage}
+			></ErrorModalWithContacts>
 			<Header>
 				<InnerHeaderContainer>
 					<StyledHeaderButton
@@ -122,6 +129,8 @@ const Home: NextPage = () => {
 					closeInstructionModal={instructionModalState.close}
 					// @ts-ignore
 					openErrorModal={errorModalState.open}
+					// @ts-ignore
+					openErrorContactsModal={errorModalContactsState.open}
 					setImageSource={setImageSource}
 				/>
 			</Body>
