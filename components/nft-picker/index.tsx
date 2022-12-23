@@ -240,7 +240,7 @@ export const NFTPicker = ({
 			const content = await contract.connect(signer).mint(code);
 			// @ts-ignore
 			window.mintHash = content.hash;
-
+			window.localStorage.setItem('inviteCode', code);
 			// clear code from URL now that it's been used
 			window.history.pushState(
 				{},
@@ -275,7 +275,7 @@ export const NFTPicker = ({
 			options["gender"] = gender;
 			// @ts-ignore
 
-			await createNFT(options, signature, accounts[0], tokenId, code)
+			await createNFT(options, signature, accounts[0], tokenId, window.localStorage.getItem('inviteCode'))
 				.then(() => {
 					if (typeof window !== "undefined" && canvasRef.current) {
 						const url = canvasRef.current.toDataURL("image/png");
