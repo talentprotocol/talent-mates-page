@@ -154,13 +154,22 @@ const setMetaData = async (
 		});
 	} catch (error) {
 		console.log("error - ", error);
+		const stringifyError = JSON.stringify(error);
 		if (
-			JSON.stringify(error).includes("max fee per gas less than block base fee")
+			stringifyError.includes("max fee per gas less than block base fee")
 		) {
 			return Promise.reject({
 				status: 500,
 				message:
 					"The network is very busy right now and gas estimations can not be 100% accurate, as such we were unable to change your Talent Mate, please try again",
+				useMessage: true,
+				error,
+			});
+		} else if (stringifyError.includes("user rejected transaction")) {
+			return Promise.reject({
+				status: 400,
+				message:
+					"The transaction must be accepted for the mint to be successful",
 				useMessage: true,
 				error,
 			});
