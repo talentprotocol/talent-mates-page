@@ -318,8 +318,14 @@ export const NFTPicker = ({
 					// @ts-ignore
 					openErrorContactsModal(MINT_ERROR_CODES_TO_MESSAGES[err]);
 				} else {
-					// @ts-ignore
-					openErrorContactsModal(err.useMessage ? err.message : err.toString());
+					const stringifyError = JSON.stringify(err);
+					if (stringifyError.includes("user rejected transaction")) {
+						// @ts-ignore
+						openErrorContactsModal("The transaction must be accepted for the mint to be successful");
+					} else { 
+						// @ts-ignore
+						openErrorContactsModal(err.useMessage ? err.message : err.toString());
+					}
 				}
 			}
 		},
