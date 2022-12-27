@@ -4,6 +4,7 @@ export const MINT_ERROR_CODES = {
 	USER_ALREADY_OWNS_NFT: "USER_ALREADY_OWNS_NFT",
 	MESSAGE_NOT_SIGNED: "MESSAGE_NOT_SIGNED",
 	NO_METAMASK: "NO_METAMASK",
+	WRONG_NETWORK: "WRONG_NETWORK",
 };
 
 export const MINT_ERROR_CODES_TO_MESSAGES = {
@@ -17,4 +18,6 @@ export const MINT_ERROR_CODES_TO_MESSAGES = {
 		"You must sign the message in order to update the look of your Talent Mate.",
 	NO_METAMASK:
 		"You need to use the metamask mobile browser or use a browser that uses a metamask extension.",
+	WRONG_NETWORK:
+		"The network where you are trying to mint is not supported. Please use Polygon (chain id 137)"
 };

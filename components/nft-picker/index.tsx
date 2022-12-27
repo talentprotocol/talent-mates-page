@@ -253,7 +253,7 @@ export const NFTPicker = ({
 			const event = receipt.events?.find((e: any) => {
 				return e.event === "Transfer";
 			});
-
+			if (!event.args) throw MINT_ERROR_CODES.WRONG_NETWORK;
 			tokenId = event.args[2].toNumber();
 			// @ts-ignore
 			window.tokenIdOfUser = tokenId;
