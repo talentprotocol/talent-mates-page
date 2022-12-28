@@ -116,12 +116,14 @@ const createNFT = async (
 			(prop) => properties[prop as NFTPropsKeys] === undefined
 		)
 	) {
+		console.log("missing properties on request (error 400)");
 		return {
 			status: 400,
 			message: "Missing some NFT properties",
 			requiredProperties: MANDATORY_PROPERTIES_LIST,
 		};
 	}
+	console.log("decoding signed message");
 	const signedMessageAddress = ethers.utils
 		.verifyMessage(AUTH_SIGNED_MESSAGE, signature)
 		.toLocaleLowerCase();
@@ -141,6 +143,7 @@ const createNFT = async (
 	delete parsedProperties.gender;
 	const traitList = Object.values(parsedProperties);
 	const traitKeysList = Object.keys(parsedProperties);
+	console.log("parsing image composition");
 	const imagePromises: Promise<any>[] = traitList.map((el, index) =>
 		getImageFromURL(
 			traitKeysList[index],
@@ -151,12 +154,15 @@ const createNFT = async (
 	);
 	let imageList: any[] = [];
 
+	console.log("fetching images");
 	imageList = await Promise.all(imagePromises);
 
 	traitList.shift();
+	console.log("generating image - base layer");
 	const sharpImage = sharp(imageList[0]);
 	imageList.shift();
 	try {
+		console.log("composing image");
 		await sharpImage
 			.composite(
 				imageList.map((el) => {
@@ -167,6 +173,7 @@ const createNFT = async (
 			.toFile(filePath);
 		const image = await createBlobFromPath(filePath);
 
+		console.log("calls set metadata on repository");
 		await NFTRepository.setMetaData(
 			fileName,
 			image,
@@ -176,6 +183,7 @@ const createNFT = async (
 			userAddress,
 			code
 		);
+		console.log("deleting temp file");
 		fs.unlink(filePath, (error) => {
 			if (error) {
 				console.error(`error deleting uploaded ipfs file: ${filePath}`, error);
