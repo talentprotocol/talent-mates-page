@@ -69,15 +69,18 @@ const setMetaData = async (
 	code?: string
 ): Promise<DefaultResponse> => {
 	try {
+		console.log("creating provider");
 		const provider = new ethers.providers.JsonRpcProvider(NETWORK_URL);
 		const selectedSkin = properties.body;
+		console.log("creating owner");
 		const owner = new ethers.Wallet(WALLET_PK, provider);
+		console.log("creating contract");
 		const contract = new ethers.Contract(
 			CONTRACT_ADDRESS,
 			FactoryArtifact.abi,
 			provider
 		);
-
+		console.log("checking account tier");
 		const accountTier = await contract
 			.connect(owner)
 			.checkAccountOrCodeTier(userAddress, "");
@@ -85,14 +88,17 @@ const setMetaData = async (
 		if (
 			!(selectedSkin <= FREE_SKINS_AMOUNT || 3 + accountTier >= selectedSkin)
 		) {
+			console.log("skin is locked");
 			return Promise.reject({
 				status: 403,
 				message: "Skin locked",
 			});
 		}
 
+		console.log("creating ipfs client");
 		const client = new NFTStorage({ token: TOKEN });
 
+		console.log("setting ipfs metadata");
 		const metadata = await client.store({
 			name: `Talent Mate ${tokenId}`,
 			description: "Talent Mates. An NFT collection by Talent Protocol.",
@@ -115,6 +121,7 @@ const setMetaData = async (
 			],
 		});
 
+		console.log("creating s3 client");
 		// upload image to S3
 		const s3 = new S3({
 			apiVersion: "2006-03-01",
@@ -123,8 +130,10 @@ const setMetaData = async (
 			region: "eu-west-2",
 		});
 
+		console.log("converting file to blob");
 		const blob = fs.readFileSync(`/tmp/${fileName}`);
 
+		console.log("uploading to s3 bucket");
 		await s3
 			.upload({
 				Bucket: S3_BUCKET,
@@ -133,8 +142,10 @@ const setMetaData = async (
 			})
 			.promise();
 
+		console.log("getting fee data");
 		const feeData = await provider.getFeeData();
 
+		console.log("setting tokenuri");
 		await contract
 			.connect(owner)
 			.setTokenURI(
