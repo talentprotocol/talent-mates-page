@@ -8,7 +8,7 @@ export const Footer = ({ fixed = false }) => (
 				rel="noreferrer"
 				href="https://www.talentprotocol.com/"
 			>
-				Talent Protocol MTU © 2022
+				Talent Protocol MTU © {new Date().getFullYear()}
 			</a>
 			<div />
 			<a
