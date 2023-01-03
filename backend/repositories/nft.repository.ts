@@ -17,17 +17,17 @@ const S3_BUCKET = process.env.BUCKET_NAME as string;
 const FREE_SKINS_AMOUNT = 5;
 
 const ACCOUNT_TIER_MAP = {
-	"2": 11,
-	"3": 12,
-	"4": 24,
-	"5": 22,
-	"6": 21,
-	"7": 23,
-	"8": 23,
-	"9": 23,
-	"10": 31,
-	"11": 32,
-	"12": 41,
+	"2": "11",
+	"3": "12",
+	"4": "24",
+	"5": "22",
+	"6": "21",
+	"7": "23",
+	"8": "23",
+	"9": "23",
+	"10": "31",
+	"11": "32",
+	"12": "41",
 };
 
 const accountTierToCommunityLevelConverter = (accountTier: number) => {
