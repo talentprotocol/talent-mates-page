@@ -273,13 +273,12 @@ export const NFTPicker = ({
 			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 			// @ts-ignore
 			options["gender"] = gender;
-			// @ts-ignore
-
 			await createNFT(
 				options,
 				signature,
 				accounts[0],
 				tokenId,
+				// @ts-ignore
 				window.localStorage.getItem("inviteCode")
 			)
 				.then(() => {
@@ -326,13 +325,13 @@ export const NFTPicker = ({
 				} else {
 					const stringifyError = JSON.stringify(err);
 					if (stringifyError.includes("user rejected transaction")) {
-						// @ts-ignore
 						openErrorContactsModal(
+							// @ts-ignore
 							"Please accept the transaction on your Metamask to successfully complete minting."
 						);
 					} else {
-						// @ts-ignore
 						openErrorContactsModal(
+							// @ts-ignore
 							err.useMessage ? err.message : err.toString()
 						);
 					}
