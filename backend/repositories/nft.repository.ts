@@ -116,7 +116,7 @@ const setMetaData = async (
 					trait_type: "Community Level",
 					value: code?.includes("invite-")
 						? "0"
-						: accountTierToCommunityLevelConverter(accountTier),
+						: accountTier,
 				},
 			],
 		});
