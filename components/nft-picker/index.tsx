@@ -321,7 +321,7 @@ export const NFTPicker = ({
 					const stringifyError = JSON.stringify(err);
 					if (stringifyError.includes("user rejected transaction")) {
 						// @ts-ignore
-						openErrorContactsModal("The transaction must be accepted for the mint to be successful");
+						openErrorContactsModal("Please accept the transaction on your Metamask to successfully complete minting."");
 					} else { 
 						// @ts-ignore
 						openErrorContactsModal(err.useMessage ? err.message : err.toString());

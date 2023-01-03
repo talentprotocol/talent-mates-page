@@ -180,7 +180,7 @@ const setMetaData = async (
 			return Promise.reject({
 				status: 400,
 				message:
-					"The transaction must be accepted for the mint to be successful",
+					"Please accept the transaction on your Metamask to successfully complete minting."",
 				useMessage: true,
 				error,
 			});

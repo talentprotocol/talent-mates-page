@@ -18,7 +18,13 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 			<TextArea>
 				<Typography
 					type="general"
-					text="Talent Mates is a customizable NFT collection, exclusive for the Talent Protocol community."
+					text="To claim your Talent Mate, first create a Talent Protocol account
+					and get verified!"
+					color="LIGHT_GREY"
+				/>
+				<Typography
+					type="general"
+					text="Talent Mates is a customizable NFT collection, exclusive for Talent Protocol verified users."
 					color="LIGHT_GREY"
 				/>
 				<Typography
@@ -28,7 +34,8 @@ export const HowItWorksDialog = ({ closeModal }: Props) => {
 				/>
 				<Typography
 					type="general"
-					text="Minting is free on Polygon (except for gas) for all verified Talent Protocol users. All traits, except for the skin, can be manually selected by the user during the minting process."
+					text="Minting is free on Polygon (except for gas) for all verified Talent Protocol community members. All traits, except for the skin, can be manually selected by the user during the minting process.
+					Create a Talent Protocol account and complete your profile to claim your Talent Mate!"
 					color="LIGHT_GREY"
 				/>
 				<Typography type="general" color="LIGHT_GREY">
