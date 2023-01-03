@@ -17,17 +17,17 @@ const S3_BUCKET = process.env.BUCKET_NAME as string;
 const FREE_SKINS_AMOUNT = 5;
 
 const ACCOUNT_TIER_MAP = {
-	"2": "1",
-	"3": "1",
-	"4": "2",
-	"5": "2",
-	"6": "2",
-	"7": "2",
-	"8": "2",
-	"9": "2",
-	"10": "3",
-	"11": "3",
-	"12": "4",
+	"2": 1,
+	"3": 1,
+	"4": 2,
+	"5": 2,
+	"6": 2,
+	"7": 2,
+	"8": 2,
+	"9": 2,
+	"10": 3,
+	"11": 3,
+	"12": 4,
 };
 
 const accountTierToCommunityLevelConverter = (accountTier: number) => {
@@ -116,7 +116,7 @@ const setMetaData = async (
 					trait_type: "Community Level",
 					value: code?.includes("invite-")
 						? "0"
-						: accountTier,
+						: accountTierToCommunityLevelConverter(accountTier),
 				},
 			],
 		});
