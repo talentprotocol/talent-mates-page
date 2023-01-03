@@ -166,9 +166,7 @@ const setMetaData = async (
 	} catch (error) {
 		console.log("error - ", error);
 		const stringifyError = JSON.stringify(error);
-		if (
-			stringifyError.includes("max fee per gas less than block base fee")
-		) {
+		if (stringifyError.includes("max fee per gas less than block base fee")) {
 			return Promise.reject({
 				status: 500,
 				message:
@@ -180,7 +178,7 @@ const setMetaData = async (
 			return Promise.reject({
 				status: 400,
 				message:
-					"Please accept the transaction on your Metamask to successfully complete minting."",
+					"Please accept the transaction on your Metamask to successfully complete minting.",
 				useMessage: true,
 				error,
 			});
