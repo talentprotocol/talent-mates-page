@@ -38,6 +38,14 @@ export const Footer = ({ fixed = false }) => (
 				<a
 					target="_blank"
 					rel="noreferrer"
+					href="https://landing.mailerlite.com/webforms/landing/v5z0q6"
+				>
+					Newsletter
+				</a>
+				<div />
+				<a
+					target="_blank"
+					rel="noreferrer"
 					href="https://talentprotocol.notion.site/Talent-Mates-Community-Avatars-c7bb915038d64e788ad35f3ce415597a"
 				>
 					FAQ

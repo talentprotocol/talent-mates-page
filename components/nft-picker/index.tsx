@@ -51,7 +51,7 @@ export const NFTPicker = ({
 	closeModal,
 	setImageSource,
 	openErrorModal,
-	openErrorContactsModal
+	openErrorContactsModal,
 }: Props) => {
 	const [accountTier, setAccountTier] = useState(0);
 	const [hasJumpedToUnlockedSkin, setHasJumpedToUnlockedSkin] = useState(false);
@@ -240,7 +240,7 @@ export const NFTPicker = ({
 			const content = await contract.connect(signer).mint(code);
 			// @ts-ignore
 			window.mintHash = content.hash;
-			window.localStorage.setItem('inviteCode', code);
+			window.localStorage.setItem("inviteCode", code);
 			// clear code from URL now that it's been used
 			window.history.pushState(
 				{},
@@ -273,9 +273,14 @@ export const NFTPicker = ({
 			const signature = await signer.signMessage(AUTH_SIGNED_MESSAGE);
 			// @ts-ignore
 			options["gender"] = gender;
-			// @ts-ignore
-
-			await createNFT(options, signature, accounts[0], tokenId, window.localStorage.getItem('inviteCode'))
+			await createNFT(
+				options,
+				signature,
+				accounts[0],
+				tokenId,
+				// @ts-ignore
+				window.localStorage.getItem("inviteCode")
+			)
 				.then(() => {
 					if (typeof window !== "undefined" && canvasRef.current) {
 						const url = canvasRef.current.toDataURL("image/png");
@@ -320,11 +325,15 @@ export const NFTPicker = ({
 				} else {
 					const stringifyError = JSON.stringify(err);
 					if (stringifyError.includes("user rejected transaction")) {
-						// @ts-ignore
-						openErrorContactsModal("The transaction must be accepted for the mint to be successful");
-					} else { 
-						// @ts-ignore
-						openErrorContactsModal(err.useMessage ? err.message : err.toString());
+						openErrorContactsModal(
+							// @ts-ignore
+							"Please accept the transaction on your Metamask to successfully complete minting."
+						);
+					} else {
+						openErrorContactsModal(
+							// @ts-ignore
+							err.useMessage ? err.message : err.toString()
+						);
 					}
 				}
 			}
