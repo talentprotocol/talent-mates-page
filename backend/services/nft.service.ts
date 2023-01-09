@@ -109,8 +109,10 @@ const createNFT = async (
 	userAddress: string,
 	tokenId: BigNumber,
 	signature: string,
-	code?: string
+	code?: string,
+	isRetry = false
 ): Promise<DefaultResponse> => {
+	const clonedProperties = {...properties};
 	if (
 		MANDATORY_PROPERTIES_LIST.some(
 			(prop) => properties[prop as NFTPropsKeys] === undefined
@@ -196,6 +198,9 @@ const createNFT = async (
 			message: "NFT successfully created",
 		};
 	} catch (error) {
+		if (!isRetry) {
+			return createNFT(clonedProperties, userAddress, tokenId, signature, code, true);
+		}
 		console.log(error);
 		return {
 			status: 500,
