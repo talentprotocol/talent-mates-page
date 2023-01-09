@@ -198,7 +198,7 @@ const createNFT = async (
 			message: "NFT successfully created",
 		};
 	} catch (error) {
-		if (isRetry) {
+		if (!isRetry) {
 			return createNFT(clonedProperties, userAddress, tokenId, signature, code, true);
 		}
 		console.log(error);
