@@ -50,7 +50,7 @@ export const InnerContainer = styled.div`
 		flex-grow: 1;
 		display: flex;
 		justify-content: flex-end;
-		gap: 24px;
+		gap: 16px;
 
 		@media (max-width: 768px) {
 			flex-direction: column;

@@ -8,7 +8,7 @@ export const Footer = ({ fixed = false }) => (
 				rel="noreferrer"
 				href="https://www.talentprotocol.com/"
 			>
-				Talent Protocol MTU © 2022
+				Talent Protocol MTU © {new Date().getFullYear()}
 			</a>
 			<div />
 			<a
@@ -33,6 +33,14 @@ export const Footer = ({ fixed = false }) => (
 					href="https://talentprotocol.notion.site/Talent-Mates-Community-Avatars-c7bb915038d64e788ad35f3ce415597a"
 				>
 					About
+				</a>
+				<div />
+				<a
+					target="_blank"
+					rel="noreferrer"
+					href="https://landing.mailerlite.com/webforms/landing/v5z0q6"
+				>
+					Newsletter
 				</a>
 				<div />
 				<a
