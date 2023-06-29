@@ -25,7 +25,7 @@ import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
 import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
-import { createNFT } from "api-client";
+import { createNFT, completeCreateTalentMateQuest } from "api-client";
 import { ContractBook } from "libs/contract-book";
 
 ContractBook.new = {
@@ -283,11 +283,13 @@ export const NFTPicker = ({
 				window.localStorage.getItem("inviteCode")
 			)
 				.then(() => {
-					if (typeof window !== "undefined" && canvasRef.current) {
-						const url = canvasRef.current.toDataURL("image/png");
-						setImageSource(url);
-						jumpToNextMintState();
-					}
+					completeCreateTalentMateQuest(accounts[0]).then(() => {
+						if (typeof window !== "undefined" && canvasRef.current) {
+							const url = canvasRef.current.toDataURL("image/png");
+							setImageSource(url);
+							jumpToNextMintState();
+						}
+					});
 				})
 				.catch((err) => {
 					closeModal();

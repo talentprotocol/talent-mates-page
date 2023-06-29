@@ -21,3 +21,8 @@ export const createNFT = (
 		tokenId,
 		code,
 	});
+
+export const completeCreateTalentMateQuest = (userWallet: string) =>
+	axios.put("/api/completeCreateTalentMateQuest", {
+		id: userWallet,
+	});
