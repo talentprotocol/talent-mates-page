@@ -2,7 +2,6 @@ import {
   SyntheticEvent,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -25,7 +24,7 @@ import { ShuffleButton } from "./suffle-button";
 import { Props } from "./types";
 import { ethers } from "ethers";
 import { MINT_ERROR_CODES, MINT_ERROR_CODES_TO_MESSAGES } from "./error-codes";
-import { createNFT, completeCreateTalentMateQuest } from "api-client";
+import { createNFT } from "api-client";
 import { ContractBook } from "libs/contract-book";
 
 ContractBook.new = {
@@ -45,7 +44,6 @@ const BASE_URI =
 export const NFTPicker = ({
   openModal,
   openInstructionModal,
-  closeInstructionModal,
   jumpToNextMintState,
   skipNextMintState,
   closeModal,
