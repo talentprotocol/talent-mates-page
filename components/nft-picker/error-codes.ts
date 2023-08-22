@@ -12,7 +12,7 @@ export const MINT_ERROR_CODES_TO_MESSAGES = {
 	COMBINATION_TAKEN:
 		"This combination is already in use. Talent Mates are all unique combinations",
 	ACCOUNT_IN_BLACKLIST:
-		"This wallet does not have access to mint a Talent Mate.",
+		"You are not whitelisted. Make sure you have a Talent Protocol account that is verified and you're using the same wallet on both platforms.",
 	USER_ALREADY_OWNS_NFT: "You can only mint one Talent Mate.",
 	MESSAGE_NOT_SIGNED:
 		"You must sign the message in order to update the look of your Talent Mate.",

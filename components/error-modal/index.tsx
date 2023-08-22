@@ -39,7 +39,7 @@ const ErrorModal = ({
 						>
 							criteria
 						</a>{" "}
-						to mint.
+						to mint. You need to be a verified Talent Protocol member to mint.
 					</span>
 					<span>
 						We also a video clarifying the{" "}

@@ -170,12 +170,6 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 								text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
 								onClick={connectToWallet}
 							/>
-							<Button
-								type="button"
-								variant="octonary"
-								text="How it works"
-								onClick={openModal}
-							/>
 						</ActionArea>
 						<SocialArea>
 							<StyledButton

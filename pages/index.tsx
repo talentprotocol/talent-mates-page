@@ -8,7 +8,6 @@ import { useModalState } from "components/modal/use-modal-state";
 import { useErrorModalState } from "components/error-modal/use-modal-state";
 import { InvalidAccountDialog } from "components/dialogs/invalid-account";
 import ErrorModal from "components/error-modal";
-import { HowItWorksDialog } from "components/dialogs/how-it-works";
 
 const Home: NextPage = () => {
 	const invalidAccountModalState = useModalState();
@@ -48,12 +47,6 @@ const Home: NextPage = () => {
 				onCloseModal={invalidAccountModalState.close}
 			>
 				<InvalidAccountDialog closeModal={invalidAccountModalState.close} />
-			</Modal>
-			<Modal
-				isOpen={howItWorksModalState.isOpen}
-				onCloseModal={howItWorksModalState.close}
-			>
-				<HowItWorksDialog closeModal={howItWorksModalState.close} />
 			</Modal>
 			<ErrorModal
 				isOpen={errorModalState.isOpen}
