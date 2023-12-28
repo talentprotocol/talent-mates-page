@@ -38,14 +38,6 @@ const ErrorModalWithContacts = ({
 							rel="noreferrer"
 						>
 							Discord
-						</a>{" "}
-						or via email to{" "}
-						<a
-							href="mailto:support@talentprotocol.com"
-							target="_blank"
-							rel="noreferrer"
-						>
-							support@talentprotocol.com
 						</a>
 						.
 					</span>

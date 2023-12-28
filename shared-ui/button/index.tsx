@@ -14,6 +14,7 @@ export const Button = ({
 	fullWidth = false,
 	className,
 	target,
+	disabled = false
 }: Props) => {
 	switch (type) {
 		case ButtonTypeEnum.BUTTON:
@@ -25,6 +26,7 @@ export const Button = ({
 					onMouseEnter={onMouseEnter}
 					onMouseLeave={onMouseLeave}
 					className={className}
+					disabled={disabled}
 				>
 					{children}
 					{text}

@@ -41,6 +41,7 @@ export interface Props {
 	fullWidth?: boolean;
 	className?: string;
 	target?: string;
+	disabled?: boolean;
 }
 
 export interface StyledButtonProps {

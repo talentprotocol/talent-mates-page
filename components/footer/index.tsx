@@ -10,14 +10,6 @@ export const Footer = ({ fixed = false }) => (
 			>
 				Talent Protocol MTU © {new Date().getFullYear()}
 			</a>
-			<div />
-			<a
-				href="mailto:support@talentprotocol.com"
-				target="_blank"
-				rel="noreferrer"
-			>
-				support@talentprotocol.com
-			</a>
 			<section>
 				<a
 					target="_blank"
@@ -38,7 +30,7 @@ export const Footer = ({ fixed = false }) => (
 				<a
 					target="_blank"
 					rel="noreferrer"
-					href="https://landing.mailerlite.com/webforms/landing/v5z0q6"
+					href="https://cdn.forms-content.sg-form.com/02aba21f-5787-11ee-b4e7-aadfdd85f097"
 				>
 					Newsletter
 				</a>

@@ -187,6 +187,12 @@ export const NFTPicker = ({
   }, [traits.skinTrait, hasJumpedToUnlockedSkin]);
 
   const mintNFT = useCallback(async () => {
+    const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+		const currentTime = new Date();
+		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
+			return;
+		}
+
     const combination =
       Object.values(traits)
         .map((t) => t.currentSelection)
@@ -310,6 +316,12 @@ export const NFTPicker = ({
   const openMintModal = useCallback(
     async (event: SyntheticEvent) => {
       openModal(event);
+      const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+      const currentTime = new Date();
+      if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
+        return;
+      }
+
       try {
         // temp disable for "go-live"
         await mintNFT();
@@ -414,6 +426,16 @@ export const NFTPicker = ({
       setGeneratingImage(false);
     });
   }, []);
+
+  const disableMintButton = () => {
+		const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+		const currentTime = new Date();
+		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
   return (
     <SectionContainer>
@@ -583,6 +605,7 @@ export const NFTPicker = ({
             variant="primary"
             fullWidth
             onClick={openMintModal}
+            disabled={disableMintButton()}
           />
         </div>
       </ActionArea>

@@ -5,14 +5,12 @@ import { Button, Typography } from "shared-ui";
 import { FirstSVG } from "./assets/first-svg";
 import { SecondSVG } from "./assets/second-svg";
 import { TwitterSVG } from "./assets/twitter-svg";
-import { OpenseaSVG } from "./assets/opensea-svg";
 import {
 	ActionArea,
 	Container,
 	ContentArea,
 	ImageArea,
 	CalloutArea,
-	SocialArea,
 	StyledButton,
 } from "./styled";
 import { Props } from "./types";
@@ -83,6 +81,12 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	};
 
 	const connectToWallet = useCallback(async () => {
+		const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+		const currentTime = new Date();
+		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
+			return
+		}
+
 		if (alreadyConnected) {
 			window.location.href = getURL();
 			return;
@@ -153,6 +157,16 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 		checkForWalletConnection();
 	});
 
+	const disableMintButton = () => {
+		const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+		const currentTime = new Date();
+		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	return (
 		<>
 			<Container>
@@ -169,9 +183,8 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 								variant="primary"
 								text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
 								onClick={connectToWallet}
+								disabled={disableMintButton()}
 							/>
-						</ActionArea>
-						<SocialArea>
 							<StyledButton
 								type="button"
 								variant="hexanary"
@@ -195,23 +208,7 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 									</span>
 								</>
 							</StyledButton>
-							<StyledButton
-								type="link"
-								variant="hexanary"
-								href="https://opensea.io/collection/talentprotocol"
-								target="_blank"
-							>
-								<>
-									Buy on{" "}
-									<div style={{ marginLeft: "6px", display: "flex" }}>
-										<OpenseaSVG />
-									</div>
-									<span style={{ color: "black", marginLeft: "4px" }}>
-										Opensea
-									</span>
-								</>
-							</StyledButton>
-						</SocialArea>
+						</ActionArea>
 					</ContentArea>
 					<ImageArea>
 						<FirstSVG />
