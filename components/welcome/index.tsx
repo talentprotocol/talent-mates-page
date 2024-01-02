@@ -81,10 +81,10 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 	};
 
 	const connectToWallet = useCallback(async () => {
-		const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
+		const endOfYear = new Date("01 Jan 2024 00:00:00 GMT");
 		const currentTime = new Date();
 		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
-			return
+			return;
 		}
 
 		if (alreadyConnected) {
@@ -157,33 +157,23 @@ const Welcome = ({ openModal, openErrorModal }: Props) => {
 		checkForWalletConnection();
 	});
 
-	const disableMintButton = () => {
-		const endOfYear = new Date('01 Jan 2024 00:00:00 GMT');
-		const currentTime = new Date();
-		if (currentTime.getUTCFullYear() >= endOfYear.getUTCFullYear()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	return (
 		<>
 			<Container>
 				<CalloutArea>
 					<ContentArea>
-						<Typography type="h1" text="Create your Talent Mate." />
+						<Typography type="h1" text="Talent Mates V2 coming soon." />
 						<Typography
 							type="body1"
-							text="Talent Mates come from a faraway planet, where everyone can find fulfilling work. Mint your mate NFT to enter a world where both talent and opportunities are abundant."
+							text="Talent Mates V1 come from a faraway planet, where everyone can find fulfilling work. Minting is now over, stay tunned for V2."
 						/>
 						<ActionArea>
 							<Button
 								type="button"
 								variant="primary"
-								text={alreadyConnected ? "Mint your Mate!" : "Connect wallet"}
+								text={"Minting ended"}
 								onClick={connectToWallet}
-								disabled={disableMintButton()}
+								disabled={true}
 							/>
 							<StyledButton
 								type="button"

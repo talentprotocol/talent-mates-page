@@ -112,6 +112,20 @@ const octonaryStyles = css`
 	}
 `;
 
+const disabledStyles = css`
+	background-color: ${COLORS.GREY};
+	color: ${COLORS.WHITE};
+	padding: 8px 32px;
+	border-radius: 32px;
+	border: 1px solid ${COLORS.GREY};
+
+	:hover {
+		background-color: ${COLORS.GREY};
+		color: ${COLORS.WHITE};
+		border: 1px solid ${COLORS.GREY};
+	}
+`;
+
 export const fullWidthStyles = css`
 	flex-grow: 1;
 	display: flex;
@@ -153,6 +167,8 @@ export const ButtonContainer = styled.button<StyledButtonProps>`
 				return primaryStyles;
 		}
 	}}
+
+	${({ disabled }) => disabled && disabledStyles};
 
 	${({ fullWidth }) => fullWidth && fullWidthStyles}
 `;
